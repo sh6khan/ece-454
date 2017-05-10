@@ -23,7 +23,7 @@ echo --- Running
 #INPUT=input/medium.txt
 #INPUT=input/small.txt
 INPUT=input/huge.txt
-OUTPUT=output
+OUTPUT=output/huge.out
 NUMCORES=4
 
 # don't forget to use taskset!
