@@ -22,7 +22,7 @@ echo --- Running
 #INPUT=input/large.txt
 #INPUT=input/medium.txt
 #INPUT=input/small.txt
-INPUT=input/tiny.txt
+INPUT=input/huge.txt
 OUTPUT=output
 NUMCORES=4
 
