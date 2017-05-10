@@ -9,13 +9,13 @@ rm *.jar
 rm *.class
 
 echo --- Compiling
-$JAVA_HOME/bin/javac *.java
+javac *.java
 if [ $? -ne 0 ]; then
     exit
 fi
 
 echo --- Jarring
-$JAVA_HOME/bin/jar -cf myCC.jar *.class
+jar -cf myCC.jar *.class
 
 echo --- Running
 #INPUT=input/huge.txt
@@ -29,7 +29,7 @@ NUMCORES=4
 # don't forget to use taskset!
 
 rm -fr $OUTPUT
-time $JAVA_HOME/bin/java -Xmx1g -cp myCC.jar CC $NUMCORES $INPUT $OUTPUT
+time java -Xmx1g -cp myCC.jar CC $NUMCORES $INPUT $OUTPUT
 
 echo --- Displaying partial output
 cat $OUTPUT | head -n10
