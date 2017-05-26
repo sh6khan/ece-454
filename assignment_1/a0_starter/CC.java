@@ -96,6 +96,7 @@ public class CC {
             }
 
             int size = _bijection.size();
+            System.out.println(size);
 
             _mappings = new int[size];
             _componenentSizeMap = new int[size];
