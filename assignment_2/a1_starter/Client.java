@@ -12,6 +12,14 @@ import org.apache.thrift.transport.TTransportFactory;
 public class Client {
     public static void main(String [] args) {
 
+//		// a list of indexes to available BENodes
+//		ArrayList<Boolean> availableNodes = new ArrayList<>();
+//		availableNodes.add(Boolean.FALSE);
+//		System.out.println(availableNodes.size());
+//		availableNodes.remove(0);
+//
+//		System.out.println(availableNodes.size());
+
 		try {
 			TSocket sock = new TSocket("localhost", 10000);
 			TTransport transport = new TFramedTransport(sock);
@@ -26,7 +34,6 @@ public class Client {
 			passwords.add("sfishf");
 			passwords.add("sdifsif");
 			passwords.add("sfisjf");
-
 
 
 			List<String> hashes = client.hashPassword(passwords, (short)10);

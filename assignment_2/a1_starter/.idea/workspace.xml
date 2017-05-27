@@ -15,9 +15,11 @@
       <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="34" column="30" lean-forward="false" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="501">
+              <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -25,9 +27,11 @@
       <file leaf-file-name="BENode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BENode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="244">
+              <caret line="35" column="67" lean-forward="false" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,28 +39,8 @@
       <file leaf-file-name="FENode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FENode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="30" column="57" lean-forward="true" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="a1.thrift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/a1.thrift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BcryptService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gen-java/BcryptService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="220" column="10" lean-forward="false" selection-start-line="220" selection-start-column="10" selection-end-line="220" selection-end-column="10" />
+            <state relative-caret-position="97">
+              <caret line="24" column="54" lean-forward="false" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -65,8 +49,8 @@
       <file leaf-file-name="BcryptServiceHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="867">
+              <caret line="58" column="94" lean-forward="false" selection-start-line="58" selection-start-column="94" selection-end-line="58" selection-end-column="94" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -74,7 +58,46 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="BatchTracker.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BatchTracker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NodeManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="426">
+              <caret line="42" column="48" lean-forward="true" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#879#880#0" expanded="true" />
+                <element signature="e#923#924#0" expanded="true" />
+                <element signature="e#983#984#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+                <element signature="e#1084#1085#0" expanded="true" />
+                <element signature="e#1140#1141#0" expanded="true" />
+                <element signature="e#1192#1193#0" expanded="true" />
+                <element signature="e#1247#1248#0" expanded="true" />
+                <element signature="e#1572#1573#0" expanded="true" />
+                <element signature="e#1617#1618#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -84,10 +107,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/BENode.java" />
-        <option value="$PROJECT_DIR$/BcryptServiceHandler.java" />
-        <option value="$PROJECT_DIR$/Client.java" />
         <option value="$PROJECT_DIR$/a1.thrift" />
+        <option value="$PROJECT_DIR$/FENode.java" />
+        <option value="$PROJECT_DIR$/BENode.java" />
+        <option value="$PROJECT_DIR$/Client.java" />
+        <option value="$PROJECT_DIR$/BcryptServiceHandler.java" />
+        <option value="$PROJECT_DIR$/NodeManager.java" />
+        <option value="$PROJECT_DIR$/BatchTracker.java" />
       </list>
     </option>
   </component>
@@ -149,6 +175,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -167,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BENode">
+  <component name="RunManager" selected="Application.Client">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -514,52 +541,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gen-java/BcryptService.java">
+    <entry file="file://$PROJECT_DIR$/a1.thrift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="220" column="10" lean-forward="false" selection-start-line="220" selection-start-column="10" selection-end-line="220" selection-end-column="10" />
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
+    <entry file="file://$PROJECT_DIR$/BENode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="244">
+          <caret line="35" column="67" lean-forward="false" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BENode.java">
+    <entry file="file://$PROJECT_DIR$/gen-java/BcryptService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="295">
+          <caret line="77" column="24" lean-forward="false" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+          <folding>
+            <element signature="e#25163#25204#0" expanded="true" />
+            <element signature="e#25816#25833#0" expanded="true" />
+            <element signature="e#27593#27645#0" expanded="true" />
+            <element signature="e#28930#28938#0" expanded="true" />
+            <element signature="e#33186#33194#0" expanded="true" />
+            <element signature="e#42326#42367#0" expanded="true" />
+            <element signature="e#42965#42982#0" expanded="true" />
+            <element signature="e#44628#44680#0" expanded="true" />
+            <element signature="e#45860#45868#0" expanded="true" />
+            <element signature="e#49770#49778#0" expanded="true" />
+            <element signature="e#58819#58860#0" expanded="true" />
+            <element signature="e#59465#59482#0" expanded="true" />
+            <element signature="e#61136#61188#0" expanded="true" />
+            <element signature="e#62482#62490#0" expanded="true" />
+            <element signature="e#62638#62646#0" expanded="true" />
+            <element signature="e#66957#66965#0" expanded="true" />
+            <element signature="e#77253#77294#0" expanded="true" />
+            <element signature="e#77895#77912#0" expanded="true" />
+            <element signature="e#79558#79610#0" expanded="true" />
+            <element signature="e#80795#80804#0" expanded="true" />
+            <element signature="e#84719#84727#0" expanded="true" />
+            <element signature="e#93768#93809#0" expanded="true" />
+            <element signature="e#94394#94411#0" expanded="true" />
+            <element signature="e#96065#96117#0" expanded="true" />
+            <element signature="e#100630#100638#0" expanded="true" />
+            <element signature="e#108387#108428#0" expanded="true" />
+            <element signature="e#109026#109043#0" expanded="true" />
+            <element signature="e#110689#110741#0" expanded="true" />
+            <element signature="e#112022#112037#0" expanded="true" />
+            <element signature="e#115818#115826#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="34" column="30" lean-forward="false" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="501">
+          <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FENode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="30" column="57" lean-forward="true" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
+        <state relative-caret-position="97">
+          <caret line="24" column="54" lean-forward="false" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a1.thrift">
+    <entry file="file://$PROJECT_DIR$/NodeManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="426">
+          <caret line="42" column="48" lean-forward="true" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#879#880#0" expanded="true" />
+            <element signature="e#923#924#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1084#1085#0" expanded="true" />
+            <element signature="e#1140#1141#0" expanded="true" />
+            <element signature="e#1192#1193#0" expanded="true" />
+            <element signature="e#1247#1248#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#1617#1618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="58" column="94" lean-forward="false" selection-start-line="58" selection-start-column="94" selection-end-line="58" selection-end-column="94" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BatchTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
           <folding />
         </state>
       </provider>
