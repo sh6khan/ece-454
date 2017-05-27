@@ -13,8 +13,24 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
 
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class BENode {
     static Logger log;
+
+    private static ExecutorService _executorService = Executors.newCachedThreadPool(new ThreadFactory() {
+        private AtomicInteger threadCounter = new AtomicInteger(0);
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(r);
+            t.setDaemon(false);
+            t.setPriority(Thread.NORM_PRIORITY);
+            t.setName("worker-thread-" + threadCounter.incrementAndGet());
+            return t;
+        }
+    });
 
     public static void main(String [] args) throws Exception {
 		// initialize log4j
@@ -23,18 +39,20 @@ public class BENode {
 
 		String hostFE = "localhost";
 		int portFE = 10000;
-		int portBE = 11000;
+		int portBE = Integer.parseInt(args[0]);
 		log.info("Launching BE node on port " + portBE);
 
-		// alerting FENode that BENode exists
+		// Create a client to the FENode
 		TSocket sock = new TSocket("localhost", 10000);
 		TTransport transport = new TFramedTransport(sock);
 		TProtocol protocol = new TBinaryProtocol(transport);
 		BcryptService.Client client = new BcryptService.Client(protocol);
 
-		transport.open();
-		Map<String, String> res = client.heartBeat("localhost", "11000");
-		transport.close();
+		// instantiate a BatchTracker instance to help determine if the FENode is still alive
+        FENodeChecker FENodeConnection = new FENodeChecker(transport, client, "localhost", args[0]);
+
+
+        _executorService.submit(FENodeConnection);
 
 		// launch Thrift server
 		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler());

@@ -54,11 +54,11 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
                 return BEResult;
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 // if BENode threw an exception, then we simply remove it from NodeManager
                 NodeManager.removeNode(availableIndex);
-                System.out.println("BENode at " + availableIndex + " is dead :(. removing from NodeManager");
+                System.out.println("BENode at " + availableIndex + " is dead :( Removing from NodeManager");
                 availableIndex = NodeManager.getAvailableNodeIndex();
-                System.out.println("new Avialable index: " + availableIndex);
             } finally {
                 if (transport != null) {
                     transport.close();
@@ -122,6 +122,8 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
 
     private List<String> hashPasswordImpl(List<String> passwords, short logRounds) throws Exception {
+        System.out.println("Hashing Passwords");
+
         List<String> ret = new ArrayList<>();
         String hashedPassword;
 
