@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+
 import org.apache.thrift.transport.TTransport;
 
 public class NodeManager {
@@ -12,6 +14,17 @@ public class NodeManager {
     // used by FENode to track all existing BENodes
     private static ArrayList<TTransport> transportList = new ArrayList<>();
 
+    // used by FENode to avoid re-adding the same BENode on the periodic heartbeat
+    private static ArrayList<String> registeredNodes = new ArrayList<>();
+
+
+    public static void registerNode(String nodeId) {
+        registeredNodes.add(nodeId);
+    }
+
+    public static boolean isRegistered(String nodeId) {
+        return registeredNodes.contains(nodeId);
+    }
 
     public static Integer getAvailableNodeIndex() {
         if (availableNodes.size() == 0) {
@@ -52,6 +65,7 @@ public class NodeManager {
         transportList.add(transport);
 
         availableNodes.add(Boolean.TRUE);
+        System.out.println("available nodes size: " + availableNodes.size());
     }
 
     public static boolean isBENode() {
@@ -68,5 +82,6 @@ public class NodeManager {
         availableNodes.remove(index);
         BENodeList.remove(index);
         transportList.remove(index);
+        registeredNodes.remove(index);
     }
 }

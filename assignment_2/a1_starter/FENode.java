@@ -3,7 +3,8 @@ import org.apache.log4j.Logger;
 
 import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.server.TSimpleServer;
+import org.apache.thrift.server.THsHaServer;
+import org.apache.thrift.transport.TNonblockingServerSocket;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TFramedTransport;
 
@@ -25,17 +26,15 @@ public class FENode {
 		log.info("Launching FE node on port " + portFE);
 
 		// launch Thrift server
-		BcryptServiceHandler serviceHandler = new BcryptServiceHandler();
-		BcryptService.Processor processor = new BcryptService.Processor(serviceHandler);
-
-		TServerSocket socket = new TServerSocket(portFE);
-		TSimpleServer.Args sargs = new TSimpleServer.Args(socket);
+		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler());
+		TNonblockingServerSocket socket = new TNonblockingServerSocket(portFE);
+		THsHaServer.Args sargs = new THsHaServer.Args(socket);
 
 		sargs.protocolFactory(new TBinaryProtocol.Factory());
 		sargs.transportFactory(new TFramedTransport.Factory());
 		sargs.processorFactory(new TProcessorFactory(processor));
-
-		TSimpleServer server = new TSimpleServer(sargs);
+		sargs.maxWorkerThreads(5);
+		THsHaServer server = new THsHaServer(sargs);
 		server.serve();
 	}
 }

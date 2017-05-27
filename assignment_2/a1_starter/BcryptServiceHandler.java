@@ -104,14 +104,19 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
     
     public Map<String, String> heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
-        System.out.println("recieved heat beat");
+        System.out.println("received heart beat");
       try {
           TSocket sock = new TSocket(hostname, Integer.parseInt(port));
           TTransport transport = new TFramedTransport(sock);
           TProtocol protocol = new TBinaryProtocol(transport);
           BcryptService.Client client = new BcryptService.Client(protocol);
 
-          NodeManager.addNode(client, transport);
+          String nodeId = hostname + port;
+
+          if (!NodeManager.isRegistered(nodeId)) {
+              NodeManager.addNode(client, transport);
+              NodeManager.registerNode(nodeId);
+          }
 
           HashMap<String, String> map = new HashMap<>();
           map.put(hostname, port);
