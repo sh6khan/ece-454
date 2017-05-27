@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -45,5 +46,14 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         } catch (Exception e) {
             throw new IllegalArgument(e.getMessage());
         }
+    }
+    
+    public Map<String, String> heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
+      try {
+        return null;
+      } catch (Exception e) {
+        throw new IllegalArgument(e.getMessage());
+      }
+
     }
 }
