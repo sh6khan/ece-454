@@ -11,31 +11,39 @@ import org.apache.thrift.transport.TTransportFactory;
 
 public class Client {
     public static void main(String [] args) {
-	if (args.length != 3) {
-	    System.err.println("Usage: java Client FE_host FE_port password");
-	    System.exit(-1);
-	}
 
-	try {
-	    TSocket sock = new TSocket(args[0], Integer.parseInt(args[1]));
-	    TTransport transport = new TFramedTransport(sock);
-	    TProtocol protocol = new TBinaryProtocol(transport);
-	    BcryptService.Client client = new BcryptService.Client(protocol);
-	    transport.open();
+		try {
+			TSocket sock = new TSocket("localhost", 10000);
+			TTransport transport = new TFramedTransport(sock);
+			TProtocol protocol = new TBinaryProtocol(transport);
+			BcryptService.Client client = new BcryptService.Client(protocol);
+			transport.open();
 
-	    List<String> password = new ArrayList<>();
-	    password.add(args[2]);
-	    List<String> hash = client.hashPassword(password, (short)10);
-	    System.out.println("Hash: " + hash.get(0));
-	    System.out.println("Positive check: " + client.checkPassword(password, hash));
-	    hash.set(0, "$2a$14$reBHJvwbb0UWqJHLyPTVF.6Ld5sFRirZx/bXMeMmeurJledKYdZmG");
-	    System.out.println("Negative check: " + client.checkPassword(password, hash));
-	    hash.set(0, "too short");
-	    System.out.println("Exception check: " + client.checkPassword(password, hash));
+			// Generate a bunch of random passwords
+			List<String> passwords = new ArrayList<>();
+			passwords.add("asdf");
+			passwords.add("sfiahfhis");
+			passwords.add("sfishf");
+			passwords.add("sdifsif");
+			passwords.add("sfisjf");
 
-	    transport.close();
-	} catch (TException x) {
-	    x.printStackTrace();
-	} 
+
+
+			List<String> hashes = client.hashPassword(passwords, (short)10);
+
+			for (int i = 0; i < hashes.size(); i++ ) {
+				System.out.println("Hash " + hashes.get(i));
+			}
+
+			System.out.println("Positive check: " + client.checkPassword(passwords, hashes));
+			hashes.set(0, "$2a$14$reBHJvwbb0UWqJHLyPTVF.6Ld5sFRirZx/bXMeMmeurJledKYdZmG");
+			System.out.println("Negative check: " + client.checkPassword(passwords, hashes));
+			hashes.set(0, "too short");
+			System.out.println("Exception check: " + client.checkPassword(passwords, hashes));
+
+			transport.close();
+		} catch (TException x) {
+			x.printStackTrace();
+		}
     }
 }
