@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FENodeChecker.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FENodeChecker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+            <state relative-caret-position="465">
+              <caret line="31" column="51" lean-forward="true" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,11 +51,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HeavyClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HeavyClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1219#1227#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FENode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="398">
+              <caret line="36" column="52" lean-forward="true" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -137,6 +150,8 @@
         <option value="$PROJECT_DIR$/FENode.java" />
         <option value="$PROJECT_DIR$/NodeManager.java" />
         <option value="$PROJECT_DIR$/BcryptServiceHandler.java" />
+        <option value="$PROJECT_DIR$/lib/HeavyClient.java" />
+        <option value="$PROJECT_DIR$/HeavyClient.java" />
       </list>
     </option>
   </component>
@@ -390,6 +405,21 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="HeavyClient" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="HeavyClient" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="localhost 10000" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="a1_starter" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="BENode2" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="BENode" />
@@ -420,11 +450,12 @@
       <envs />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.FENode" />
       <item index="1" class="java.lang.String" itemvalue="Application.Client" />
-      <item index="2" class="java.lang.String" itemvalue="Application.BENode2" />
-      <item index="3" class="java.lang.String" itemvalue="Application.BENode" />
+      <item index="2" class="java.lang.String" itemvalue="Application.HeavyClient" />
+      <item index="3" class="java.lang.String" itemvalue="Application.BENode2" />
+      <item index="4" class="java.lang.String" itemvalue="Application.BENode" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -684,21 +715,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FENode.java">
+    <entry file="file://$PROJECT_DIR$/HeavyClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="458">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1219#1227#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+        <state relative-caret-position="465">
+          <caret line="31" column="51" lean-forward="true" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FENode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="36" column="52" lean-forward="true" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
