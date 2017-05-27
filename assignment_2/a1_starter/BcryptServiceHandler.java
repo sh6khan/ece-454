@@ -17,6 +17,8 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
         // If BENode, then compute the hash right here
         if (NodeManager.isBENode()) {
+            BatchTracker.receivedBatch();
+
             try {
                 return hashPasswordImpl(passwords, logRounds);
             } catch (Exception e) {
