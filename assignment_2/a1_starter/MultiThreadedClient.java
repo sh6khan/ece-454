@@ -29,8 +29,8 @@ public class MultiThreadedClient {
     });
 
     public static void main(String [] args) {
-        SimpleClient simpleClient = new SimpleClient("localhost", 10000);
-        BigClient bigClient = new BigClient("localhost", 10000);
+        SimpleClient simpleClient = new SimpleClient(args[0], Integer.parseInt(args[1]));
+        BigClient bigClient = new BigClient(args[0], Integer.parseInt(args[1]));
 
         _executorService.submit(simpleClient);
         _executorService.submit(bigClient);

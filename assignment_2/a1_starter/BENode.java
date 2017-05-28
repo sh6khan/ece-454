@@ -36,19 +36,20 @@ public class BENode {
 		BasicConfigurator.configure();
 		log = Logger.getLogger(BENode.class.getName());
 
-		String hostFE = "localhost";
-		int portFE = 10000;
-		int portBE = Integer.parseInt(args[0]);
+		String hostFE = args[0];
+		String hostBE = args[1];
+		int portFE = Integer.parseInt(args[2]);
+		int portBE = Integer.parseInt(args[3]);
 		log.info("Launching BE node on port " + portBE);
 
 		// Create a client to the FENode
-		TSocket sock = new TSocket("localhost", 10000);
+		TSocket sock = new TSocket(hostFE, portFE);
 		TTransport transport = new TFramedTransport(sock);
 		TProtocol protocol = new TBinaryProtocol(transport);
 		BcryptService.Client client = new BcryptService.Client(protocol);
 
 		// Instantiate a BatchTracker instance to help determine if the FENode is still alive
-        FENodeChecker FENodeConnection = new FENodeChecker(transport, client, "localhost", args[0]);
+        FENodeChecker FENodeConnection = new FENodeChecker(transport, client, hostBE, args[3]);
 
         // establish connection to instantly
         FENodeConnection.establishConnectionToFENode();
