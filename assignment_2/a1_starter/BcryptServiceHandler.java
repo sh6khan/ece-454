@@ -9,6 +9,8 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.xml.soap.Node;
+
 public class BcryptServiceHandler implements BcryptService.Iface {
 
     private boolean _isBENode;
@@ -51,10 +53,10 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             }
 
         } else {
-            Integer availableIndex = NodeManager.getAvailableNodeIndex();
+            NodeInfo nodeInfo = NodeManager.getAvailableNodeInfo();
 
             // All BENodes were busy, compute the hash by the FENode
-            if (availableIndex == null) {
+            if (nodeInfo == null) {
                 System.out.println("All BENodes are busy");
                 try {
                     return hashPasswordImpl(passwords, logRounds);
@@ -64,28 +66,30 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             }
 
 
-            while (availableIndex != null) {
+            while (nodeInfo != null) {
 
                 // This is an FENode, try offloading to the BENode
-                BcryptService.Client client = NodeManager.getNodeClient(availableIndex);
-                transport = NodeManager.getNodeTransport(availableIndex);
+                BcryptService.Client client = nodeInfo.getClient();
+                transport = nodeInfo.getTransport();
 
                 // if the client and transport of a BE node is available then have FE offload the work to the
                 // BE Node
-                System.out.println("moving work over to the back end node");
+                System.out.println("moving work over to the back end node: " + nodeInfo.nodeId);
                 try {
                     transport.open();
-                    NodeManager.markUnavailable(availableIndex);
+                    nodeInfo.markOccupied();
                     List<String> BEResult = client.hashPassword(passwords, logRounds);
-                    NodeManager.markAvailable(availableIndex);
+                    nodeInfo.markAvailable();
 
                     return BEResult;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     // if BENode threw an exception, then we simply remove it from NodeManager
-                    NodeManager.removeNode(availableIndex);
-                    System.out.println("BENode at " + availableIndex + " is dead :( Removing from NodeManager");
-                    availableIndex = NodeManager.getAvailableNodeIndex();
+                    NodeManager.removeNode(nodeInfo.nodeId);
+
+                    System.out.println("BENode at " + nodeInfo.nodeId + " is dead :( Removing from NodeManager");
+
+                    nodeInfo = NodeManager.getAvailableNodeInfo();
                 } finally {
                     if (transport != null) {
                         transport.close();
@@ -95,7 +99,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
             // We tried to offload  the work to each available BENode, but they all failed
             // therefore, have the FENode do the work
-            System.out.println("All BENodes are dead");
+            System.out.println("All BENodes are dead or busy");
             try {
                 return hashPasswordImpl(passwords, logRounds);
             } catch (Exception ex) {
@@ -130,8 +134,8 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
     
     public Map<String, String> heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
-        System.out.println("received heart beat");
-        System.out.println(hostname + port);
+        System.out.println("received heart beat from: " + hostname + port);
+
       try {
           TSocket sock = new TSocket(hostname, Integer.parseInt(port));
           TTransport transport = new TFramedTransport(sock);
@@ -140,9 +144,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
           String nodeId = hostname + port;
 
-          if (!NodeManager.isRegistered(nodeId)) {
-              NodeManager.addNode(client, transport);
-              NodeManager.registerNode(nodeId);
+          if (!NodeManager.containsNode(nodeId)) {
+              NodeInfo nodeInfo = new NodeInfo(client, transport, nodeId);
+              NodeManager.addNode(nodeId, nodeInfo);
           }
 
           HashMap<String, String> map = new HashMap<>();

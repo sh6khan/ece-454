@@ -1,83 +1,48 @@
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.thrift.transport.TTransport;
 
 public class NodeManager {
 
-    // a list of indexes to available BENodes
-    private static ArrayList<Boolean> availableNodes = new ArrayList<>();
-
-    // used by FENode to track all existing BENodes
-    private static ArrayList<BcryptService.Client> BENodeList = new ArrayList<>();
-
-    // used by FENode to track all existing BENodes
-    private static ArrayList<TTransport> transportList = new ArrayList<>();
-
-    // used by FENode to avoid re-adding the same BENode on the periodic heartbeat
-    private static ArrayList<String> registeredNodes = new ArrayList<>();
+    // a concurentHash map that stores the key value representing the BENode available
+    // key is hostname + port, Value is NodeInfo Object
+    private static ConcurrentHashMap<String, NodeInfo> nodeList = new ConcurrentHashMap<>();
 
 
-    public static void registerNode(String nodeId) {
-        registeredNodes.add(nodeId);
-    }
-
-    public static boolean isRegistered(String nodeId) {
-        return registeredNodes.contains(nodeId);
-    }
-
-    public static Integer getAvailableNodeIndex() {
-        if (availableNodes.size() == 0) {
+    public static NodeInfo getAvailableNodeInfo() {
+        if (nodeList.size() == 0) {
             return null;
         }
 
-        for (int i = 0; i < availableNodes.size(); i++) {
-            if (availableNodes.get(i) == Boolean.TRUE) {
-                return i;
+        for (NodeInfo nodeInfo : nodeList.values()) {
+            if (nodeInfo.isNotOccupied()) {
+                return nodeInfo;
             }
         }
 
         return null;
     }
 
-    public static BcryptService.Client getNodeClient(int index) {
-        return BENodeList.get(index);
-    }
-
-    public static TTransport getNodeTransport(int index) {
-        return transportList.get(index);
-    }
-
-    public static void markUnavailable (int index) {
-        availableNodes.set(index, Boolean.FALSE);
-    }
-
-    public static void markAvailable (int index) {
-        availableNodes.set(index, Boolean.TRUE);
-    }
-
-
     /**
      * Add a new BENode client that is available to the FENodes
      */
-    public static void addNode(BcryptService.Client client, TTransport transport) {
-        BENodeList.add(client);
-        transportList.add(transport);
-
-        availableNodes.add(Boolean.TRUE);
-        System.out.println("available nodes size: " + availableNodes.size());
+    public static void addNode(String nodeId, NodeInfo nodeInfo) {
+        nodeList.put(nodeId, nodeInfo);
+        System.out.println("available nodes size: " + nodeList.size());
     }
 
     /**
      * When there was an error from one of the BENodes, either from throwing an
      * Exception or from BENodes being shut down, remove it from the NodeManager
-     *
-     * @param index - the index in each array where the node info is stored
      */
-    public static void removeNode(int index) {
-        availableNodes.remove(index);
-        BENodeList.remove(index);
-        transportList.remove(index);
-        registeredNodes.remove(index);
+    public static void removeNode(String nodeId) {
+       NodeInfo nodeInfo = nodeList.remove(nodeId);
+
+       if (nodeInfo == null) {
+           System.out.println("Tried to remove " + nodeId + "from nodeList but it did not exist");
+       }
+    }
+
+    public static boolean containsNode(String nodeId) {
+        return nodeList.contains(nodeId);
     }
 }
