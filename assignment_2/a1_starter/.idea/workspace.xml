@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f08d3dd-0145-4277-b267-c604ee4730d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BENode.class" afterPath="$PROJECT_DIR$/build/BENode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BigClient.class" afterPath="$PROJECT_DIR$/build/BigClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MultiThreadedClient.class" afterPath="$PROJECT_DIR$/build/MultiThreadedClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BENode.java" afterPath="$PROJECT_DIR$/BENode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BcryptServiceHandler.java" afterPath="$PROJECT_DIR$/BcryptServiceHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MultiThreadedClient.java" afterPath="$PROJECT_DIR$/MultiThreadedClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/.idea/workspace.xml" afterPath="$PROJECT_DIR$/build/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,18 +27,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="485">
               <caret line="40" column="54" lean-forward="false" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BENode.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BENode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BENode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="59" column="31" lean-forward="true" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+            <state relative-caret-position="480">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,7 +47,7 @@
       <file leaf-file-name="FENodeChecker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
+            <state relative-caret-position="240">
               <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -63,8 +59,8 @@
       <file leaf-file-name="MultiThreadedClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MultiThreadedClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="88" lean-forward="false" selection-start-line="31" selection-start-column="88" selection-end-line="31" selection-end-column="88" />
+            <state relative-caret-position="407">
+              <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,21 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FENode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BcryptServiceHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BcryptServiceHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="127" column="50" lean-forward="true" selection-start-line="127" selection-start-column="50" selection-end-line="127" selection-end-column="50" />
+            <state relative-caret-position="-90">
+              <caret line="53" column="73" lean-forward="true" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,22 +83,10 @@
       <file leaf-file-name="NodeManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NodeManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
+            <state relative-caret-position="293">
               <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#727#728#0" expanded="true" />
-                <element signature="e#770#771#0" expanded="true" />
-                <element signature="e#827#828#0" expanded="true" />
-                <element signature="e#882#883#0" expanded="true" />
-                <element signature="e#1273#1274#0" expanded="true" />
-                <element signature="e#1317#1318#0" expanded="true" />
-                <element signature="e#1377#1378#0" expanded="true" />
-                <element signature="e#1424#1425#0" expanded="true" />
-                <element signature="e#1478#1479#0" expanded="true" />
-                <element signature="e#1534#1535#0" expanded="true" />
-                <element signature="e#1586#1587#0" expanded="true" />
-                <element signature="e#1641#1642#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -132,6 +106,7 @@
       <find>TSimpleServer</find>
       <find>available nodes</find>
       <find>localhos</find>
+      <find>hashPasswordImpl</find>
     </findStrings>
     <replaceStrings>
       <replace>THsHaServer</replace>
@@ -154,11 +129,11 @@
         <option value="$PROJECT_DIR$/lib/HeavyClient.java" />
         <option value="$PROJECT_DIR$/HeavyClient.java" />
         <option value="$PROJECT_DIR$/NodeManager.java" />
+        <option value="$PROJECT_DIR$/FENodeChecker.java" />
+        <option value="$PROJECT_DIR$/BENode.java" />
         <option value="$PROJECT_DIR$/FENode.java" />
         <option value="$PROJECT_DIR$/MultiThreadedClient.java" />
-        <option value="$PROJECT_DIR$/FENodeChecker.java" />
         <option value="$PROJECT_DIR$/BcryptServiceHandler.java" />
-        <option value="$PROJECT_DIR$/BENode.java" />
       </list>
     </option>
   </component>
@@ -253,7 +228,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BENode2">
+  <component name="RunManager" selected="Application.MultiClient">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -460,7 +435,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="MultiThreadedClient" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="localhost 10001" />
+      <option name="PROGRAM_PARAMETERS" value="localhost 10000" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -494,7 +469,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="959" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -502,7 +477,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30795848" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30795848" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15567766" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -542,9 +517,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="40" column="54" lean-forward="true" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,18 +565,6 @@
           <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#727#728#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1317#1318#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1534#1535#0" expanded="true" />
-            <element signature="e#1586#1587#0" expanded="true" />
-            <element signature="e#1641#1642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -634,6 +595,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -641,6 +603,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
           <caret line="77" column="24" lean-forward="false" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+          <folding>
+            <element signature="e#25163#25204#0" expanded="true" />
+            <element signature="e#25816#25833#0" expanded="true" />
+            <element signature="e#27593#27645#0" expanded="true" />
+            <element signature="e#28930#28938#0" expanded="true" />
+            <element signature="e#33186#33194#0" expanded="true" />
+            <element signature="e#42326#42367#0" expanded="true" />
+            <element signature="e#42965#42982#0" expanded="true" />
+            <element signature="e#44628#44680#0" expanded="true" />
+            <element signature="e#45860#45868#0" expanded="true" />
+            <element signature="e#49770#49778#0" expanded="true" />
+            <element signature="e#58819#58860#0" expanded="true" />
+            <element signature="e#59465#59482#0" expanded="true" />
+            <element signature="e#61136#61188#0" expanded="true" />
+            <element signature="e#62482#62490#0" expanded="true" />
+            <element signature="e#62638#62646#0" expanded="true" />
+            <element signature="e#66957#66965#0" expanded="true" />
+            <element signature="e#77253#77294#0" expanded="true" />
+            <element signature="e#77895#77912#0" expanded="true" />
+            <element signature="e#79558#79610#0" expanded="true" />
+            <element signature="e#80795#80804#0" expanded="true" />
+            <element signature="e#84719#84727#0" expanded="true" />
+            <element signature="e#93768#93809#0" expanded="true" />
+            <element signature="e#94394#94411#0" expanded="true" />
+            <element signature="e#96065#96117#0" expanded="true" />
+            <element signature="e#100630#100638#0" expanded="true" />
+            <element signature="e#108387#108428#0" expanded="true" />
+            <element signature="e#109026#109043#0" expanded="true" />
+            <element signature="e#110689#110741#0" expanded="true" />
+            <element signature="e#112022#112037#0" expanded="true" />
+            <element signature="e#115818#115826#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -650,18 +644,6 @@
           <caret line="42" column="48" lean-forward="true" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#727#728#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1317#1318#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1534#1535#0" expanded="true" />
-            <element signature="e#1586#1587#0" expanded="true" />
-            <element signature="e#1641#1642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -670,9 +652,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="457">
           <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -730,9 +710,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
           <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -792,18 +770,6 @@
           <caret line="42" column="48" lean-forward="true" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#727#728#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1317#1318#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1534#1535#0" expanded="true" />
-            <element signature="e#1586#1587#0" expanded="true" />
-            <element signature="e#1641#1642#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -871,6 +837,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="485">
           <caret line="40" column="54" lean-forward="false" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FENode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BENode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -879,48 +871,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NodeManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
+        <state relative-caret-position="293">
           <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#727#728#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1317#1318#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1478#1479#0" expanded="true" />
-            <element signature="e#1534#1535#0" expanded="true" />
-            <element signature="e#1586#1587#0" expanded="true" />
-            <element signature="e#1641#1642#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/ch/IOUtil.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="29" column="52" lean-forward="true" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MultiThreadedClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="88" lean-forward="false" selection-start-line="31" selection-start-column="88" selection-end-line="31" selection-end-column="88" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FENode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="32" />
+        <state relative-caret-position="407">
+          <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -929,18 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="127" column="50" lean-forward="true" selection-start-line="127" selection-start-column="50" selection-end-line="127" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BENode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="59" column="31" lean-forward="true" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+        <state relative-caret-position="-90">
+          <caret line="53" column="73" lean-forward="true" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

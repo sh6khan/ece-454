@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -10,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class BcryptServiceHandler implements BcryptService.Iface {
 
     private boolean _isBENode;
+    private final ExecutorService hashService = Executors.newFixedThreadPool(4);
 
     public BcryptServiceHandler(boolean isBENode){
         _isBENode = isBENode;
@@ -18,18 +21,30 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     public List<String> hashPassword(List<String> passwords, short logRounds) throws IllegalArgument, org.apache.thrift.TException
     {
         TTransport transport = null;
+        List<String> res = new ArrayList<>();
 
         // If BENode, then compute the hash right here
         if (_isBENode) {
             BatchTracker.receivedBatch();
-
             try {
-                List<String> res = hashPasswordImpl(passwords, logRounds);
-
+                int size = passwords.size();
+                int chunkSize = size / 4;
+                List<Future<List<String>>> futures = new ArrayList<>();
+                System.out.println("multithreaded hit");
+                for (int i = 0; i < 4; i++) {
+                    int startInd = i * chunkSize;
+                    int endInd = i == 3 ? size : (i + 1) * chunkSize;
+                    MultiThreadHash  myCallable = new MultiThreadHash(passwords.subList(startInd, endInd), logRounds);
+                    futures.add(hashService.submit(myCallable));
+                }
+                for (Future<List<String>> f: futures) {
+                    res.addAll(f.get());
+                }
                 // we update the timer of the receivedBatch because we don't
                 // want the time it took to process the batch as a part of the
                 // timeout
                 BatchTracker.receivedBatch();
+                System.out.println("sizes: " + passwords.size() + " " + res.size());
                 return res;
             } catch (Exception e) {
                 throw new IllegalArgument(e.getMessage());
@@ -152,5 +167,21 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         }
 
         return ret;
+    }
+
+    class MultiThreadHash implements Callable<List<String>> {
+        private List<String> _passwords;
+        short _logRounds;
+
+        public MultiThreadHash(List<String> passwords, short logRounds) {
+            _passwords = passwords;
+            _logRounds = logRounds;
+        }
+
+        @Override
+        public List<String> call() throws Exception{
+            List<String> hashes = hashPasswordImpl(_passwords, _logRounds);
+            return hashes;
+        }
     }
 }
