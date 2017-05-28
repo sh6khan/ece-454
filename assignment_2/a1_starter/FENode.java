@@ -26,7 +26,7 @@ public class FENode {
 		log.info("Launching FE node on port " + portFE);
 
 		// launch Thrift server
-		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler());
+		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler(false));
 		TNonblockingServerSocket socket = new TNonblockingServerSocket(portFE);
 		THsHaServer.Args sargs = new THsHaServer.Args(socket);
 

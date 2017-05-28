@@ -1,5 +1,3 @@
-import java.util.Map;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -12,8 +10,9 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BENode {
@@ -48,14 +47,17 @@ public class BENode {
 		TProtocol protocol = new TBinaryProtocol(transport);
 		BcryptService.Client client = new BcryptService.Client(protocol);
 
-		// instantiate a BatchTracker instance to help determine if the FENode is still alive
+		// Instantiate a BatchTracker instance to help determine if the FENode is still alive
         FENodeChecker FENodeConnection = new FENodeChecker(transport, client, "localhost", args[0]);
 
+        // establish connection to instantly
+        FENodeConnection.establishConnectionToFENode();
 
+        // start thread to continuously check if the
         _executorService.submit(FENodeConnection);
 
 		// launch Thrift server
-		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler());
+		BcryptService.Processor processor = new BcryptService.Processor(new BcryptServiceHandler(true));
 		TServerSocket socket = new TServerSocket(portBE);
 		TSimpleServer.Args sargs = new TSimpleServer.Args(socket);
 		sargs.protocolFactory(new TBinaryProtocol.Factory());

@@ -68,10 +68,6 @@ public class NodeManager {
         System.out.println("available nodes size: " + availableNodes.size());
     }
 
-    public static boolean isBENode() {
-        return BENodeList.size() == 0;
-    }
-
     /**
      * When there was an error from one of the BENodes, either from throwing an
      * Exception or from BENodes being shut down, remove it from the NodeManager

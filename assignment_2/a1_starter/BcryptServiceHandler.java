@@ -7,74 +7,85 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.xml.soap.Node;
-
 public class BcryptServiceHandler implements BcryptService.Iface {
+
+    private boolean _isBENode;
+
+    public BcryptServiceHandler(boolean isBENode){
+        _isBENode = isBENode;
+    }
 
     public List<String> hashPassword(List<String> passwords, short logRounds) throws IllegalArgument, org.apache.thrift.TException
     {
         TTransport transport = null;
 
         // If BENode, then compute the hash right here
-        if (NodeManager.isBENode()) {
+        if (_isBENode) {
             BatchTracker.receivedBatch();
 
             try {
-                return hashPasswordImpl(passwords, logRounds);
+                List<String> res = hashPasswordImpl(passwords, logRounds);
+
+                // we update the timer of the receivedBatch because we don't
+                // want the time it took to process the batch as a part of the
+                // timeout
+                BatchTracker.receivedBatch();
+                return res;
             } catch (Exception e) {
                 throw new IllegalArgument(e.getMessage());
             }
-        }
 
-        Integer availableIndex = NodeManager.getAvailableNodeIndex();
+        } else {
+            Integer availableIndex = NodeManager.getAvailableNodeIndex();
 
-        // All BENodes were busy, compute the hash by the FENode
-        if (availableIndex == null) {
-            System.out.println("All BENodes are busy");
-            try {
-                return hashPasswordImpl(passwords, logRounds);
-            } catch (Exception e) {
-                throw new IllegalArgument(e.getMessage());
-            }
-        }
-
-
-        while (availableIndex != null) {
-
-            // This is an FENode, try offloading to the BENode
-            BcryptService.Client client = NodeManager.getNodeClient(availableIndex);
-            transport = NodeManager.getNodeTransport(availableIndex);
-
-            // if the client and transport of a BE node is available then have FE offload the work to the
-            // BE Node
-            System.out.println("moving work over to the back end node");
-            try {
-                transport.open();
-                NodeManager.markUnavailable(availableIndex);
-                List<String> BEResult = client.hashPassword(passwords, logRounds);
-                NodeManager.markAvailable(availableIndex);
-
-                return BEResult;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                // if BENode threw an exception, then we simply remove it from NodeManager
-                NodeManager.removeNode(availableIndex);
-                System.out.println("BENode at " + availableIndex + " is dead :( Removing from NodeManager");
-                availableIndex = NodeManager.getAvailableNodeIndex();
-            } finally {
-                if (transport != null) {
-                    transport.close();
+            // All BENodes were busy, compute the hash by the FENode
+            if (availableIndex == null) {
+                System.out.println("All BENodes are busy");
+                try {
+                    return hashPasswordImpl(passwords, logRounds);
+                } catch (Exception e) {
+                    throw new IllegalArgument(e.getMessage());
                 }
             }
-        }
 
-        // We tried to offload  the work to each available BENode, but they all failed
-        // therefore, have the FENode do the work
-        System.out.println("All BENodes are dead");
-        try {
-            return hashPasswordImpl(passwords, logRounds);
-        } catch (Exception ex) {
-            throw new IllegalArgument(ex.getMessage());
+
+            while (availableIndex != null) {
+
+                // This is an FENode, try offloading to the BENode
+                BcryptService.Client client = NodeManager.getNodeClient(availableIndex);
+                transport = NodeManager.getNodeTransport(availableIndex);
+
+                // if the client and transport of a BE node is available then have FE offload the work to the
+                // BE Node
+                System.out.println("moving work over to the back end node");
+                try {
+                    transport.open();
+                    NodeManager.markUnavailable(availableIndex);
+                    List<String> BEResult = client.hashPassword(passwords, logRounds);
+                    NodeManager.markAvailable(availableIndex);
+
+                    return BEResult;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    // if BENode threw an exception, then we simply remove it from NodeManager
+                    NodeManager.removeNode(availableIndex);
+                    System.out.println("BENode at " + availableIndex + " is dead :( Removing from NodeManager");
+                    availableIndex = NodeManager.getAvailableNodeIndex();
+                } finally {
+                    if (transport != null) {
+                        transport.close();
+                    }
+                }
+            }
+
+            // We tried to offload  the work to each available BENode, but they all failed
+            // therefore, have the FENode do the work
+            System.out.println("All BENodes are dead");
+            try {
+                return hashPasswordImpl(passwords, logRounds);
+            } catch (Exception ex) {
+                throw new IllegalArgument(ex.getMessage());
+            }
         }
     }
 
@@ -129,7 +140,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
 
     private List<String> hashPasswordImpl(List<String> passwords, short logRounds) throws Exception {
-        System.out.println("Hashing Passwords");
+        System.out.println("Hashing Passwords of size: " + passwords.size());
 
         List<String> ret = new ArrayList<>();
         String hashedPassword;
