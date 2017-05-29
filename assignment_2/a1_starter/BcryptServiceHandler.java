@@ -32,7 +32,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 int size = passwords.size();
                 int chunkSize = size / 4;
                 List<Future<List<String>>> futures = new ArrayList<>();
-                System.out.println("multithreaded hit");
                 for (int i = 0; i < 4; i++) {
                     int startInd = i * chunkSize;
                     int endInd = i == 3 ? size : (i + 1) * chunkSize;
@@ -55,17 +54,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         } else {
             NodeInfo nodeInfo = NodeManager.getAvailableNodeInfo();
 
-            // All BENodes were busy, compute the hash by the FENode
-            if (nodeInfo == null) {
-                System.out.println("All BENodes are busy");
-                try {
-                    return hashPasswordImpl(passwords, logRounds);
-                } catch (Exception e) {
-                    throw new IllegalArgument(e.getMessage());
-                }
-            }
-
-
             while (nodeInfo != null) {
 
                 // This is an FENode, try offloading to the BENode
@@ -78,7 +66,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 try {
                     transport.open();
                     nodeInfo.markOccupied();
+                    nodeInfo.addLoad(logRounds);
                     List<String> BEResult = client.hashPassword(passwords, logRounds);
+                    nodeInfo.reduceLoad(logRounds);
                     nodeInfo.markAvailable();
 
                     return BEResult;
@@ -99,7 +89,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
             // We tried to offload  the work to each available BENode, but they all failed
             // therefore, have the FENode do the work
-            System.out.println("All BENodes are dead or busy");
+            System.out.println("All BENodes are dead");
             try {
                 return hashPasswordImpl(passwords, logRounds);
             } catch (Exception ex) {
@@ -137,15 +127,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         System.out.println("received heart beat from: " + hostname + port);
 
       try {
-          TSocket sock = new TSocket(hostname, Integer.parseInt(port));
-          TTransport transport = new TFramedTransport(sock);
-          TProtocol protocol = new TBinaryProtocol(transport);
-          BcryptService.Client client = new BcryptService.Client(protocol);
-
           String nodeId = hostname + port;
-
           if (!NodeManager.containsNode(nodeId)) {
-              NodeInfo nodeInfo = new NodeInfo(client, transport, nodeId);
+              NodeInfo nodeInfo = new NodeInfo(hostname, port);
               NodeManager.addNode(nodeId, nodeInfo);
           }
 

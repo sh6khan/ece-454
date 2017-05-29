@@ -1,4 +1,11 @@
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 
 
 public class NodeManager {
@@ -13,10 +20,37 @@ public class NodeManager {
             return null;
         }
 
-        for (NodeInfo nodeInfo : nodeList.values()) {
-            if (nodeInfo.isNotOccupied()) {
-                return nodeInfo;
+        // Try and see if a BENode is available
+        for (NodeInfo node : nodeList.values()) {
+            if (node.isNotOccupied()) {
+                return node;
             }
+        }
+
+        NodeInfo nodeInfo = nodeList.values().iterator().next();
+        for (NodeInfo node : nodeList.values()) {
+            if (nodeInfo.getLoad() > node.getLoad()) {
+                nodeInfo = node;
+            }
+        }
+
+        System.out.println("found min with load " + nodeInfo.getLoad());
+
+        // somehow a node was deleted in between the last check and now
+        if (nodeInfo == null) {
+            return null;
+        }
+
+        // create new client
+        String hostname = nodeInfo.getHostname();
+        String port = nodeInfo.getPort();
+
+        try {
+            nodeInfo = new NodeInfo(hostname, port);
+            return nodeInfo;
+        } catch (Exception ex) {
+            System.out.println("failed to create new Node from " + hostname + " " + port);
+            // do nothing and return null;
         }
 
         return null;
