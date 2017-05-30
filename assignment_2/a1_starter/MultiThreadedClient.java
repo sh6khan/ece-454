@@ -33,12 +33,7 @@ public class MultiThreadedClient {
         BigClient bigClient = new BigClient(args[0], Integer.parseInt(args[1]));
 
         _executorService.submit(simpleClient);
-        _executorService.submit(simpleClient);
-        _executorService.submit(bigClient);
-        _executorService.submit(bigClient);
-        _executorService.submit(bigClient);
-        _executorService.submit(bigClient);
-        _executorService.submit(bigClient);
+
         _executorService.submit(bigClient);
     }
 }
@@ -51,6 +46,7 @@ class SimpleClient implements Runnable {
         _hostname = hostname;
         _port = port;
     }
+
 
     /**
      * Continuously send requests to the FENode with simple password lists
@@ -70,9 +66,16 @@ class SimpleClient implements Runnable {
 
                 List<String> passwords = genPasswordList();
                 List<String> hashes = client.hashPassword(passwords, (short) 10);
+                System.out.println("size: " + passwords.size() + " took: " + Duration.between(startTime, Instant.now()).toMillis());
 
-                System.out.println("size: " + passwords.size() + " took: " + Duration.between(Instant.now(), startTime).toMillis());
-                //System.out.println("Check: " + client.checkPassword(passwords, hashes));
+                startTime = Instant.now();
+                List<Boolean> results = client.checkPassword(passwords, hashes);
+                Boolean valid = true;
+                for (Boolean val: results) {
+                    valid = valid && val;
+                }
+                System.out.println("Check: " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
+
 
                 transport.close();
             } catch (TException x) {
@@ -129,9 +132,16 @@ class BigClient implements Runnable {
                 Instant startTime = Instant.now();
 
                 List<String> hashes = client.hashPassword(passwords, (short) 10);
+                System.out.println("size: " + passwords.size() + " took: " + Duration.between(startTime, Instant.now()).toMillis());
 
-                System.out.println("size: " + passwords.size() + " took: " + Duration.between(Instant.now(), startTime).toMillis());
-//                System.out.println("Check: " + client.checkPassword(passwords, hashes));
+                startTime = Instant.now();
+                List<Boolean> results = client.checkPassword(passwords, hashes);
+                Boolean valid = true;
+                for (Boolean val: results) {
+                    valid = valid && val;
+                }
+                System.out.println("Check: " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
+
 
                 transport.close();
             } catch (TException x) {

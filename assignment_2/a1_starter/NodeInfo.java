@@ -55,12 +55,12 @@ public class NodeInfo {
         return !_occupied;
     }
 
-    public void addLoad(short load) {
-        _load += load;
+    public void addLoad(int numPasswords, short logRounds) {
+        _load += numPasswords * Math.pow(2, logRounds);
     }
 
-    public void reduceLoad(short load) {
-        _load -= load;
+    public void reduceLoad(int numPasswords, short logRounds) {
+        _load -= numPasswords * Math.pow(2, logRounds);
     }
 
     public short getLoad() {
