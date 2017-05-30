@@ -23,6 +23,15 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
     public List<String> hashPassword(List<String> passwords, short logRounds) throws IllegalArgument, org.apache.thrift.TException
     {
+        if (passwords.size() == 0) {
+            throw new IllegalArgument("Cannot have empty password list");
+        }
+
+        if (logRounds < 4 || logRounds > 30) {
+            throw new IllegalArgument("logRounds need to be between 4 and 30 ");
+        }
+
+
         TTransport transport = null;
         String[] res = new String[passwords.size()];
 
@@ -121,6 +130,11 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 if (passwords.size() != hashes.size()) {
                     throw new Exception("passwords and hashes are not equal.");
                 }
+
+                if (passwords.size() == 0) {
+                    throw new Exception(("password list cannot be empty"));
+                }
+                
 
                 int size = passwords.size();
                 int numThreads = Math.min(size, 4);
