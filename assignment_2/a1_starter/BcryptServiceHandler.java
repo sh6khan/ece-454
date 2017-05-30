@@ -220,7 +220,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         }
     }
     
-    public Map<String, String> heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
+    public void  heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
         System.out.println("received heart beat from: " + hostname + port);
 
       try {
@@ -229,11 +229,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
               NodeInfo nodeInfo = new NodeInfo(hostname, port);
               NodeManager.addNode(nodeId, nodeInfo);
           }
-
-          HashMap<String, String> map = new HashMap<>();
-          map.put(hostname, port);
-          return map;
-
       } catch (Exception e) {
           e.printStackTrace();
           throw new IllegalArgument(e.getMessage());

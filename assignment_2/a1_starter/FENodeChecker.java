@@ -8,8 +8,8 @@ public class FENodeChecker implements Runnable {
     private final String _hostname;
     private final String _port;
 
-    private static final int MAX_ATTEMPTS = 50;
-    private static final Duration RETRY_WAIT_TIME = Duration.ofSeconds(4);
+    private static final int MAX_ATTEMPTS = 100;
+    private static final Duration RETRY_WAIT_TIME = Duration.ofSeconds(3);
 
     public FENodeChecker (TTransport transport,
                           BcryptService.Client client,
