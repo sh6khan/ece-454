@@ -32,7 +32,7 @@ public class MultiThreadedClient {
         SimpleClient simpleClient = new SimpleClient(args[0], Integer.parseInt(args[1]));
         BigClient bigClient = new BigClient(args[0], Integer.parseInt(args[1]));
 
-//        _executorService.submit(simpleClient);
+        _executorService.submit(simpleClient);
 
         _executorService.submit(bigClient);
     }

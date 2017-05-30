@@ -10,6 +10,7 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
+import java.net.InetAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -37,9 +38,9 @@ public class BENode {
 		log = Logger.getLogger(BENode.class.getName());
 
 		String hostFE = args[0];
-		String hostBE = args[1];
-		int portFE = Integer.parseInt(args[2]);
-		int portBE = Integer.parseInt(args[3]);
+		String hostBE = InetAddress.getLocalHost().getHostName();
+		int portFE = Integer.parseInt(args[1]);
+		int portBE = Integer.parseInt(args[2]);
 		log.info("Launching BE node on port " + portBE);
 
 		// Create a client to the FENode
@@ -49,7 +50,7 @@ public class BENode {
 		BcryptService.Client client = new BcryptService.Client(protocol);
 
 		// Instantiate a BatchTracker instance to help determine if the FENode is still alive
-        FENodeChecker FENodeConnection = new FENodeChecker(transport, client, hostBE, args[3]);
+        FENodeChecker FENodeConnection = new FENodeChecker(transport, client, hostBE, args[2]);
 
         // establish connection to instantly
         FENodeConnection.establishConnectionToFENode();
