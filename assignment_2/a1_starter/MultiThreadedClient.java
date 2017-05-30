@@ -36,6 +36,10 @@ public class MultiThreadedClient {
         _executorService.submit(simpleClient);
         _executorService.submit(bigClient);
         _executorService.submit(bigClient);
+        _executorService.submit(bigClient);
+        _executorService.submit(bigClient);
+        _executorService.submit(bigClient);
+        _executorService.submit(bigClient);
     }
 }
 
