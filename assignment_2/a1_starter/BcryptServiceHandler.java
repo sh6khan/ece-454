@@ -69,9 +69,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             }
 
         } else {
-            Instant startTime = Instant.now();
             NodeInfo nodeInfo = NodeManager.getAvailableNodeInfo();
-            System.out.println("Find available node took: " + Duration.between(Instant.now(), startTime).toNanos());
 
             while (nodeInfo != null) {
 
