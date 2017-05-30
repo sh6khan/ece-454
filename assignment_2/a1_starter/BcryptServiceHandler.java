@@ -1,4 +1,6 @@
 import java.lang.reflect.Array;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -67,7 +69,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             }
 
         } else {
+            Instant startTime = Instant.now();
             NodeInfo nodeInfo = NodeManager.getAvailableNodeInfo();
+            System.out.println("Find available node took: " + Duration.between(Instant.now(), startTime).toNanos());
 
             while (nodeInfo != null) {
 
@@ -134,7 +138,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 if (passwords.size() == 0) {
                     throw new Exception(("password list cannot be empty"));
                 }
-                
+
 
                 int size = passwords.size();
                 int numThreads = Math.min(size, 4);

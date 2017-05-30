@@ -13,7 +13,7 @@ public class NodeInfo {
     private TTransport _transport;
     private final String _hostname;
     private final String _port;
-    private short _load;
+    private double _load;
     private boolean _occupied;
 
     public String nodeId;
@@ -63,7 +63,7 @@ public class NodeInfo {
         _load -= numPasswords * Math.pow(2, logRounds);
     }
 
-    public short getLoad() {
+    public double getLoad() {
         return _load;
     }
 
