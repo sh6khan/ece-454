@@ -35,8 +35,6 @@ public class NodeManager {
             }
         }
 
-        System.out.println("found min with load " + nodeInfo.getLoad());
-
         // somehow a node was deleted in between the last check and now
         if (nodeInfo == null) {
             return null;

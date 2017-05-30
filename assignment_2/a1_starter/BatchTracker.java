@@ -23,7 +23,6 @@ public class BatchTracker {
     }
 
     public static boolean isFENodeDown() {
-        System.out.println("checking the last time we got a batch");
         Duration timeSinceLastBatch = Duration.between(lastBatchTime, Instant.now());
         return timeSinceLastBatch.compareTo(TIMEOUT) > 0;
 

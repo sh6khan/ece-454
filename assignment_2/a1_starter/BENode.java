@@ -34,6 +34,10 @@ public class BENode {
 
     public static void main(String [] args) throws Exception {
 		// initialize log4j
+        if (args.length != 3) {
+            System.err.println("Usage: FEhost FEport BEport");
+            System.exit(-1);
+        }
 		BasicConfigurator.configure();
 		log = Logger.getLogger(BENode.class.getName());
 

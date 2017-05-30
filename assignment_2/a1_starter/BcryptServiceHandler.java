@@ -53,7 +53,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                     }
                     latch.await();
                 } else {
-                    System.out.println("using single thread for hashing");
                     hashPasswordImpl(passwords, logRounds, res, 0, passwords.size());
                 }
 
@@ -62,7 +61,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 // timeout
                 BatchTracker.receivedBatch();
                 List<String> ret = Arrays.asList(res);
-                System.out.println("sizes: " + passwords.size() + " " + ret.size());
                 return ret;
             } catch (Exception e) {
                 throw new IllegalArgument(e.getMessage());
@@ -150,7 +148,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                     }
                     latch.await();
                 } else {
-                    System.out.println("using single thread for checking");
                     checkPasswordImpl(passwords, hashes, res, 0, passwords.size());
                 }
                 return Arrays.asList(res);
@@ -208,7 +205,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
 
     private void checkPasswordImpl(List<String> passwords, List<String> hashes, Boolean[] res, int start, int end) {
-        System.out.println("Checking Passwords of size: " + (end - start));
 
         String password;
         String hash;
@@ -245,8 +241,6 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
 
     private void hashPasswordImpl(List<String> passwords, short logRounds, String[] res, int start, int end ) {
-        System.out.println("Hashing Passwords of size: " + (end - start));
-
         for (int i = start; i < end; i++) {
             res[i] = BCrypt.hashpw(passwords.get(i), BCrypt.gensalt(logRounds));
         }
