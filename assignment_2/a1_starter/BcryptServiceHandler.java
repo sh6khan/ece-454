@@ -30,17 +30,26 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             BatchTracker.receivedBatch();
             try {
                 int size = passwords.size();
-                int chunkSize = size / 4;
-                List<Future<List<String>>> futures = new ArrayList<>();
-                for (int i = 0; i < 4; i++) {
-                    int startInd = i * chunkSize;
-                    int endInd = i == 3 ? size : (i + 1) * chunkSize;
-                    MultiThreadHash  myCallable = new MultiThreadHash(passwords.subList(startInd, endInd), logRounds);
-                    futures.add(hashService.submit(myCallable));
+                int numThreads = Math.min(size, 4);
+                int chunkSize = size / numThreads;
+
+                if (size > 1) {
+                    List<Future<List<String>>> futures = new ArrayList<>();
+                    for (int i = 0; i < numThreads; i++) {
+                        int startInd = i * chunkSize;
+                        int endInd = i == numThreads - 1 ? size : (i + 1) * chunkSize;
+                        MultiThreadHash  myCallable = new MultiThreadHash(passwords.subList(startInd, endInd), logRounds);
+                        futures.add(hashService.submit(myCallable));
+                    }
+                    for (Future<List<String>> f: futures) {
+                        res.addAll(f.get());
+                    }
+                } else {
+                    System.out.println("using single thread for hashing");
+                    return hashPasswordImpl(passwords, logRounds);
                 }
-                for (Future<List<String>> f: futures) {
-                    res.addAll(f.get());
-                }
+
+
                 // we update the timer of the receivedBatch because we don't
                 // want the time it took to process the batch as a part of the
                 // timeout

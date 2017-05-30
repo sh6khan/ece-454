@@ -122,10 +122,10 @@ class BigClient implements Runnable {
                 List<String> passwords = genPasswordList();
                 Instant startTime = Instant.now();
 
-                List<String> hashes = client.hashPassword(passwords, (short) 10);
+                List<String> hashes = client.hashPassword(passwords, (short) 5);
 
                 System.out.println("size: " + passwords.size() + " took: " + Duration.between(Instant.now(), startTime).toMillis());
-                //System.out.println("Check: " + client.checkPassword(passwords, hashes));
+                System.out.println("Check: " + client.checkPassword(passwords, hashes));
 
                 transport.close();
             } catch (TException x) {
@@ -144,7 +144,7 @@ class BigClient implements Runnable {
     public static List<String> genPasswordList() {
         List<String> l = new ArrayList<String>(1024);
         String somebigpassword = "faldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurvcvmvcmdoiZZ";
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 4; i++) {
             l.add(somebigpassword + i);
         }
         return l;
