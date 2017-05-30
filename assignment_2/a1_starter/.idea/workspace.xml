@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f08d3dd-0145-4277-b267-c604ee4730d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BigClient.class" afterPath="$PROJECT_DIR$/build/BigClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/FENode.class" afterPath="$PROJECT_DIR$/build/FENode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MultiThreadedClient.class" afterPath="$PROJECT_DIR$/build/MultiThreadedClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/NodeInfo.class" afterPath="$PROJECT_DIR$/build/NodeInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/NodeManager.class" afterPath="$PROJECT_DIR$/build/NodeManager.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/SimpleClient.class" afterPath="$PROJECT_DIR$/build/SimpleClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BcryptServiceHandler.java" afterPath="$PROJECT_DIR$/BcryptServiceHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MultiThreadedClient.java" afterPath="$PROJECT_DIR$/MultiThreadedClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NodeInfo.java" afterPath="$PROJECT_DIR$/NodeInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/buildBE.sh" afterPath="$PROJECT_DIR$/build/buildBE.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/buildClient.sh" afterPath="$PROJECT_DIR$/build/buildClient.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -53,8 +42,8 @@
       <file leaf-file-name="MultiThreadedClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MultiThreadedClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
+            <state relative-caret-position="-907">
+              <caret line="76" column="85" lean-forward="true" selection-start-line="76" selection-start-column="85" selection-end-line="76" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -961,8 +950,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MultiThreadedClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
+        <state relative-caret-position="-907">
+          <caret line="76" column="85" lean-forward="true" selection-start-line="76" selection-start-column="85" selection-end-line="76" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

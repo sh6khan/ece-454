@@ -74,7 +74,7 @@ class SimpleClient implements Runnable {
                 for (Boolean val: results) {
                     valid = valid && val;
                 }
-                System.out.println("Check: " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
+                System.out.println("Check size: " + passwords.size() + " " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
 
 
                 transport.close();
@@ -140,7 +140,7 @@ class BigClient implements Runnable {
                 for (Boolean val: results) {
                     valid = valid && val;
                 }
-                System.out.println("Check: " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
+                System.out.println("Check size: " + passwords.size() + " " +  valid + " took:" + Duration.between(startTime, Instant.now()).toMillis());
 
 
                 transport.close();
