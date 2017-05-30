@@ -125,7 +125,7 @@ class BigClient implements Runnable {
                 List<String> hashes = client.hashPassword(passwords, (short) 10);
 
                 System.out.println("size: " + passwords.size() + " took: " + Duration.between(Instant.now(), startTime).toMillis());
-                System.out.println("Check: " + client.checkPassword(passwords, hashes));
+//                System.out.println("Check: " + client.checkPassword(passwords, hashes));
 
                 transport.close();
             } catch (TException x) {
