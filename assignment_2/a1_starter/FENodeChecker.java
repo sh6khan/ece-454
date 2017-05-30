@@ -49,7 +49,7 @@ public class FENodeChecker implements Runnable {
 
         while (currentAttempt < MAX_ATTEMPTS) {
             try {
-                System.out.println("trying to connect to FENode");
+                System.out.println("trying to connect to FENode: " + _hostname + " " + _port);
 
                 _transport.open();
                 _FENodeClient.heartBeat(_hostname, _port);

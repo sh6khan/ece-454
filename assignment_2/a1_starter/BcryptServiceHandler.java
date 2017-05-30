@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +24,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     public List<String> hashPassword(List<String> passwords, short logRounds) throws IllegalArgument, org.apache.thrift.TException
     {
         TTransport transport = null;
-        List<String> res = new ArrayList<>();
+        String[] res = new String[passwords.size()];
 
         // If BENode, then compute the hash right here
         if (_isBENode) {
@@ -32,30 +33,26 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 int size = passwords.size();
                 int numThreads = Math.min(size, 4);
                 int chunkSize = size / numThreads;
-
+                CountDownLatch latch = new CountDownLatch(numThreads);
                 if (size > 1) {
-                    List<Future<List<String>>> futures = new ArrayList<>();
                     for (int i = 0; i < numThreads; i++) {
                         int startInd = i * chunkSize;
                         int endInd = i == numThreads - 1 ? size : (i + 1) * chunkSize;
-                        MultiThreadHash  myCallable = new MultiThreadHash(passwords.subList(startInd, endInd), logRounds);
-                        futures.add(service.submit(myCallable));
+                        service.execute(new MultiThreadHash(passwords, logRounds, res, startInd, endInd, latch));
                     }
-                    for (Future<List<String>> f: futures) {
-                        res.addAll(f.get());
-                    }
+                    latch.await();
                 } else {
                     System.out.println("using single thread for hashing");
-                    return hashPasswordImpl(passwords, logRounds);
+                    hashPasswordImpl(passwords, logRounds, res, 0, passwords.size());
                 }
-
 
                 // we update the timer of the receivedBatch because we don't
                 // want the time it took to process the batch as a part of the
                 // timeout
                 BatchTracker.receivedBatch();
-                System.out.println("sizes: " + passwords.size() + " " + res.size());
-                return res;
+                List<String> ret = Arrays.asList(res);
+                System.out.println("sizes: " + passwords.size() + " " + ret.size());
+                return ret;
             } catch (Exception e) {
                 throw new IllegalArgument(e.getMessage());
             }
@@ -100,7 +97,8 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             // therefore, have the FENode do the work
             System.out.println("All BENodes are dead");
             try {
-                return hashPasswordImpl(passwords, logRounds);
+                hashPasswordImpl(passwords, logRounds, res, 0, passwords.size());
+                return Arrays.asList(res);
             } catch (Exception ex) {
                 throw new IllegalArgument(ex.getMessage());
             }
@@ -230,32 +228,34 @@ public class BcryptServiceHandler implements BcryptService.Iface {
       }
     }
 
-    private List<String> hashPasswordImpl(List<String> passwords, short logRounds) throws Exception {
+    private void hashPasswordImpl(List<String> passwords, short logRounds, String[] res, int start, int end ) {
         System.out.println("Hashing Passwords of size: " + passwords.size());
-
-        List<String> ret = new ArrayList<>();
-        String hashedPassword;
-
-        for (String password : passwords) {
-            hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(logRounds));
-            ret.add(hashedPassword);
+        for (int i = start; i < end; i++) {
+            res[i] = BCrypt.hashpw(passwords.get(i), BCrypt.gensalt(logRounds));
         }
-
-        return ret;
     }
 
-    class MultiThreadHash implements Callable<List<String>> {
+    class MultiThreadHash implements Runnable {
         private List<String> _passwords;
-        short _logRounds;
+        private short _logRounds;
+        private String[] _res;
+        private int _start;
+        private int _end;
+        private CountDownLatch _latch;
 
-        public MultiThreadHash(List<String> passwords, short logRounds) {
-            _passwords = passwords;
+        public MultiThreadHash(List<String> passwords, short logRounds, String[] res, int start, int end, CountDownLatch latch) {
             _logRounds = logRounds;
+            _passwords = passwords;
+            _res = res;
+            _start = start;
+            _end = end;
+            _latch = latch;
         }
 
         @Override
-        public List<String> call() throws Exception{
-            return hashPasswordImpl(_passwords, _logRounds);
+        public void run() {
+            hashPasswordImpl(_passwords, _logRounds, _res, _start, _end);
+            _latch.countDown();
         }
     }
 
