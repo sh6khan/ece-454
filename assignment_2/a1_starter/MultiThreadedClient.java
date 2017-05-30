@@ -122,7 +122,7 @@ class BigClient implements Runnable {
                 List<String> passwords = genPasswordList();
                 Instant startTime = Instant.now();
 
-                List<String> hashes = client.hashPassword(passwords, (short) 5);
+                List<String> hashes = client.hashPassword(passwords, (short) 10);
 
                 System.out.println("size: " + passwords.size() + " took: " + Duration.between(Instant.now(), startTime).toMillis());
                 System.out.println("Check: " + client.checkPassword(passwords, hashes));
@@ -133,7 +133,7 @@ class BigClient implements Runnable {
             }
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
             } catch (Exception ex) {
                 // do nothing
             }
@@ -144,7 +144,7 @@ class BigClient implements Runnable {
     public static List<String> genPasswordList() {
         List<String> l = new ArrayList<String>(1024);
         String somebigpassword = "faldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurewqodfnmdsalkfjdsalkfjaslkfajflasdjfadslfkajdflkjfdalkadfjlkdfjfadsflkjafaldskfjalkdsjfalkfdjasfoeiurqoeueoirqueroqiewurvcvmvcmdoiZZ";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 100; i++) {
             l.add(somebigpassword + i);
         }
         return l;
