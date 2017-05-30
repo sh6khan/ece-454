@@ -66,6 +66,11 @@ public class FENodeChecker implements Runnable {
                     // do nothing
                     System.out.println("error while trying to re open connection");
                 }
+            } finally {
+                if(_transport.isOpen()){
+                    _transport.close();
+                }
+
             }
         }
 

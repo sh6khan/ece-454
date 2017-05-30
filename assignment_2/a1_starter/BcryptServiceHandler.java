@@ -70,8 +70,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 // BE Node
                 System.out.println("moving work over to the back end node: " + nodeInfo.nodeId);
                 try {
-                    transport.open();
-                    nodeInfo.markOccupied();
+                    if (!transport.isOpen()){
+                        transport.open();
+                    }
                     nodeInfo.addLoad(passwords.size(), logRounds);
                     List<String> BEResult = client.hashPassword(passwords, logRounds);
                     nodeInfo.reduceLoad(passwords.size(), logRounds);
@@ -79,6 +80,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
                     return BEResult;
                 } catch (Exception e) {
+//                    e.printStackTrace();
                     System.out.println(e.getMessage());
                     // if BENode threw an exception, then we simply remove it from NodeManager
                     NodeManager.removeNode(nodeInfo.nodeId);
@@ -87,7 +89,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
                     nodeInfo = NodeManager.getAvailableNodeInfo();
                 } finally {
-                    if (transport != null) {
+                    if (transport != null && transport.isOpen()) {
                         transport.close();
                     }
                 }
@@ -153,8 +155,9 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 // BE Node
                 System.out.println("moving work over to the back end node: " + nodeInfo.nodeId);
                 try {
-                    transport.open();
-                    nodeInfo.markOccupied();
+                    if (!transport.isOpen()){
+                        transport.open();
+                    }
                     nodeInfo.addLoad(passwords.size(), (short)0);
                     List<Boolean> BEResult = client.checkPassword(passwords, hashes);
                     nodeInfo.reduceLoad(passwords.size(), (short)0);
@@ -170,7 +173,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
 
                     nodeInfo = NodeManager.getAvailableNodeInfo();
                 } finally {
-                    if (transport != null) {
+                    if (transport != null && transport.isOpen()) {
                         transport.close();
                     }
                 }

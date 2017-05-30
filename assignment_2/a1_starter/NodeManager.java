@@ -15,7 +15,7 @@ public class NodeManager {
     private static ConcurrentHashMap<String, NodeInfo> nodeList = new ConcurrentHashMap<>();
 
 
-    public static NodeInfo getAvailableNodeInfo() {
+    public static synchronized NodeInfo getAvailableNodeInfo() {
         if (nodeList.size() == 0) {
             return null;
         }
@@ -23,6 +23,7 @@ public class NodeManager {
         // Try and see if a BENode is available
         for (NodeInfo node : nodeList.values()) {
             if (node.isNotOccupied()) {
+                node.markOccupied();
                 return node;
             }
         }
