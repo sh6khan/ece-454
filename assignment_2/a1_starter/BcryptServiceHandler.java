@@ -108,7 +108,7 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     public List<Boolean> checkPassword(List<String> passwords, List<String> hashes) throws IllegalArgument, org.apache.thrift.TException
     {
         TTransport transport = null;
-        List<Boolean> res = new ArrayList<>();
+        Boolean[] res = new Boolean[passwords.size()];
 
         // If BENode, then compute the hash right here
         if (_isBENode) {
@@ -123,25 +123,19 @@ public class BcryptServiceHandler implements BcryptService.Iface {
                 int size = passwords.size();
                 int numThreads = Math.min(size, 4);
                 int chunkSize = size / numThreads;
-
+                CountDownLatch latch = new CountDownLatch(numThreads);
                 if (size > 1) {
-                    List<Future<List<Boolean>>> futures = new ArrayList<>();
                     for (int i = 0; i < numThreads; i++) {
                         int startInd = i * chunkSize;
                         int endInd = i == numThreads - 1 ? size : (i + 1) * chunkSize;
-                        MultiThreadCheck  myCallable = new MultiThreadCheck(
-                                passwords.subList(startInd, endInd),
-                                hashes.subList(startInd, endInd));
-                        futures.add(service.submit(myCallable));
+                        service.execute(new MultiThreadCheck(passwords, hashes, res, startInd, endInd, latch));
                     }
-                    for (Future<List<Boolean>> f: futures) {
-                        res.addAll(f.get());
-                    }
+                    latch.await();
                 } else {
                     System.out.println("using single thread for checking");
-                    return checkPasswordImpl(passwords, hashes);
+                    checkPasswordImpl(passwords, hashes, res, 0, passwords.size());
                 }
-                return res;
+                return Arrays.asList(res);
             } catch (Exception e) {
                 throw new IllegalArgument(e.getMessage());
             }
@@ -186,26 +180,24 @@ public class BcryptServiceHandler implements BcryptService.Iface {
             // therefore, have the FENode do the work
             System.out.println("All BENodes are dead");
             try {
-                return checkPasswordImpl(passwords, hashes);
+                checkPasswordImpl(passwords, hashes, res, 0, passwords.size());
+                return Arrays.asList(res);
             } catch (Exception ex) {
                 throw new IllegalArgument(ex.getMessage());
             }
         }
     }
 
-    private List<Boolean> checkPasswordImpl(List<String> passwords, List<String> hashes) throws Exception {
-        System.out.println("Checking Passwords of size: " + passwords.size());
-
-        List<Boolean> ret = new ArrayList<>();
+    private void checkPasswordImpl(List<String> passwords, List<String> hashes, Boolean[] res, int start, int end) {
+        System.out.println("Checking Passwords of size: " + (end - start));
 
         String password;
         String hash;
-        for (int i = 0; i < passwords.size(); i++) {
+        for (int i = start; i < end; i++) {
             password = passwords.get(i);
             hash = hashes.get(i);
-            ret.add(BCrypt.checkpw(password, hash));
+            res[i] = (BCrypt.checkpw(password, hash));
         }
-        return ret;
     }
     
     public Map<String, String> heartBeat(String hostname, String port) throws IllegalArgument, org.apache.thrift.TException {
@@ -229,7 +221,8 @@ public class BcryptServiceHandler implements BcryptService.Iface {
     }
 
     private void hashPasswordImpl(List<String> passwords, short logRounds, String[] res, int start, int end ) {
-        System.out.println("Hashing Passwords of size: " + passwords.size());
+        System.out.println("Hashing Passwords of size: " + (end - start));
+
         for (int i = start; i < end; i++) {
             res[i] = BCrypt.hashpw(passwords.get(i), BCrypt.gensalt(logRounds));
         }
@@ -259,18 +252,28 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         }
     }
 
-    class MultiThreadCheck implements Callable<List<Boolean>> {
+    class MultiThreadCheck implements Runnable {
         private List<String> _passwords;
         private List<String> _hashes;
+        private Boolean[] _res;
+        int _start;
+        int _end;
+        CountDownLatch _latch;
 
-        public MultiThreadCheck(List<String> passwords, List<String> hashes) {
+
+        public MultiThreadCheck(List<String> passwords, List<String> hashes, Boolean[] res, int start, int end, CountDownLatch latch) {
             _passwords = passwords;
             _hashes = hashes;
+            _res = res;
+            _start = start;
+            _end = end;
+            _latch = latch;
         }
 
         @Override
-        public List<Boolean> call() throws Exception{
-            return checkPasswordImpl(_passwords, _hashes);
+        public void run() {
+            checkPasswordImpl(_passwords, _hashes, _res, _start, _end);
+            _latch.countDown();
         }
     }
 }
