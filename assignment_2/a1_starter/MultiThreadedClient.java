@@ -147,7 +147,7 @@ class BigClient implements Runnable {
                 transport.close();
             } catch (TException x) {
                 System.out.println(x.getMessage());
-            } 
+            }
 
             try {
                 Thread.sleep(1000);

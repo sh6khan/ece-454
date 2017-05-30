@@ -196,7 +196,12 @@ public class BcryptServiceHandler implements BcryptService.Iface {
         for (int i = start; i < end; i++) {
             password = passwords.get(i);
             hash = hashes.get(i);
-            res[i] = (BCrypt.checkpw(password, hash));
+            try{
+                res[i] = (BCrypt.checkpw(password, hash));
+            } catch (Exception e){
+                res[i] = false;
+            }
+
         }
     }
     
