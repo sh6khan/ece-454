@@ -33,7 +33,7 @@ public class FENode {
 		sargs.protocolFactory(new TBinaryProtocol.Factory());
 		sargs.transportFactory(new TFramedTransport.Factory());
 		sargs.processorFactory(new TProcessorFactory(processor));
-		sargs.maxWorkerThreads(5);
+		sargs.maxWorkerThreads(22);
 		THsHaServer server = new THsHaServer(sargs);
 		server.serve();
 	}

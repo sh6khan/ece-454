@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f08d3dd-0145-4277-b267-c604ee4730d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BigClient.class" afterPath="$PROJECT_DIR$/build/BigClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BcryptServiceHandler.java" afterPath="$PROJECT_DIR$/BcryptServiceHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MultiThreadedClient.java" afterPath="$PROJECT_DIR$/MultiThreadedClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/.idea/workspace.xml" afterPath="$PROJECT_DIR$/build/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FENode.java" afterPath="$PROJECT_DIR$/FENode.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,21 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FENode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="36" column="52" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
+            <state relative-caret-position="360">
+              <caret line="32" column="57" lean-forward="false" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BcryptServiceHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BcryptServiceHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
+            <state relative-caret-position="218">
+              <caret line="41" column="1" lean-forward="false" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,12 +134,12 @@
         <option value="$PROJECT_DIR$/lib/HeavyClient.java" />
         <option value="$PROJECT_DIR$/HeavyClient.java" />
         <option value="$PROJECT_DIR$/FENodeChecker.java" />
-        <option value="$PROJECT_DIR$/FENode.java" />
         <option value="$PROJECT_DIR$/NodeInfo.java" />
         <option value="$PROJECT_DIR$/NodeManager.java" />
         <option value="$PROJECT_DIR$/BENode.java" />
         <option value="$PROJECT_DIR$/MultiThreadedClient.java" />
         <option value="$PROJECT_DIR$/BcryptServiceHandler.java" />
+        <option value="$PROJECT_DIR$/FENode.java" />
       </list>
     </option>
   </component>
@@ -477,7 +472,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30795848" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.042124543" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15934066" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -881,14 +876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FENode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="52" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BENode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -909,11 +896,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BcryptServiceHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
+        <state relative-caret-position="218">
+          <caret line="41" column="1" lean-forward="false" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FENode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="32" column="57" lean-forward="false" selection-start-line="32" selection-start-column="57" selection-end-line="32" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

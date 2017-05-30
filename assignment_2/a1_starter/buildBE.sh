@@ -24,4 +24,7 @@ $JAVA_CC *.java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*"
 echo --- Done, now run your code.
  #java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*" FENode 10647
 java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*" BENode ecelinux1 ecelinux2 10647 10648
+java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*" BENode ecelinux1 ecelinux2 10647 10649
+java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*" BENode ecelinux1 ecelinux2 10647 10650
+
 # java -cp .:gen-java/:"lib/*":"jBCrypt-0.4/*" Client localhost 10123 hello
