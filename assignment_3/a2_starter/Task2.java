@@ -20,10 +20,7 @@ public class Task2 {
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       String[] movies = value.toString().split("\n");
-      System.out.println(value.toString());
 
-
-      StringBuilder sb = new StringBuilder();
       for (String movie : movies) {
         String[] tokens = movie.split(",");
 
