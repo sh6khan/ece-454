@@ -40,10 +40,14 @@ public class Task1 {
           if (rating > max_rating) {
             sb = new StringBuilder();
             sb.append(String.valueOf(i));
+            max_rating = rating;
+          } else if (rating == max_rating) {
+            sb.append(", " + String.valueOf(i));
           }
         }
 
         maxRatings.set(sb.toString());
+        context.write(movieTitle, maxRatings);
 
       }
 
