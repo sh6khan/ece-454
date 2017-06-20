@@ -43,7 +43,7 @@ public class Task1 {
             sb.append(String.valueOf(i));
             max_rating = rating;
           } else if (rating == max_rating) {
-            sb.append(", " + String.valueOf(i));
+            sb.append("," + String.valueOf(i));
           }
         }
 

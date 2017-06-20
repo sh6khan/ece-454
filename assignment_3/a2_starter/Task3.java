@@ -72,7 +72,7 @@ public class Task3 {
     job.setJarByClass(Task3.class);
     job.setMapperClass(Task3.RatingAvgMapper.class);
     job.setReducerClass(Task3.RatingSumReducer.class);
-    job.setNumReduceTasks(1);
+    //job.setNumReduceTasks(1);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(IntWritable.class);
     TextInputFormat.addInputPath(job, new Path(otherArgs[0]));
