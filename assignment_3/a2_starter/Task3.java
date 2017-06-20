@@ -16,7 +16,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 public class Task3 {
   public static class RatingAvgMapper extends Mapper<Object, Text, Text, IntWritable> {
     private Text word = new Text();
-    private final static IntWritable one = new IntWritable(1);
+    private final static IntWritable rating = new IntWritable();
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
       String[] movies = value.toString().split("\n");
@@ -31,7 +31,8 @@ public class Task3 {
 
           if (!token.equals("")) {
             word.set(String.valueOf(i));
-            context.write(word, one);
+            rating.set(Integer.valueOf(tokens[i]));
+            context.write(word, rating);
           }
         }
       }
@@ -47,6 +48,7 @@ public class Task3 {
 
       for (IntWritable val : values) {
         sum += val.get();
+        System.out.println(val.get());
         count += 1;
       }
 
@@ -67,7 +69,7 @@ public class Task3 {
 
 
     Job job = new Job(conf, "rating avg");
-    job.setJarByClass(Task2.class);
+    job.setJarByClass(Task3.class);
     job.setMapperClass(Task3.RatingAvgMapper.class);
     job.setReducerClass(Task3.RatingSumReducer.class);
     job.setNumReduceTasks(1);

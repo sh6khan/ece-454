@@ -21,6 +21,7 @@ public class Task1 {
 
       StringBuilder sb = new StringBuilder();
       for (String movie : movies) {
+        System.out.println(movie);
         String[] tokens = movie.split(",");
 
         movieTitle.set(tokens[0]);
