@@ -1,9 +1,11 @@
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.ArrayPrimitiveWritable;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -48,21 +50,44 @@ public class Task4 {
   }
 
 
-  public static class CartesionReducer extends Reducer<Text, ArrayPrimitiveWritable, Text, Text> {
+  public static class CartesionReducer extends Reducer<Text, ArrayPrimitiveWritable, Text, DoubleWritable> {
     private static HashMap<String, int[]> inMemory = new HashMap<>();
+    private static Text moviePair = new Text();
+    private static DoubleWritable ratingCosine = new DoubleWritable();
+
 
     public void reduce(Text key, ArrayPrimitiveWritable values, Context context) throws IOException, InterruptedException {
       String movieTitle = key.toString();
 
       int[] ratings = (int[]) values.get();
 
-//      for (Map.Entry<String, int[]> entry : inMemory.entrySet()) {
-//
-//      }
+      StringBuilder sb = new StringBuilder();
+      for (Map.Entry<String, int[]> entry : inMemory.entrySet()) {
+        sb.append(movieTitle).append(",").append(entry.getKey());
+        double res = calculate(ratings, entry.getValue());
 
+        moviePair.set(sb.toString());
+        ratingCosine.set(res);
+
+        context.write(moviePair, ratingCosine);
+      }
+      
       inMemory.put(movieTitle, ratings);
-      System.out.println("Map size: " + inMemory.size());
+    }
 
+    public double calculate(int[] a, int[] b) {
+
+      double mul = 0;
+      double aSum = 0;
+      double bSum = 0;
+
+      for (int i = 0; i < a.length; i++) {
+        mul += a[i] * b[i];
+        aSum += a[i] * a[i];
+        bSum += b[i] * b[i];
+      }
+
+      return (mul / (Math.sqrt(aSum) * Math.sqrt(bSum)));
     }
   }
 
