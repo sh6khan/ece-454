@@ -41,7 +41,7 @@ public class Task4 {
             val = Integer.valueOf(token);
           }
 
-          ratings[i] = val;
+          ratings[i - 1] = val;
         }
 
         context.write(movieTitle, new ArrayPrimitiveWritable(ratings));
@@ -56,14 +56,23 @@ public class Task4 {
     private static DoubleWritable ratingCosine = new DoubleWritable();
 
 
-    public void reduce(Text key, ArrayPrimitiveWritable values, Context context) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<ArrayPrimitiveWritable> values, Context context) throws IOException, InterruptedException {
       String movieTitle = key.toString();
+      System.out.println(movieTitle);
 
-      int[] ratings = (int[]) values.get();
+      int[] ratings = (int[]) values.iterator().next().get();
 
-      StringBuilder sb = new StringBuilder();
+      StringBuilder sb;
       for (Map.Entry<String, int[]> entry : inMemory.entrySet()) {
-        sb.append(movieTitle).append(",").append(entry.getKey());
+        sb = new StringBuilder();
+        System.out.println(entry.getKey());
+
+        if (movieTitle.compareTo(entry.getKey()) < 0) {
+          sb.append(movieTitle).append(",").append(entry.getKey());
+        } else {
+          sb.append(entry.getKey()).append(",").append(movieTitle);
+        }
+
         double res = calculate(ratings, entry.getValue());
 
         moviePair.set(sb.toString());
@@ -109,7 +118,7 @@ public class Task4 {
     job.setReducerClass(Task4.CartesionReducer.class);
     job.setNumReduceTasks(1);
     job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(Text.class);
+    job.setOutputValueClass(ArrayPrimitiveWritable.class);
     TextInputFormat.addInputPath(job, new Path(otherArgs[0]));
     TextOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
