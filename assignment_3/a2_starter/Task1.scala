@@ -1,6 +1,6 @@
 import org.apache.spark.{SparkContext, SparkConf}
 
-object MyFuncs {
+object Task1 {
   def solve(line: String): String = {
     val s = line.split(",")
     var max = -1
@@ -17,9 +17,7 @@ object MyFuncs {
     }
     ret
   }
-}
 
-object Task1 {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Task 1")
     val sc = new SparkContext(conf)
@@ -27,7 +25,7 @@ object Task1 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => MyFuncs.solve(line))
+    val output = textFile.map(line => solve(line))
     
     output.saveAsTextFile(args(1))
   }
