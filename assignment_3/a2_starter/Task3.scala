@@ -1,4 +1,5 @@
 import org.apache.spark.{SparkContext, SparkConf}
+import scala.collection.mutable.{ListBuffer} 
 
 object Task3 {
   def main(args: Array[String]) {
@@ -9,23 +10,25 @@ object Task3 {
 
     // modify this code
     val output = textFile.flatMap(line => {
-        var ratings = line.split(",", -1).drop(1);
+        var ratings = line.split(",", -1);
+        var keyReturn = ListBuffer.empty[(Int, Int)];
 
-        var keyReturn = new ListBuffer.empty[Tuple];
-
-        for (i <- 0 until ratings.length) {
+        for (i <- 1 until ratings.length) {
             if (ratings(i) != "") {
-                keyReturns += (i, ratings(i).toInt);
+                var tup = (i+1, ratings(i).toInt);
+                keyReturn += tup;
             }
         }
+
+	keyReturn
     }).map(tuple => {
         (tuple._1, (tuple._2, 1));
     }).reduceByKey((t1, t2) => {
-        (t1._1 + t2._1, t1._1 + t2._1);
-    }).map((tuple => {
+        (t1._1 + t2._1, t1._2 + t2._2);
+    }).map((tuple) => {
         var avg : Double = 0;
         avg = tuple._2._1.toDouble / tuple._2._2.toDouble;
-        f"$(tuple._1),$(avg)%1.2f"
+        f"${tuple._1},${avg}%1.2f"
     });
     
     output.saveAsTextFile(args(1))
