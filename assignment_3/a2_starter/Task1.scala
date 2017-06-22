@@ -6,7 +6,7 @@ object MyFuncs {
     var max = -1
     for (i <- 1 to s.length) {
       if (s(i).toInt > max) {
-        max = s(i).toInt()
+        max = s(i).toInt
       }
     }
     var ret = s(0)
@@ -27,7 +27,7 @@ object Task1 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => solve(line))
+    val output = textFile.map(line => MyFuncs.solve(line))
     
     output.saveAsTextFile(args(1))
   }
