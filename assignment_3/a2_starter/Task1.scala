@@ -3,16 +3,15 @@ import org.apache.spark.{SparkContext, SparkConf}
 object Task1 {
   def solve(line: String): String = {
     var s = line.split(",")
-    s = s.filter(_.nonEmpty)
     var max = -1
     for (i <- 1 to s.length - 1) {
-      if (s(i).toInt > max) {
+      if (s(i).nonEmpty && s(i).toInt > max) {
         max = s(i).toInt
       }
     }
     var ret = s(0)
     for (i <- 1 to s.length - 1) {
-      if (s(i).toInt == max){
+      if (s(i).nonEmpty && s(i).toInt == max){
         ret = ret + "," + i.toString
       }
     }
