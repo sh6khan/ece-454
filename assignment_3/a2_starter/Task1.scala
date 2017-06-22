@@ -9,7 +9,7 @@ object MyFuncs {
         max = s(i).toInt()
       }
     }
-    var ret = s[0]
+    var ret = s(0)
     for (i <- 1 to s.length) {
       if (s(i).toInt == max){
         ret = ret + "," + i.toString
