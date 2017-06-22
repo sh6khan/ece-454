@@ -1,8 +1,21 @@
 import org.apache.spark.{SparkContext, SparkConf}
 
 object MyFuncs {
-  def getMax(s: Array[String]): Unit = {
-    val out = 1
+  def solve(line: String): String = {
+    val s = line.split(",")
+    var max = -1
+    for (i <- 1 to s.length) {
+      if (s(i).toInt > max) {
+        max = s(i).toInt()
+      }
+    }
+    var ret = s[0]
+    for (i <- 1 to s.length) {
+      if (s(i).toInt == max){
+        ret = ret + "," + i.toString
+      }
+    }
+    ret
   }
 }
 
@@ -14,7 +27,7 @@ object Task1 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => line.split(""))
+    val output = textFile.map(line => solve(line))
     
     output.saveAsTextFile(args(1))
   }
