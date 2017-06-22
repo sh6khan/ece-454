@@ -39,8 +39,8 @@ public class Task3 {
     }
   }
 
-  public static class RatingSumReducer extends Reducer<Text, IntWritable, Text, FloatWritable> {
-    private final static FloatWritable avg = new FloatWritable();
+  public static class RatingSumReducer extends Reducer<Text, IntWritable, Text, Text> {
+    private final static Text avg = new Text();
 
     public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
       float sum = 0;
@@ -53,7 +53,7 @@ public class Task3 {
       }
 
       sum = sum / count;
-      avg.set(sum);
+      avg.set(String.format("%1.2f", sum));
       context.write(key, avg);
     }
   }

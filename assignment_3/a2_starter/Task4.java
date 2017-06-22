@@ -50,10 +50,10 @@ public class Task4 {
   }
 
 
-  public static class CartesionReducer extends Reducer<Text, ArrayPrimitiveWritable, Text, DoubleWritable> {
+  public static class CartesionReducer extends Reducer<Text, ArrayPrimitiveWritable, Text, Text> {
     private static HashMap<String, int[]> inMemory = new HashMap<>();
     private static Text moviePair = new Text();
-    private static DoubleWritable ratingCosine = new DoubleWritable();
+    private static Text ratingCosine = new Text();
 
 
     public void reduce(Text key, Iterable<ArrayPrimitiveWritable> values, Context context) throws IOException, InterruptedException {
@@ -76,7 +76,7 @@ public class Task4 {
         double res = calculate(ratings, entry.getValue());
 
         moviePair.set(sb.toString());
-        ratingCosine.set(res);
+        ratingCosine.set(String.format("%1.2f", res));
 
         context.write(moviePair, ratingCosine);
       }
