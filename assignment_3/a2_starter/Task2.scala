@@ -9,7 +9,7 @@ object Task2 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.flatMap(line => line.split(",").drop(0).filter(_.nonEmpty))
+    val output = textFile.flatMap(line => line.split(",").drop(1).filter(_.nonEmpty))
       .count
     sc.parallelize(Seq(output)).coalesce(1).saveAsTextFile(args(1))}
 }
