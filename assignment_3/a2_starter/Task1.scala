@@ -5,13 +5,13 @@ object Task1 {
     var s = line.split(",")
     s = s.filter(_.nonEmpty)
     var max = -1
-    for (i <- 1 to s.length) {
+    for (i <- 1 to s.length - 1) {
       if (s(i).toInt > max) {
         max = s(i).toInt
       }
     }
     var ret = s(0)
-    for (i <- 1 to s.length) {
+    for (i <- 1 to s.length - 1) {
       if (s(i).toInt == max){
         ret = ret + "," + i.toString
       }
