@@ -3,6 +3,7 @@
 export JAVA_HOME=/usr/java/jdk1.7.0_67-cloudera
 export SCALA_HOME=/usr
 export CDH_HOME=/opt/cloudera/parcels/CDH-5.11.0-1.cdh5.11.0.p0.34/
+export CLASSPATH=".:$CDH_HOME/jars/*"
 
 echo --- Deleting
 rm Task2.jar
