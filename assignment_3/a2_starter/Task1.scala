@@ -14,7 +14,7 @@ object Task1 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => line.split(","))
+    val output = textFile.map(line => line.split(""))
     
     output.saveAsTextFile(args(1))
   }
