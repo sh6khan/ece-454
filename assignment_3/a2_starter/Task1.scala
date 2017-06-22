@@ -14,7 +14,27 @@ object Task1 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => line.split(","))
+    val output = textFile.map(x => {
+                            var ratings = x.split(",");
+                            var max_rating = 0;
+                            var max_users = ListBuffer.empty[Int];
+                            var movieTitle = ratings[0];
+
+                            for(i <- 1 until ratings.length) {
+                                var rating = ratings[i];
+
+                                if (rating > max_rating) {
+                                    max_users.clear;
+                                    max_rating = rating;
+                                    max_users += i;
+                                } else if (rating == max_rating) {
+                                    max_users += i
+                                }
+                            }
+
+                            movieTitle + "," max_users;
+
+                         })
     
     output.saveAsTextFile(args(1))
   }
