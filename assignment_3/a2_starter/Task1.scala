@@ -2,7 +2,8 @@ import org.apache.spark.{SparkContext, SparkConf}
 
 object Task1 {
   def solve(line: String): String = {
-    val s = line.split(",").filterNot(_.isEmpty)
+    var s = line.split(",")
+    s = s.filter(_.nonEmpty)
     var max = -1
     for (i <- 1 to s.length) {
       if (s(i).toInt > max) {
