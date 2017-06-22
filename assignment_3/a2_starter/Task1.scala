@@ -1,4 +1,5 @@
 import org.apache.spark.{SparkContext, SparkConf}
+import scala.collection.mutable.{ListBuffer}
 
 object MyFuncs {
   def getMax(s: Array[String]): Unit = {
@@ -18,11 +19,12 @@ object Task1 {
                             var ratings = x.split(",");
                             var max_rating = 0;
                             var max_users = ListBuffer.empty[Int];
-                            var movieTitle = ratings[0];
+                            var movieTitle = ratings(0);
 
                             for(i <- 1 until ratings.length) {
-                                var rating = ratings[i];
-
+                                var stringInt = ratings(i);
+			        if (stringInt != "") {
+				var rating = stringInt.toInt;
                                 if (rating > max_rating) {
                                     max_users.clear;
                                     max_rating = rating;
@@ -30,9 +32,14 @@ object Task1 {
                                 } else if (rating == max_rating) {
                                     max_users += i
                                 }
+				}	
+
                             }
 
-                            movieTitle + "," max_users;
+			    println(movieTitle);
+
+                            movieTitle + "," + max_users.mkString(",");
+			    
 
                          })
     

@@ -8,8 +8,11 @@ object Task2 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(x => x);
+    val output = textFile.flatMap(line => line.split(",", -1).drop(1))
+                         .filter(x => x != "")
+                         .count
     
     output.saveAsTextFile(args(1))
+    sc.parrallelize(Seq(output)).coalesce(1).saveAsTextFile(args(1));
   }
 }
