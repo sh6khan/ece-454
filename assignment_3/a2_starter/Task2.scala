@@ -12,7 +12,6 @@ object Task2 {
                          .filter(x => x != "")
                          .count
     
-    output.saveAsTextFile(args(1))
-    sc.parrallelize(Seq(output)).coalesce(1).saveAsTextFile(args(1));
+    sc.parallelize(Seq(output)).coalesce(1).saveAsTextFile(args(1));
   }
 }
