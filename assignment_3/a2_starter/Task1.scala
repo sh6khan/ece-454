@@ -23,24 +23,18 @@ object Task1 {
 
                             for(i <- 1 until ratings.length) {
                                 var stringInt = ratings(i);
-			        if (stringInt != "") {
-				var rating = stringInt.toInt;
-                                if (rating > max_rating) {
-                                    max_users.clear;
-                                    max_rating = rating;
-                                    max_users += i;
-                                } else if (rating == max_rating) {
-                                    max_users += i
+			                    if (stringInt != "") {
+                                    var rating = stringInt.toInt;
+                                    if (rating > max_rating) {
+                                        max_users.clear;
+                                        max_rating = rating;
+                                        max_users += i;
+                                    } else if (rating == max_rating) {
+                                        max_users += i
+                                    }
                                 }
-				}	
-
                             }
-
-			    println(movieTitle);
-
                             movieTitle + "," + max_users.mkString(",");
-			    
-
                          })
     
     output.saveAsTextFile(args(1))
