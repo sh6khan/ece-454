@@ -1,18 +1,9 @@
 import org.apache.spark.{SparkContext, SparkConf}
 
 object Task4 {
-  def calc(mv1: String, mv2: String): String = {
-    if (mv1 == mv2 || mv1.compareTo(mv2) >= 0) {
-      return ""
-    } else {
-      var arr1 = mv1.split(",", -1)
-      var arr2 = mv2.split(",", -1)
-
-      var ret = arr1(0) + "," + arr2(0)
-
+  def calc(arr1: Array[String], arr2: Array[String]): String = {
       val arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
       val arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
-
 
       val mag1 = Math.sqrt(arr1i.map(x => Math.pow(x, 2)).sum)
       val mag2 = Math.sqrt(arr2i.map(y => Math.pow(y, 2)).sum)
@@ -22,8 +13,7 @@ object Task4 {
         dot = dot + arr1i(i) * arr2i(i)
       }
       val cosine = dot / (mag1 * mag2)
-      ret + "," + f"$cosine%1.2f"
-    }
+      arr1(0) + "," + arr2(0) + "," + f"$cosine%1.2f"
   }
 
   def main(args: Array[String]) {
@@ -33,7 +23,10 @@ object Task4 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.cartesian(textFile).map(pair => calc(pair._1, pair._2)).filter(_.nonEmpty)
+    val output = textFile.map(line => line.split(","))
+      .cartesian(textFile)
+      .filter(_._1(0).compareTo(_._2(0)) < 0)
+      .map(pair => calc(pair._1, pair._2))
 
     output.saveAsTextFile(args(1))
   }
