@@ -8,7 +8,7 @@ object Task4 {
       var arr1 = mv1.split(",")
       var arr2 = mv2.split(",")
 
-      var ret = mv1(0) + "," + mv2(0)
+      var ret = arr1(0) + "," + arr2(0)
 
       val arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
       val arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
