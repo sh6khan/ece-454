@@ -22,7 +22,7 @@ public class Task1 {
       StringBuilder sb = new StringBuilder();
       for (String movie : movies) {
         System.out.println(movie);
-        String[] tokens = movie.split(",");
+        String[] tokens = movie.split(",", -1);
 
         movieTitle.set(tokens[0]);
         int max_rating = 0;

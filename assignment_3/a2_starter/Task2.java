@@ -22,7 +22,7 @@ public class Task2 {
       String[] movies = value.toString().split("\n");
 
       for (String movie : movies) {
-        String[] tokens = movie.split(",");
+        String[] tokens = movie.split(",", -1);
 
         for (int i = 1; i < tokens.length; i++) {
           String token = tokens[i];

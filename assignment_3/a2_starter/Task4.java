@@ -26,7 +26,7 @@ public class Task4 {
 
       StringBuilder sb = new StringBuilder();
       for (String movie : movies) {
-        String[] tokens = movie.split(",");
+        String[] tokens = movie.split(",", -1);
         int[] ratings = new int[tokens.length - 1];
 
         movieTitle.set(tokens[0]);
