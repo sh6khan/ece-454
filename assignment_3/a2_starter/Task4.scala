@@ -27,8 +27,8 @@ object Task4 {
     val textFile = sc.textFile(args(0))
 
     // modify this code
-    val output = textFile.map(line => line.split(","))
-      .cartesian(textFile)
+    val lines = textFile.map(line => line.split(",", -1))
+    val output = lines.cartesian(lines)
       .map(pair => calc(pair._1, pair._2))
       .filter(_.nonEmpty)
 
