@@ -2,6 +2,9 @@ import org.apache.spark.{SparkContext, SparkConf}
 
 object Task4 {
   def calc(arr1: Array[String], arr2: Array[String]): String = {
+      if (arr1(0).compareTo(arr2(0)) >= 0) {
+        return ""
+      } else {
         val arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
         val arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
 
@@ -14,6 +17,7 @@ object Task4 {
         }
         val cosine = dot / (mag1 * mag2)
         arr1(0) + "," + arr2(0) + "," + f"$cosine%1.2f"
+      }
   }
 
   def main(args: Array[String]) {
@@ -25,9 +29,10 @@ object Task4 {
     // modify this code
     val lines = textFile.map(line => line.split(",", -1))
     val output = lines.cartesian(lines)
-      .filter(_._1(0) < _._2(0))
       .map(pair => calc(pair._1, pair._2))
+      .filter(_.nonEmpty)
 
     output.saveAsTextFile(args(1))
   }
 }
+ 
