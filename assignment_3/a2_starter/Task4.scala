@@ -10,8 +10,8 @@ object Task4 {
 
       var ret = mv1(0) + "," + mv2(0)
 
-      arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
-      arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
+      val arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
+      val arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
 
 
       val mag1 = Math.sqrt(arr1i.map(x => Math.pow(x, 2)).sum)
@@ -22,7 +22,7 @@ object Task4 {
         dot = dot + arr1i(i) * arr2i(i)
       }
       val cosine = dot / (mag1 * mag2)
-      ret = ret + "," + f"$cosine%1.2f"
+      ret + "," + f"$cosine%1.2f"
     }
   }
 
