@@ -5,8 +5,8 @@ object Task4 {
     if (mv1 == mv2 || mv1.compareTo(mv2) >= 0) {
       return ""
     } else {
-      var arr1 = mv1.split(",")
-      var arr2 = mv2.split(",")
+      var arr1 = mv1.split(",", -1)
+      var arr2 = mv2.split(",", -1)
 
       var ret = arr1(0) + "," + arr2(0)
 

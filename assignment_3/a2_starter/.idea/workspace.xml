@@ -99,21 +99,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Task4.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Task4.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Task4.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+            <state relative-caret-position="240">
+              <caret line="16" column="62" lean-forward="true" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="a2_task4_spark_cluster.sh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="a2_task4_spark_cluster.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/a2_task4_spark_cluster.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+            <state relative-caret-position="405">
+              <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -153,8 +153,8 @@
         <option value="$PROJECT_DIR$/a2_task3_spark_cluster.sh" />
         <option value="$PROJECT_DIR$/Task2.scala" />
         <option value="$PROJECT_DIR$/Task3.scala" />
-        <option value="$PROJECT_DIR$/Task4.scala" />
         <option value="$PROJECT_DIR$/a2_task4_spark_cluster.sh" />
+        <option value="$PROJECT_DIR$/Task4.scala" />
       </list>
     </option>
   </component>
@@ -939,18 +939,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Task4.scala">
+    <entry file="file://$PROJECT_DIR$/a2_task4_spark_cluster.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+        <state relative-caret-position="405">
+          <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a2_task4_spark_cluster.sh">
+    <entry file="file://$PROJECT_DIR$/Task4.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        <state relative-caret-position="240">
+          <caret line="16" column="62" lean-forward="true" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
           <folding />
         </state>
       </provider>
