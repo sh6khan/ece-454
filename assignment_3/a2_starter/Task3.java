@@ -19,23 +19,18 @@ public class Task3 {
     private final static IntWritable rating = new IntWritable();
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      String[] movies = value.toString().split("\n");
+      String[] tokens = value.toString().split(",", -1);
 
+      for (int i = 1; i < tokens.length; i++) {
+        String token = tokens[i];
 
-      StringBuilder sb = new StringBuilder();
-      for (String movie : movies) {
-        String[] tokens = movie.split(",", -1);
-
-        for (int i = 1; i < tokens.length; i++) {
-          String token = tokens[i];
-
-          if (!token.equals("")) {
-            word.set(String.valueOf(i));
-            rating.set(Integer.valueOf(tokens[i]));
-            context.write(word, rating);
-          }
+        if (!token.equals("")) {
+          word.set(String.valueOf(i));
+          rating.set(Integer.valueOf(tokens[i]));
+          context.write(word, rating);
         }
       }
+
     }
   }
 

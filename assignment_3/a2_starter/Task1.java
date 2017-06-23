@@ -16,41 +16,35 @@ public class Task1 {
     private Text maxRatings = new Text();
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      String[] movies = value.toString().split("\n");
-
-
       StringBuilder sb = new StringBuilder();
-      for (String movie : movies) {
-        System.out.println(movie);
-        String[] tokens = movie.split(",", -1);
 
-        movieTitle.set(tokens[0]);
-        int max_rating = 0;
+      String[] tokens = value.toString().split(",", -1);
 
-        for (int i = 1; i < tokens.length; i++) {
-          String token = tokens[i];
-          int rating;
+      movieTitle.set(tokens[0]);
+      int max_rating = 0;
 
-          if (token.equals("")) {
-            rating = 0;
-          } else {
-            rating = Integer.valueOf(tokens[i]);
-          }
+      for (int i = 1; i < tokens.length; i++) {
+        String token = tokens[i];
+        int rating;
 
-
-          if (rating > max_rating) {
-            sb = new StringBuilder();
-            sb.append(String.valueOf(i));
-            max_rating = rating;
-          } else if (rating == max_rating) {
-            sb.append("," + String.valueOf(i));
-          }
+        if (token.equals("")) {
+          rating = 0;
+        } else {
+          rating = Integer.valueOf(tokens[i]);
         }
 
-        maxRatings.set(sb.toString());
-        context.write(movieTitle, maxRatings);
 
+        if (rating > max_rating) {
+          sb = new StringBuilder();
+          sb.append(String.valueOf(i));
+          max_rating = rating;
+        } else if (rating == max_rating) {
+          sb.append("," + String.valueOf(i));
+        }
       }
+
+      maxRatings.set(sb.toString());
+      context.write(movieTitle, maxRatings);
 
     }
   }

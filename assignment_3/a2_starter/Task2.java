@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -15,22 +14,17 @@ import org.apache.hadoop.util.GenericOptionsParser;
 
 public class Task2 {
   public static class RatingCountMapper extends Mapper<Object, Text, Text, IntWritable> {
-    private Text word = new Text();
+    private Text person = new Text();
     private final static IntWritable one = new IntWritable(1);
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      String[] movies = value.toString().split("\n");
+      String[] tokens = value.toString().split(",", -1);
 
-      for (String movie : movies) {
-        String[] tokens = movie.split(",", -1);
-
-        for (int i = 1; i < tokens.length; i++) {
-          String token = tokens[i];
-
-          if (!token.equals("")) {
-            word.set("c");
-            context.write(word, one);
-          }
+      for (int i = 1; i < tokens.length; i++) {
+        String token = tokens[i];
+        if (!token.equals("")) {
+          person.set("c");
+          context.write(person, one);
         }
       }
     }

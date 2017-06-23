@@ -5,7 +5,6 @@ import java.util.Map;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.ArrayPrimitiveWritable;
-import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -21,32 +20,28 @@ public class Task4 {
     private final static IntWritable rating = new IntWritable();
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-      String[] movies = value.toString().split("\n");
 
+      String[] tokens = value.toString().split(",", -1);
+      int[] ratings = new int[tokens.length - 1];
 
-      StringBuilder sb = new StringBuilder();
-      for (String movie : movies) {
-        String[] tokens = movie.split(",", -1);
-        int[] ratings = new int[tokens.length - 1];
+      movieTitle.set(tokens[0]);
 
-        movieTitle.set(tokens[0]);
+      int val = 0;
+      for (int i = 1; i < tokens.length; i++) {
+        String token = tokens[i];
 
-        int val = 0;
-        for (int i = 1; i < tokens.length; i++) {
-          String token = tokens[i];
-
-          if (token.equals("")) {
-            val = 0;
-          } else {
-            val = Integer.valueOf(token);
-          }
-
-          ratings[i - 1] = val;
+        if (token.equals("")) {
+          val = 0;
+        } else {
+          val = Integer.valueOf(token);
         }
 
-        context.write(movieTitle, new ArrayPrimitiveWritable(ratings));
+        ratings[i - 1] = val;
       }
+
+      context.write(movieTitle, new ArrayPrimitiveWritable(ratings));
     }
+
   }
 
 
@@ -110,7 +105,6 @@ public class Task4 {
       System.err.println("Usage: rating avg <in> <out>");
       System.exit(2);
     }
-
 
     Job job = new Job(conf, "cartesion product calc");
     job.setJarByClass(Task4.class);
