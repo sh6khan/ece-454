@@ -5,14 +5,18 @@ object Task4 {
         val arr1i = arr1.drop(1).map(a => if (a.nonEmpty) a.toInt else 0)
         val arr2i = arr2.drop(1).map(b => if (b.nonEmpty) b.toInt else 0)
 
-        val mag1 = Math.sqrt(arr1i.map(x => Math.pow(x, 2)).sum)
-        val mag2 = Math.sqrt(arr2i.map(y => Math.pow(y, 2)).sum)
+//        var mag1 = Math.sqrt(arr1i.map(x => Math.pow(x, 2)).sum)
+//        var mag2 = Math.sqrt(arr2i.map(y => Math.pow(y, 2)).sum)
+        var mag1 = 0
+        var mag2 = 0
 
         var dot = 0
         for (i <- 0 to arr1i.length -1){
           dot = dot + arr1i(i) * arr2i(i)
+          mag1 += arr1i(i) * arr1i(i)
+          mag2 += arr2i(i) * arr2i(i)
         }
-        val cosine = dot / (mag1 * mag2)
+        val cosine = dot / (Math.sqrt(mag1) * Math.sqrt(mag2))
         arr1(0) + "," + arr2(0) + "," + f"$cosine%1.2f"
   }
 
