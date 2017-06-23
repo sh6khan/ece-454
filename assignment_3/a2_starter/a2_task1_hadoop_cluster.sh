@@ -18,7 +18,7 @@ echo --- Jarring
 $JAVA_HOME/bin/jar -cf Task1.jar Task1*.class
 
 echo --- Running
-INPUT=/tmp/in3.txt
+INPUT=/tmp/sample_input
 OUTPUT=/user/${USER}/a1_starter_code_output/
 
 hdfs dfs -rm -R $OUTPUT
