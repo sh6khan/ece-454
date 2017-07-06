@@ -73,7 +73,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void fetchDataDump() {
-        myMap = _siblingClient.getDataDump();
+        //myMap = _siblingClient.getDataDump();
     }
 
     public Map<String, String> getDataDump() throws org.apache.thrift.TException {
