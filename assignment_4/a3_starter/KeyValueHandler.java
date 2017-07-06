@@ -21,24 +21,23 @@ public class KeyValueHandler implements KeyValueService.Iface {
     private int port;
 
     public KeyValueHandler(String host, int port, CuratorFramework curClient, String zkNode) {
-	this.host = host;
-	this.port = port;
-	this.curClient = curClient;
-	this.zkNode = zkNode;
-	myMap = new ConcurrentHashMap<String, String>();	
+        this.host = host;
+        this.port = port;
+        this.curClient = curClient;
+        this.zkNode = zkNode;
+        myMap = new ConcurrentHashMap<String, String>();
     }
 
-    public String get(String key) throws org.apache.thrift.TException
-    {	
-	String ret = myMap.get(key);
-	if (ret == null)
-	    return "";
-	else
-	    return ret;
+    public String get(String key) throws org.apache.thrift.TException {
+        String ret = myMap.get(key);
+
+        if (ret == null)
+            return "";
+        else
+            return ret;
     }
 
-    public void put(String key, String value) throws org.apache.thrift.TException
-    {
-	myMap.put(key, value);
+    public void put(String key, String value) throws org.apache.thrift.TException {
+	    myMap.put(key, value);
     }
 }

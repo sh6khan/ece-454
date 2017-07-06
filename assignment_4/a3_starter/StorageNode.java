@@ -19,46 +19,47 @@ public class StorageNode {
     static Logger log;
 
     public static void main(String [] args) throws Exception {
-	BasicConfigurator.configure();
-	log = Logger.getLogger(StorageNode.class.getName());
+		BasicConfigurator.configure();
 
-	if (args.length != 4) {
-	    System.err.println("Usage: java StorageNode host port zkconnectstring zknode");
-	    System.exit(-1);
-	}
+		log = Logger.getLogger(StorageNode.class.getName());
 
-	CuratorFramework curClient =
-	    CuratorFrameworkFactory.builder()
-	    .connectString(args[2])
-	    .retryPolicy(new RetryNTimes(10, 1000))
-	    .connectionTimeoutMs(1000)
-	    .sessionTimeoutMs(10000)
-	    .build();
-
-	curClient.start();
-	Runtime.getRuntime().addShutdownHook(new Thread() {
-		public void run() {
-		    curClient.close();
+		if (args.length != 4) {
+			System.err.println("Usage: java StorageNode host port zkconnectstring zknode");
+			System.exit(-1);
 		}
-	    });
 
-	KeyValueService.Processor<KeyValueService.Iface> processor = new KeyValueService.Processor<>(new KeyValueHandler(args[0], Integer.parseInt(args[1]), curClient, args[3]));
-	TServerSocket socket = new TServerSocket(Integer.parseInt(args[1]));
-	TThreadPoolServer.Args sargs = new TThreadPoolServer.Args(socket);
-	sargs.protocolFactory(new TBinaryProtocol.Factory());
-	sargs.transportFactory(new TFramedTransport.Factory());
-	sargs.processorFactory(new TProcessorFactory(processor));
-	sargs.maxWorkerThreads(64);
-	TServer server = new TThreadPoolServer(sargs);
-	log.info("Launching server");
+		CuratorFramework curClient =
+			CuratorFrameworkFactory.builder()
+			.connectString(args[2])
+			.retryPolicy(new RetryNTimes(10, 1000))
+			.connectionTimeoutMs(1000)
+			.sessionTimeoutMs(10000)
+			.build();
 
-	new Thread(new Runnable() {
-		public void run() {
-		    server.serve();
-		}
-	    }).start();
+		curClient.start();
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				curClient.close();
+			}
+		});
 
-	// TODO: create an ephemeral node in ZooKeeper
-	// curClient.create(...)
+		KeyValueService.Processor<KeyValueService.Iface> processor = new KeyValueService.Processor<>(new KeyValueHandler(args[0], Integer.parseInt(args[1]), curClient, args[3]));
+		TServerSocket socket = new TServerSocket(Integer.parseInt(args[1]));
+		TThreadPoolServer.Args sargs = new TThreadPoolServer.Args(socket);
+		sargs.protocolFactory(new TBinaryProtocol.Factory());
+		sargs.transportFactory(new TFramedTransport.Factory());
+		sargs.processorFactory(new TProcessorFactory(processor));
+		sargs.maxWorkerThreads(64);
+		TServer server = new TThreadPoolServer(sargs);
+		log.info("Launching server");
+
+		new Thread(new Runnable() {
+			public void run() {
+				server.serve();
+			}
+		}).start();
+
+		// TODO: create an ephemeral node in ZooKeeper
+		// curClient.create(...)
     }
 }
