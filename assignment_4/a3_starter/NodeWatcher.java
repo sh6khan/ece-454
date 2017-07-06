@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.curator.framework.CuratorFramework;
@@ -15,10 +17,10 @@ public class NodeWatcher implements CuratorWatcher {
     private KeyValueHandler _kvHandler;
     private CuratorFramework _curClient;
     private KeyValueService.Client _siblingClient;
-    private String _connectionString;
 
-    public NodeWatcher(CuratorFramework curClient) {
+    public NodeWatcher(CuratorFramework curClient, KeyValueHandler handler) {
         _curClient = curClient;
+        _kvHandler = handler;
     }
 
     /**
@@ -49,15 +51,6 @@ public class NodeWatcher implements CuratorWatcher {
         System.out.println(_kvHandler.getRole());
     }
 
-
-    private String getSiblingNode(String myName, List<String> children) {
-        for (String child: children){
-            if (!child.equals(myName)) {
-                return child;
-            }
-        }
-        throw new RuntimeException();
-    }
     /**
      * Callback function on the watcher
      *
@@ -68,22 +61,9 @@ public class NodeWatcher implements CuratorWatcher {
 
         try {
             List<String> children = _curClient.getChildren().usingWatcher(this).forPath("/gla");
+            Collections.sort(children);
             System.out.println("num children: " + children.size());
             classifyNode(children.size());
-            if (_kvHandler.getRole() == KeyValueHandler.ROLE.BACKUP) {
-                _kvHandler.fetchDataDump();
-            }
-
-            if (children.size() > 1) {
-                _kvHandler.setAlone(false);
-                String siblingName = getSiblingNode(_connectionString, children);
-                String siblingHost = siblingName.split(":")[0];
-                String siblingPort = siblingName.split(":")[1];
-                connectToSibling(siblingHost, siblingPort);
-            } else {
-                _kvHandler.setAlone(true);
-            }
-
 
         } catch (Exception e) {
             System.out.println("Unable to determine primary " + e);
@@ -91,24 +71,6 @@ public class NodeWatcher implements CuratorWatcher {
 
     }
 
-    private void connectToSibling(String host, String port) {
-        try {
-            TSocket sock = new TSocket(host, Integer.valueOf(port));
-            TTransport transport = new TFramedTransport(sock);
-            transport.open();
-            TProtocol protocol = new TBinaryProtocol(transport);
-            _siblingClient = new KeyValueService.Client(protocol);
-        } catch (Exception e) {
-            System.out.println("Unable to connect to primary");
-            e.printStackTrace();
-        }
-	    try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Unable to sleep");
 
-        }
-
-    }
 
 }

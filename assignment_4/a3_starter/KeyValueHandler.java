@@ -20,7 +20,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     private String zkNode;
     private String host;
     private int port;
-    private ROLE _role;
+    private ROLE _role = ROLE.UNDEFINED;
     private boolean _alone = true;
 
 
@@ -40,6 +40,10 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void setAlone(boolean alone) {
         _alone = alone;
+    }
+
+    public String getZkNode() {
+        return zkNode;
     }
 
     public void setSiblingClient(KeyValueService.Client newClient) {
@@ -72,8 +76,9 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
-    public void fetchDataDump() {
-        //myMap = _siblingClient.getDataDump();
+    public void fetchDataDump() throws org.apache.thrift.TException {
+        System.out.println("copying data from sibling");
+        myMap = _siblingClient.getDataDump();
     }
 
     public Map<String, String> getDataDump() throws org.apache.thrift.TException {

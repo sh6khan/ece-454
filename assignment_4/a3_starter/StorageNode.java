@@ -64,13 +64,64 @@ public class StorageNode {
 
 		// create an ephemeral node in ZooKeeper
         String fullConnectionString = args[0] + ":" + String.valueOf(args[1]);
-        curClient.create().withMode(CreateMode.EPHEMERAL).forPath("/gla/" + fullConnectionString, fullConnectionString.getBytes());
+        //TODO use args instead of hardcode
+        curClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath("/gla/", fullConnectionString.getBytes());
 
         // set up watcher on the children
-        NodeWatcher nodeWatcher = new NodeWatcher(curClient);
+        NodeWatcher nodeWatcher = new NodeWatcher(curClient, kvHandler);
         List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath("/gla");
         nodeWatcher.classifyNode(children.size());
 
+        if (children.size() > 1) {
+            System.out.println("size greater than 1 and role: " + kvHandler.getRole());
+            kvHandler.setAlone(false);
+            String siblingName = getSiblingNode(children, kvHandler);
+            //TODO get sibling connection string
+            byte[] data = curClient.getData().forPath(kvHandler.getZkNode() + "/" + siblingName);
+            String strData = new String(data);
+            String[] primary = strData.split(":");
 
+            KeyValueService.Client siblingClient = connectToSibling(primary[0], Integer.valueOf(primary[1]));
+            kvHandler.setSiblingClient(siblingClient);
+
+            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
+                kvHandler.fetchDataDump();
+            }
+        } else {
+            kvHandler.setAlone(true);
+        }
+
+
+        System.out.println("seen at storagenode: " + children.size());
+        System.out.println(children.get(children.size()-1));
+        nodeWatcher.classifyNode(children.size());
+
+
+    }
+
+    static private String getSiblingNode(List<String> children, KeyValueHandler kvHandler) {
+        if (kvHandler.getRole() == KeyValueHandler.ROLE.BACKUP) {
+            return children.get(0);
+        }
+        return children.get(1);
+    }
+
+    static private KeyValueService.Client connectToSibling(String host, Integer port) {
+        try {
+            TSocket sock = new TSocket(host, port);
+            TTransport transport = new TFramedTransport(sock);
+            transport.open();
+            TProtocol protocol = new TBinaryProtocol(transport);
+            return new KeyValueService.Client(protocol);
+        } catch (Exception e) {
+            System.out.println("Unable to connect to primary");
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            System.out.println("Unable to sleep");
+        }
+        return null;
     }
 }
