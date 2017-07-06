@@ -76,7 +76,6 @@ public class StorageNode {
             System.out.println("size greater than 1 and role: " + kvHandler.getRole());
             kvHandler.setAlone(false);
             String siblingName = getSiblingNode(children, kvHandler);
-            //TODO get sibling connection string
             byte[] data = curClient.getData().forPath(kvHandler.getZkNode() + "/" + siblingName);
             String strData = new String(data);
             String[] primary = strData.split(":");

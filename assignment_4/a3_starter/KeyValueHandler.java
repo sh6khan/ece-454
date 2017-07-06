@@ -48,6 +48,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void setSiblingClient(KeyValueService.Client newClient) {
         //TODO close previous client
+        System.out.println("SETTING SIBLING CLIENT");
         _siblingClient = newClient;
     }
 
@@ -69,11 +70,17 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-	    myMap.put(key, value);
+        System.out.println("put called " + key + " " + value);
+        myMap.put(key, value);
 
-	    if (_role == ROLE.PRIMARY && !_alone) {
-            _siblingClient.put(key, value);
+        System.out.println("role is " + _role + " alone is " + _alone);
+        if (_role.equals(ROLE.PRIMARY) && !_alone) {
+            forwardData(key, value);
         }
+    }
+
+    public synchronized void forwardData(String key, String value) throws org.apache.thrift.TException {
+        _siblingClient.put(key, value);
     }
 
     public void fetchDataDump() throws org.apache.thrift.TException {
