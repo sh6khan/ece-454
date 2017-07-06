@@ -27,7 +27,7 @@ public class CreateZNode {
 	    System.exit(-1);
 	}
 
-	CuratorFramework curClient =
+	final CuratorFramework curClient =
 	    CuratorFrameworkFactory.builder()
 	    .connectString(args[0])
 	    .retryPolicy(new RetryNTimes(10, 1000))
