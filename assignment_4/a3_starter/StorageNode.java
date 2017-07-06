@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
+import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.thrift.*;
 import org.apache.thrift.server.*;
 import org.apache.thrift.transport.*;
@@ -20,6 +22,7 @@ public class StorageNode {
 
     public static void main(String [] args) throws Exception {
 		BasicConfigurator.configure();
+
 
 		log = Logger.getLogger(StorageNode.class.getName());
 
@@ -59,7 +62,14 @@ public class StorageNode {
 			}
 		}).start();
 
-		// TODO: create an ephemeral node in ZooKeeper
-		// curClient.create(...)
+		// create an ephemeral node in ZooKeeper
+        String fullConnectionString = args[0] + String.valueOf(args[1]);
+        curClient.create().withMode(CreateMode.EPHEMERAL).forPath("/gla/" + fullConnectionString, fullConnectionString.getBytes());
+
+        // set up watcher on the children
+        NodeWatcher nodeWatcher = new NodeWatcher(curClient);
+        List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath("/gla");
+        nodeWatcher.classifyNode(children.size());
+
     }
 }
