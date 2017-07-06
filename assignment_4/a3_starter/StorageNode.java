@@ -63,7 +63,7 @@ public class StorageNode {
 		}).start();
 
 		// create an ephemeral node in ZooKeeper
-        String fullConnectionString = args[0] + String.valueOf(args[1]);
+        String fullConnectionString = args[0] + ":" + String.valueOf(args[1]);
         curClient.create().withMode(CreateMode.EPHEMERAL).forPath("/gla/" + fullConnectionString, fullConnectionString.getBytes());
 
         // set up watcher on the children
