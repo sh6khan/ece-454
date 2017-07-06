@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.net.InetSocketAddress;
 
-import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.thrift.*;
 import org.apache.thrift.server.*;
 import org.apache.thrift.transport.*;
@@ -70,17 +70,15 @@ public class StorageNode {
         // set up watcher on the children
         NodeWatcher nodeWatcher = new NodeWatcher(curClient, kvHandler);
         List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath("/gla");
+
+        // Classify Node as when as soon it comes up
         nodeWatcher.classifyNode(children.size());
 
         if (children.size() > 1) {
             System.out.println("size greater than 1 and role: " + kvHandler.getRole());
             kvHandler.setAlone(false);
-            String siblingName = getSiblingNode(children, kvHandler);
-            byte[] data = curClient.getData().forPath(kvHandler.getZkNode() + "/" + siblingName);
-            String strData = new String(data);
-            String[] primary = strData.split(":");
-
-            KeyValueService.Client siblingClient = connectToSibling(primary[0], Integer.valueOf(primary[1]));
+            InetSocketAddress address = ClientUtility.extractSiblingInfo(children, kvHandler.getZkNode(), kvHandler.getRole(), curClient);
+            KeyValueService.Client siblingClient = ClientUtility.generateRPCClient(address.getHostName(), address.getPort());
             kvHandler.setSiblingClient(siblingClient);
 
             if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
@@ -89,38 +87,5 @@ public class StorageNode {
         } else {
             kvHandler.setAlone(true);
         }
-
-
-        System.out.println("seen at storagenode: " + children.size());
-        System.out.println(children.get(children.size()-1));
-        nodeWatcher.classifyNode(children.size());
-
-
-    }
-
-    static private String getSiblingNode(List<String> children, KeyValueHandler kvHandler) {
-        if (kvHandler.getRole() == KeyValueHandler.ROLE.BACKUP) {
-            return children.get(0);
-        }
-        return children.get(1);
-    }
-
-    static private KeyValueService.Client connectToSibling(String host, Integer port) {
-        try {
-            TSocket sock = new TSocket(host, port);
-            TTransport transport = new TFramedTransport(sock);
-            transport.open();
-            TProtocol protocol = new TBinaryProtocol(transport);
-            return new KeyValueService.Client(protocol);
-        } catch (Exception e) {
-            System.out.println("Unable to connect to primary");
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Unable to sleep");
-        }
-        return null;
     }
 }

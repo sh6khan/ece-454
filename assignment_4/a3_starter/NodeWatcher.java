@@ -1,3 +1,4 @@
+import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -68,12 +69,10 @@ public class NodeWatcher implements CuratorWatcher {
             if (children.size() > 1) {
                 System.out.println("size greater than 1 and role: " + _kvHandler.getRole());
                 _kvHandler.setAlone(false);
-                String siblingName = getSiblingNode(children, _kvHandler);
-                byte[] data = _curClient.getData().forPath(_kvHandler.getZkNode() + "/" + siblingName);
-                String strData = new String(data);
-                String[] primary = strData.split(":");
-
-                KeyValueService.Client siblingClient = connectToSibling(primary[0], Integer.valueOf(primary[1]));
+                InetSocketAddress address =
+                        ClientUtility.extractSiblingInfo(children, _kvHandler.getZkNode(), _kvHandler.getRole(), _curClient);
+                KeyValueService.Client siblingClient =
+                        ClientUtility.generateRPCClient(address.getHostName(), address.getPort());
                 _kvHandler.setSiblingClient(siblingClient);
             } else {
                 _kvHandler.setAlone(true);
@@ -86,33 +85,4 @@ public class NodeWatcher implements CuratorWatcher {
         
 
     }
-
-    static private KeyValueService.Client connectToSibling(String host, Integer port) {
-        try {
-            TSocket sock = new TSocket(host, port);
-            TTransport transport = new TFramedTransport(sock);
-            transport.open();
-            TProtocol protocol = new TBinaryProtocol(transport);
-            return new KeyValueService.Client(protocol);
-        } catch (Exception e) {
-            System.out.println("Unable to connect to primary");
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Unable to sleep");
-        }
-        return null;
-    }
-
-    static private String getSiblingNode(List<String> children, KeyValueHandler kvHandler) {
-        if (kvHandler.getRole() == KeyValueHandler.ROLE.BACKUP) {
-            return children.get(0);
-        }
-        return children.get(1);
-    }
-
-
-
 }
