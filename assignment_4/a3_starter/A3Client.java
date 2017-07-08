@@ -129,7 +129,7 @@ public class A3Client implements CuratorWatcher {
 	    byte[] data = curClient.getData().forPath(zkNode + "/" + children.get(0));
 	    String strData = new String(data);
 	    String[] primary = strData.split(":");
-	    log.info("Found primary " + strData);
+	    log.info("Found primary " + strData + " at: " + children.get(0));
 	    return new InetSocketAddress(primary[0], Integer.parseInt(primary[1]));
 	}
     }

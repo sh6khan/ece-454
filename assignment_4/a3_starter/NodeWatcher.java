@@ -68,7 +68,6 @@ public class NodeWatcher implements CuratorWatcher {
 
             if (children.size() > 1) {
                 System.out.println("size greater than 1 and role: " + _kvHandler.getRole());
-                _kvHandler.setAlone(false);
                 InetSocketAddress address =
                         ClientUtility.extractSiblingInfo(children, _kvHandler.getZkNode(), _kvHandler.getRole(), _curClient);
                 KeyValueService.Client siblingClient =

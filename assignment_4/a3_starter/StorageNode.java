@@ -76,7 +76,6 @@ public class StorageNode {
 
         if (children.size() > 1) {
             System.out.println("size greater than 1 and role: " + kvHandler.getRole());
-            kvHandler.setAlone(false);
             InetSocketAddress address = ClientUtility.extractSiblingInfo(children, kvHandler.getZkNode(), kvHandler.getRole(), curClient);
             KeyValueService.Client siblingClient = ClientUtility.generateRPCClient(address.getHostName(), address.getPort());
             kvHandler.setSiblingClient(siblingClient);

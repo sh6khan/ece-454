@@ -49,6 +49,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     public void setSiblingClient(KeyValueService.Client newClient) {
         //TODO close previous client
         _siblingClient = newClient;
+        setAlone(false);
     }
 
     public KeyValueHandler(String host, int port, CuratorFramework curClient, String zkNode) {
@@ -79,6 +80,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public synchronized void forwardData(String key, String value) throws org.apache.thrift.TException {
+        if (_siblingClient == null) {
+          throw new RuntimeException("sibling client cannot be null");
+        }
+
+
         try {
             _siblingClient.put(key, value);
         } catch (org.apache.thrift.TException ex) {
