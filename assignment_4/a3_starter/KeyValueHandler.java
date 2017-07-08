@@ -82,11 +82,20 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void fetchDataDump() throws org.apache.thrift.TException {
-        System.out.println("copying data from sibling");
+        System.out.println("copying data from primary");
+
+        if (!_role.equals(ROLE.BACKUP)) {
+            throw new RuntimeException(String.format("Should only be called by BACKUP, called by: ", _role));
+        }
+
         myMap = _siblingClient.getDataDump();
     }
 
     public Map<String, String> getDataDump() throws org.apache.thrift.TException {
+        if (!_role.equals(ROLE.PRIMARY)) {
+            throw new RuntimeException(String.format("Should only be implemented by PRIMARY, implemented by: ", _role));
+        }
+
         return myMap;
     }
 }
