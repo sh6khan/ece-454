@@ -10,4 +10,4 @@ export CLASSPATH=".:lib/*"
 
 echo --- Creating ZooKeeper node
 ./build.sh
-$JAVA_HOME/bin/java CreateZNode $ZKSTRING /$USER
+java CreateZNode $ZKSTRING /sh6khan

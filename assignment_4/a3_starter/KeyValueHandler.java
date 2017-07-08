@@ -61,6 +61,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public String get(String key) throws org.apache.thrift.TException {
         String ret = myMap.get(key);
+        //return "1";
 
         if (ret == null)
             return "";
@@ -93,7 +94,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public Map<String, String> getDataDump() throws org.apache.thrift.TException {
         if (!_role.equals(ROLE.PRIMARY)) {
-            throw new RuntimeException(String.format("Should only be implemented by PRIMARY, implemented by: ", _role));
+            throw new RuntimeException(String.format("Should only be implemented by PRIMARY, implemented by: %s", _role));
         }
 
         return myMap;
