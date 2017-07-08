@@ -7,7 +7,7 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 JAVA_CC=$JAVA_HOME/bin/javac
 export CLASSPATH=".:gen-java:lib/*"
 
-#KV_PORT=`shuf -i 10000-10999 -n 1`
-#echo Port number: $KV_PORT
+KV_PORT=`shuf -i 10000-10999 -n 1`
+echo Port number: $KV_PORT
 
-java StorageNode `hostname` $1 $ZKSTRING /gla
+$JAVA_HOME/bin/java StorageNode `hostname` $KV_PORT $ZKSTRING /gla

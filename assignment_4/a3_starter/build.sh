@@ -6,7 +6,7 @@
 
 unset JAVA_TOOL_OPTIONS
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
-JAVA_CC=javac
+JAVA_CC=$JAVA_HOME/bin/javac
 #THRIFT_CC=/opt/bin/thrift
 
 export CLASSPATH=".:gen-java/:lib/*"

@@ -10,10 +10,10 @@ export CLASSPATH=".:gen-java:lib/*"
 
 echo --- Runing client
 # args: 4 threads, 5 seconds, keys drawn from a set of 1000
-java A3Client $ZKSTRING /gla 4 10 1000
+$JAVA_HOME/bin/java A3Client $ZKSTRING /gla 4 10 1000
 
 echo --- Analyzing linearizability
-java ca.uwaterloo.watca.LinearizabilityTest execution.log scores.txt
+$JAVA_HOME/bin/java ca.uwaterloo.watca.LinearizabilityTest execution.log scores.txt
 echo Number of get operations returning junk: `cat scores.txt | grep 'Score = 2' | wc -l`
 echo Number of other linearizability violations: `cat scores.txt | grep 'Score = 1' | wc -l`
 
