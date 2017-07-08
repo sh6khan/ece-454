@@ -1,5 +1,6 @@
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Collections;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -86,6 +87,9 @@ public class ClientUtility {
             String msg = String.format("Wrong number of child nodes, expected 2 got :%d", children.size());
             throw new RuntimeException(msg);
         }
+
+        // re-sort to make sure everything is working
+        Collections.sort(children);
 
         // if current node is BACKUP we want to connect to
         // PRIMARY which is the first element of the sorted list
