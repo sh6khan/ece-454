@@ -65,11 +65,11 @@ public class StorageNode {
 		// create an ephemeral node in ZooKeeper
         String fullConnectionString = args[0] + ":" + String.valueOf(args[1]);
         //TODO use args instead of hardcode
-        curClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath("/gla/", fullConnectionString.getBytes());
+        curClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(args[3], fullConnectionString.getBytes());
 
         // set up watcher on the children
         NodeWatcher nodeWatcher = new NodeWatcher(curClient, kvHandler);
-        List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath("/gla");
+        List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath(args[3]);
 
         // Classify Node as when as soon it comes up
         nodeWatcher.classifyNode(children.size());

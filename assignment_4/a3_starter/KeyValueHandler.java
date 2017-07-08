@@ -70,7 +70,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-        System.out.println("put called " + key + " " + value);
+        // System.out.println("put called " + key + " " + value);
         myMap.put(key, value);
 
         if (_role.equals(ROLE.PRIMARY) && !_alone) {
@@ -79,7 +79,12 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public synchronized void forwardData(String key, String value) throws org.apache.thrift.TException {
-        _siblingClient.put(key, value);
+        try {
+            _siblingClient.put(key, value);
+        } catch (org.apache.thrift.TException ex) {
+            // do nothing
+        }
+
     }
 
     public void fetchDataDump() throws org.apache.thrift.TException {
