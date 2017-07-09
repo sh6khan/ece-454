@@ -16,7 +16,7 @@ import org.apache.thrift.transport.TTransport;
 public class ClientUtility {
 
     public static final int BACKUP_POOL_NUM = 1;
-    public static final int PRIMARY_POOL_NUM = 4;
+    public static final int PRIMARY_POOL_NUM = 16;
 
     /**
      * A queue holding all this good shit
@@ -49,7 +49,7 @@ public class ClientUtility {
      * Grab then next available client from the queue
      * @return
      */
-    static public synchronized KeyValueService.Client getAvailable() throws InterruptedException {
+    static public KeyValueService.Client getAvailable() throws InterruptedException {
         return clientObjectPool.poll(50L, TimeUnit.SECONDS);
     }
 

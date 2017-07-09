@@ -98,7 +98,12 @@ public class KeyValueHandler implements KeyValueService.Iface {
         KeyValueService.Client _siblingClient = null;
         try {
             _siblingClient = ClientUtility.getAvailable();
-            myMap = _siblingClient.getDataDump();
+            Map<String, String> tempMap = _siblingClient.getDataDump();
+            for (String key : tempMap.keySet()) {
+                if (!myMap.containsKey(key)) {
+                    myMap.put(key, tempMap.get(key));
+                }
+            }
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
         } finally {
