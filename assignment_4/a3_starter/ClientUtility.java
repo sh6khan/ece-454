@@ -1,6 +1,9 @@
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
+
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -11,6 +14,48 @@ import org.apache.thrift.transport.TTransport;
 
 
 public class ClientUtility {
+    /**
+     * A queue holding all this good shit
+     */
+    private static LinkedBlockingQueue<KeyValueService.Client> clientObjectPool;
+
+    static public void populateClientObjectPool(String host, Integer port, int cap) {
+        clientObjectPool = new  LinkedBlockingQueue<KeyValueService.Client>(cap);
+
+        while (cap > 0) {
+            KeyValueService.Client client = generateRPCClient(host, port);
+            try {
+                clientObjectPool.put(client);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            cap -= 1;
+        }
+
+        // TODO: extract sleeping to outside the method call
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            System.out.println("Unable to sleep");
+//        }
+    }
+
+    /**
+     * Grab then next available client from the queue
+     * @return
+     */
+    static public synchronized KeyValueService.Client getAvailable() throws InterruptedException {
+        return clientObjectPool.poll(50L, TimeUnit.SECONDS);
+    }
+
+    static public void makeAvailable(KeyValueService.Client client) {
+        try {
+            clientObjectPool.put(client);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * Generate Thrift RPC client to connect to a service
@@ -24,7 +69,7 @@ public class ClientUtility {
      * @param port
      * @return An Opened transport client or null if failed
      */
-    static public KeyValueService.Client generateRPCClient(String host, Integer port) {
+    static private KeyValueService.Client generateRPCClient(String host, Integer port) {
         try {
             TSocket sock = new TSocket(host, port);
             TTransport transport = new TFramedTransport(sock);
@@ -36,12 +81,6 @@ public class ClientUtility {
             e.printStackTrace();
         }
 
-        // TODO: extract sleeping to outside the method call
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Unable to sleep");
-        }
         return null;
     }
 

@@ -16,7 +16,6 @@ import org.apache.curator.framework.*;
 public class KeyValueHandler implements KeyValueService.Iface {
     private Map<String, String> myMap;
     private CuratorFramework curClient;
-    private KeyValueService.Client _siblingClient;
     private String zkNode;
     private String host;
     private int port;
@@ -46,12 +45,6 @@ public class KeyValueHandler implements KeyValueService.Iface {
         return zkNode;
     }
 
-    public void setSiblingClient(KeyValueService.Client newClient) {
-        //TODO close previous client
-        _siblingClient = newClient;
-        setAlone(false);
-    }
-
     public KeyValueHandler(String host, int port, CuratorFramework curClient, String zkNode) {
         this.host = host;
         this.port = port;
@@ -79,16 +72,17 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
-    public synchronized void forwardData(String key, String value) throws org.apache.thrift.TException {
-        if (_siblingClient == null) {
-          throw new RuntimeException("sibling client cannot be null");
-        }
-
-
+    public void forwardData(String key, String value) throws org.apache.thrift.TException {
+        KeyValueService.Client _siblingClient = null;
         try {
+             _siblingClient = ClientUtility.getAvailable();
             _siblingClient.put(key, value);
-        } catch (org.apache.thrift.TException ex) {
-            // do nothing
+        } catch (org.apache.thrift.TException | InterruptedException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (_siblingClient != null) {
+                ClientUtility.makeAvailable(_siblingClient);
+            }
         }
 
     }
@@ -100,7 +94,18 @@ public class KeyValueHandler implements KeyValueService.Iface {
             throw new RuntimeException(String.format("Should only be called by BACKUP, called by: ", _role));
         }
 
-        myMap = _siblingClient.getDataDump();
+
+        KeyValueService.Client _siblingClient = null;
+        try {
+            _siblingClient = ClientUtility.getAvailable();
+            myMap = _siblingClient.getDataDump();
+        } catch (org.apache.thrift.TException | InterruptedException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (_siblingClient != null) {
+                ClientUtility.makeAvailable(_siblingClient);
+            }
+        }
     }
 
     public Map<String, String> getDataDump() throws org.apache.thrift.TException {
