@@ -71,6 +71,7 @@ public class NodeWatcher implements CuratorWatcher {
                 InetSocketAddress address = ClientUtility.extractSiblingInfo(children, _kvHandler.getZkNode(), _kvHandler.getRole(), _curClient);
                 int cap = _kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? 4 : 1;
                 ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
+                _kvHandler.setAlone(false);
             } else {
                 _kvHandler.setAlone(true);
             }

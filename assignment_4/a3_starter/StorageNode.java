@@ -77,8 +77,9 @@ public class StorageNode {
         if (children.size() > 1) {
             System.out.println("size greater than 1 and role: " + kvHandler.getRole());
             InetSocketAddress address = ClientUtility.extractSiblingInfo(children, kvHandler.getZkNode(), kvHandler.getRole(), curClient);
-            int cap = kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? 4 : 1;
+            int cap = kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? ClientUtility.BACKUP_POOL_NUM : ClientUtility.PRIMARY_POOL_NUM;
             ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
+            kvHandler.setAlone(false);
 
             if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
                 kvHandler.fetchDataDump();
