@@ -17,6 +17,8 @@ public class ClientUtility {
 
     public static final int BACKUP_POOL_NUM = 1;
     public static final int PRIMARY_POOL_NUM = 16;
+    private String _host;
+    private Integer _port;
 
     /**
      * A queue holding all this good shit
@@ -26,6 +28,14 @@ public class ClientUtility {
     static public void populateClientObjectPool(String host, Integer port, int cap) {
         clientObjectPool = new  LinkedBlockingQueue<KeyValueService.Client>(cap);
 
+//        for (int i = 0; i < cap; i++) {
+//            KeyValueService.Client client = generateRPCClient(host, port);
+//            try {
+//                clientObjectPool.put(client);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
         while (cap > 0) {
             KeyValueService.Client client = generateRPCClient(host, port);
             try {
@@ -50,6 +60,10 @@ public class ClientUtility {
      * @return
      */
     static public KeyValueService.Client getAvailable() throws InterruptedException {
+//        KeyValueService.Client client = clientObjectPool.poll();
+//        if (client != null) {
+//            return client;
+//        }
         return clientObjectPool.poll(50L, TimeUnit.SECONDS);
     }
 
@@ -59,6 +73,10 @@ public class ClientUtility {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+    }
+
+    static public int numAvailable() {
+        return clientObjectPool.size();
     }
 
     /**
