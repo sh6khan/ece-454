@@ -55,7 +55,6 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public String get(String key) throws org.apache.thrift.TException {
         String ret = myMap.get(key);
-        //return "1";
 
         if (ret == null)
             return "";
@@ -73,15 +72,16 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void forwardData(String key, String value) throws org.apache.thrift.TException {
-        KeyValueService.Client _siblingClient = null;
+        ThriftClient tClient = null;
+
         try {
-             _siblingClient = ClientUtility.getAvailable();
-            _siblingClient.put(key, value);
+            tClient = ClientUtility.getAvailable();
+            tClient.put(key, value);
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
         } finally {
-            if (_siblingClient != null) {
-                ClientUtility.makeAvailable(_siblingClient);
+            if (tClient != null) {
+                ClientUtility.makeAvailable(tClient);
             }
         }
 
@@ -94,11 +94,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
             throw new RuntimeException(String.format("Should only be called by BACKUP, called by: ", _role));
         }
 
-        KeyValueService.Client _siblingClient = null;
+        ThriftClient tClient = null;
 
         try {
-            _siblingClient = ClientUtility.getAvailable();
-            Map<String, String> tempMap = _siblingClient.getDataDump();
+            tClient = ClientUtility.getAvailable();
+            Map<String, String> tempMap = tClient.getDataDump();
             for (String key : tempMap.keySet()) {
                 if (!myMap.containsKey(key)) {
                     myMap.put(key, tempMap.get(key));
@@ -107,8 +107,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
         } finally {
-            if (_siblingClient != null) {
-                ClientUtility.makeAvailable(_siblingClient);
+            if (tClient != null) {
+                ClientUtility.makeAvailable(tClient);
             }
         }
     }

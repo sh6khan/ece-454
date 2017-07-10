@@ -21,20 +21,28 @@ public class ClientUtility {
     /**
      * A queue holding all this good shit
      */
-    private static LinkedBlockingQueue<KeyValueService.Client> clientObjectPool;
+    private static LinkedBlockingQueue<ThriftClient> clientObjectPool;
 
     static public void populateClientObjectPool(String host, Integer port, int cap) {
-        clientObjectPool = new  LinkedBlockingQueue<KeyValueService.Client>(cap);
+        // close all the existing tranpsorts
+        if (clientObjectPool != null) {
+            for (ThriftClient client : clientObjectPool) {
+                client.closeTransport();
+            }
+        }
 
-        while (cap > 0) {
-            KeyValueService.Client client = generateRPCClient(host, port);
+        // reset the clientObjectPool
+        clientObjectPool = new LinkedBlockingQueue<ThriftClient>(cap);
+
+        // populate the clientObjectPool
+        for (int i = 0; i < cap; i++) {
+            ThriftClient client = generateRPCClient(host, port);
+
             try {
                 clientObjectPool.put(client);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            cap -= 1;
         }
 
         // TODO: extract sleeping to outside the method call
@@ -49,11 +57,11 @@ public class ClientUtility {
      * Grab then next available client from the queue
      * @return
      */
-    static public KeyValueService.Client getAvailable() throws InterruptedException {
+    static public ThriftClient getAvailable() throws InterruptedException {
         return clientObjectPool.poll(50L, TimeUnit.SECONDS);
     }
 
-    static public void makeAvailable(KeyValueService.Client client) {
+    static public void makeAvailable(ThriftClient client) {
         try {
             clientObjectPool.put(client);
         } catch (InterruptedException ex) {
@@ -73,13 +81,13 @@ public class ClientUtility {
      * @param port
      * @return An Opened transport client or null if failed
      */
-    static private KeyValueService.Client generateRPCClient(String host, Integer port) {
+    static private ThriftClient generateRPCClient(String host, Integer port) {
         try {
             TSocket sock = new TSocket(host, port);
             TTransport transport = new TFramedTransport(sock);
             transport.open();
             TProtocol protocol = new TBinaryProtocol(transport);
-            return new KeyValueService.Client(protocol);
+            return new ThriftClient(new KeyValueService.Client(protocol), transport);
         } catch (Exception e) {
             System.out.println("Unable to connect to primary");
             e.printStackTrace();
