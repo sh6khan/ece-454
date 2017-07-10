@@ -87,8 +87,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void transferMap() throws org.apache.thrift.TException {
-        List<String> keys = new ArrayList(myMap.keySet());
-        List<String> values = new ArrayList(myMap.values());
+        List<String> keys = new ArrayList<String>(myMap.keySet());
+        List<String> values = new ArrayList<String>(myMap.values());
 
         if (myMap.size() > MAX_MAP_SIZE) {
             int index = 0;

@@ -32,7 +32,7 @@ public class ThriftClient {
         return _client.getDataDump();
     }
 
-    public void setMyMap(List<String> keys, List<String> values) {
+    public void setMyMap(List<String> keys, List<String> values) throws TException{
         _client.setMyMap(keys, values);
     }
 
