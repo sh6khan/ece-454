@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 
 import org.apache.thrift.TException;
@@ -31,8 +32,8 @@ public class ThriftClient {
         return _client.getDataDump();
     }
 
-    public void setMyMap() {
-        _client.setMyMap();
+    public void setMyMap(List<String> keys, List<String> values) {
+        _client.setMyMap(keys, values);
     }
 
     public void closeTransport() {
