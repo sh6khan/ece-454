@@ -24,6 +24,9 @@ public class ClientUtility {
     private static LinkedBlockingQueue<ThriftClient> clientObjectPool;
 
     static public void populateClientObjectPool(String host, Integer port, int cap) {
+        if (cap == 0) {
+            return;
+        }
         // close all the existing tranpsorts
         if (clientObjectPool != null) {
             for (ThriftClient client : clientObjectPool) {
