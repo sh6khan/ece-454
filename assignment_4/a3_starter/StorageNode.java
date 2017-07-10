@@ -81,8 +81,11 @@ public class StorageNode {
             ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
             kvHandler.setAlone(false);
 
-            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
-                kvHandler.fetchDataDump();
+//            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
+//                kvHandler.fetchDataDump();
+//            }
+            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
+                kvHandler.transferMap();
             }
         } else {
             kvHandler.setAlone(true);

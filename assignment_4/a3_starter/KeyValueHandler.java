@@ -21,6 +21,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     private int port;
     private ROLE _role = ROLE.UNDEFINED;
     private boolean _alone = true;
+    private static final int MAX_MAP_SIZE = 200000;
 
 
     enum ROLE {
@@ -73,7 +74,6 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void forwardData(String key, String value) throws org.apache.thrift.TException {
         ThriftClient tClient = null;
-
         try {
             tClient = ClientUtility.getAvailable();
             tClient.put(key, value);
@@ -84,7 +84,45 @@ public class KeyValueHandler implements KeyValueService.Iface {
                 ClientUtility.makeAvailable(tClient);
             }
         }
+    }
 
+    public void transferMap() throws org.apache.thrift.TException {
+        List<String> keys = new ArrayList(myMap.keySet());
+        List<String> values = new ArrayList(myMap.values());
+
+        if (myMap.size() > MAX_MAP_SIZE) {
+            int index = 0;
+            int end = 0;
+            while(end != keys.size()) {
+                end = Math.min(index + MAX_MAP_SIZE, keys.size());
+                setSiblingMap(keys.subList(index, end), values.subList(index, end));
+                index = end + 1;
+            }
+        } else {
+            setSiblingMap(keys, values);
+        }
+    }
+
+    public void setSiblingMap(List<String> keys, List<String> values) {
+        ThriftClient tClient = null;
+        try {
+            tClient = ClientUtility.getAvailable();
+            tClient.setMyMap(keys, values);
+        } catch (org.apache.thrift.TException | InterruptedException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (tClient != null) {
+                ClientUtility.makeAvailable(tClient);
+            }
+        }
+    }
+
+    public void setMyMap(List<String> keys, List<String> values) {
+        for (int i = 0; i < keys.size(); i++) {
+            if (!myMap.containsKey(keys.get(i))) {
+                myMap.put(keys.get(i), values.get(i));
+            }
+        }
     }
 
     public void fetchDataDump() throws org.apache.thrift.TException {
