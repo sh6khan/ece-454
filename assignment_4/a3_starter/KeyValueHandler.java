@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -55,7 +57,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public String get(String key) throws org.apache.thrift.TException {
-        System.out.println("get called " + key + " " + myMap.get(key));
+//        System.out.println("get called " + key + " " + myMap.get(key));
 
         String ret = myMap.get(key);
 
@@ -66,7 +68,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-         System.out.println("put called " + key + " " + value);
+//         System.out.println("put called " + key + " " + value);
         myMap.put(key, value);
 
         if (_role.equals(ROLE.PRIMARY) && !_alone) {
@@ -90,20 +92,21 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void transferMap() throws org.apache.thrift.TException {
         System.out.println("Transferring map to backup");
+        Instant start = Instant.now();
         System.out.println("ORIGINAL MAP -----");
-        for (Map.Entry<String, String> entry: myMap.entrySet()) {
-            System.out.println("original map: key: " + entry.getKey() + " value: " + entry.getValue());
-        }
+//        for (Map.Entry<String, String> entry: myMap.entrySet()) {
+//            System.out.println("original map: key: " + entry.getKey() + " value: " + entry.getValue());
+//        }
 
         List<String> keys = new ArrayList<String>(myMap.keySet());
         List<String> values = new ArrayList<String>(keys.size());
         for(int i = 0; i < keys.size(); i++) {
             values.add(i, myMap.get(keys.get(i)));
         }
-        System.out.println("NEW MAP -------------");
-        for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("new map: key: " + keys.get(i) + " value: " + values.get(i));
-        }
+        System.out.println("NEW MAP ------------- " + Duration.between(Instant.now(), start).toMillis());
+//        for (int i = 0; i < keys.size(); i ++) {
+//            System.out.println("new map: key: " + keys.get(i) + " value: " + values.get(i));
+//        }
 
         if (myMap.size() > MAX_MAP_SIZE) {
             System.out.println("Sending map in multiple chunks");
@@ -143,9 +146,9 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void setMyMap(List<String> keys, List<String> values) {
         System.out.println("Setting " + keys.size() + " values to MyMap");
-        for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("setMyMap: key: " + keys.get(i) + " value: " + values.get(i));
-        }
+//        for (int i = 0; i < keys.size(); i ++) {
+//            System.out.println("setMyMap: key: " + keys.get(i) + " value: " + values.get(i));
+//        }
 
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
