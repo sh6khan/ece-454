@@ -55,6 +55,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public String get(String key) throws org.apache.thrift.TException {
+        System.out.println("get called " + key + " " + myMap.get(key));
+
         String ret = myMap.get(key);
 
         if (ret == null)
@@ -64,7 +66,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-        // System.out.println("put called " + key + " " + value);
+         System.out.println("put called " + key + " " + value);
         myMap.put(key, value);
 
         if (_role.equals(ROLE.PRIMARY) && !_alone) {
@@ -90,14 +92,14 @@ public class KeyValueHandler implements KeyValueService.Iface {
         System.out.println("Transferring map to backup");
         System.out.println("ORIGINAL MAP -----");
         for (Map.Entry<String, String> entry: myMap.entrySet()) {
-            System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
+            System.out.println("original map: key: " + entry.getKey() + " value: " + entry.getValue());
         }
 
         List<String> keys = new ArrayList<String>(myMap.keySet());
         List<String> values = new ArrayList<String>(myMap.values());
         System.out.println("NEW MAP -------------");
         for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+            System.out.println("new map: key: " + keys.get(i) + " value: " + values.get(i));
         }
 
         if (myMap.size() > MAX_MAP_SIZE) {
@@ -120,7 +122,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     public void setSiblingMap(List<String> keys, List<String> values) {
         System.out.println("SENDING -----------");
         for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
         }
 
         ThriftClient tClient = null;
@@ -139,11 +141,12 @@ public class KeyValueHandler implements KeyValueService.Iface {
     public void setMyMap(List<String> keys, List<String> values) {
         System.out.println("Setting " + keys.size() + " values to MyMap");
         for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+            System.out.println("setMyMap: key: " + keys.get(i) + " value: " + values.get(i));
         }
 
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
+                System.out.println("actually setting: key: " + keys.get(i) + " value: " + values.get(i));
                 myMap.put(keys.get(i), values.get(i));
             }
         }
