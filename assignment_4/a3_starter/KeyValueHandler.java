@@ -94,8 +94,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
             throw new RuntimeException(String.format("Should only be called by BACKUP, called by: ", _role));
         }
 
-
         KeyValueService.Client _siblingClient = null;
+
         try {
             _siblingClient = ClientUtility.getAvailable();
             Map<String, String> tempMap = _siblingClient.getDataDump();
