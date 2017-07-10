@@ -29,7 +29,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
         BACKUP,
         UNDEFINED
     }
-1
+
     public void setRole(ROLE newRole) {
         _role = newRole;
     }
@@ -100,7 +100,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
                 end = Math.min(index + MAX_MAP_SIZE, keys.size());
                 System.out.println("index: " + index + " end: " + end);
                 setSiblingMap(keys.subList(index, end), values.subList(index, end));
-                index = end + 1;
+                index = end;
             }
         } else {
             System.out.println("Sending map in single chunk");
