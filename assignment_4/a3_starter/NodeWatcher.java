@@ -74,6 +74,10 @@ public class NodeWatcher implements CuratorWatcher {
                 int cap = _kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? ClientUtility.BACKUP_POOL_NUM : ClientUtility.PRIMARY_POOL_NUM;
                 ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
                 _kvHandler.setAlone(false);
+
+                if (_kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
+                    _kvHandler.transferMap();
+                }
             } else {
                 _kvHandler.setAlone(true);
             }

@@ -84,9 +84,9 @@ public class StorageNode {
 //            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
 //                kvHandler.fetchDataDump();
 //            }
-            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
-                kvHandler.transferMap();
-            }
+//            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
+//                kvHandler.transferMap();
+//            }
         } else {
             kvHandler.setAlone(true);
         }
