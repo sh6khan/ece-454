@@ -87,18 +87,23 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void transferMap() throws org.apache.thrift.TException {
+        System.out.println("Transferring map to backup");
         List<String> keys = new ArrayList<String>(myMap.keySet());
         List<String> values = new ArrayList<String>(myMap.values());
 
         if (myMap.size() > MAX_MAP_SIZE) {
+            System.out.println("Sending map in multiple chunks");
+            System.out.println("map size: " + myMap.size());
             int index = 0;
             int end = 0;
             while(end != keys.size()) {
+                System.out.println("index: " + index + " end: " + end);
                 end = Math.min(index + MAX_MAP_SIZE, keys.size());
                 setSiblingMap(keys.subList(index, end), values.subList(index, end));
                 index = end + 1;
             }
         } else {
+            System.out.println("Sending map in single chunk");
             setSiblingMap(keys, values);
         }
     }
@@ -118,6 +123,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void setMyMap(List<String> keys, List<String> values) {
+        System.out.println("Setting " + keys.size() + " values to MyMap");
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
                 myMap.put(keys.get(i), values.get(i));
