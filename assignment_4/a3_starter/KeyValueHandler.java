@@ -93,7 +93,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
         if (myMap.size() > MAX_MAP_SIZE) {
             System.out.println("Sending map in multiple chunks");
-            System.out.println("map size: " + myMap.size());
+            System.out.println("map size: " + keys.size());
             int index = 0;
             int end = 0;
             while(end != keys.size()) {
