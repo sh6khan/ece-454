@@ -68,7 +68,7 @@ public class StorageNode {
         curClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(args[3] + "/", fullConnectionString.getBytes());
 
         // set up watcher on the children
-        NodeWatcher nodeWatcher = new NodeWatcher(curClient, kvHandler);
+        NodeWatcher nodeWatcher = new NodeWatcher(curClient, kvHandler, args[3]);
         List<String> children = curClient.getChildren().usingWatcher(nodeWatcher).forPath(args[3]);
 
         // Classify Node as when as soon it comes up

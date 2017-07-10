@@ -18,10 +18,12 @@ public class NodeWatcher implements CuratorWatcher {
     private KeyValueHandler _kvHandler;
     private CuratorFramework _curClient;
     private KeyValueService.Client _siblingClient;
+    private String _zkName;
 
-    public NodeWatcher(CuratorFramework curClient, KeyValueHandler handler) {
+    public NodeWatcher(CuratorFramework curClient, KeyValueHandler handler, String zkName) {
         _curClient = curClient;
         _kvHandler = handler;
+        _zkName = zkName;
     }
 
     /**
@@ -58,10 +60,10 @@ public class NodeWatcher implements CuratorWatcher {
      * @param event
      */
     synchronized public void process(WatchedEvent event) {
-        System.out.println("ZooKeeper event " + event);
+        System.out.println("ZooKeeper event: " + event);
 
         try {
-            List<String> children = _curClient.getChildren().usingWatcher(this).forPath("/gla");
+            List<String> children = _curClient.getChildren().usingWatcher(this).forPath(_zkName);
             Collections.sort(children);
             System.out.println("num children: " + children.size());
             classifyNode(children.size());
