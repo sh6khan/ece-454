@@ -35,7 +35,7 @@ public class StorageNode {
 			CuratorFrameworkFactory.builder()
 			.connectString(args[2])
 			.retryPolicy(new RetryNTimes(10, 1000))
-			.connectionTimeoutMs(1000)
+			.connectionTimeoutMs(5000)
 			.sessionTimeoutMs(10000)
 			.build();
 

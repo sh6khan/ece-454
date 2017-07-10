@@ -15,7 +15,7 @@ import org.apache.thrift.transport.TTransport;
 
 public class ClientUtility {
 
-    public static final int BACKUP_POOL_NUM = 1;
+    public static final int BACKUP_POOL_NUM = 0;
     public static final int PRIMARY_POOL_NUM = 16;
 
     /**
