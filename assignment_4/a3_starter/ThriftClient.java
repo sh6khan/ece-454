@@ -31,6 +31,10 @@ public class ThriftClient {
         return _client.getDataDump();
     }
 
+    public void setMyMap() {
+        _client.setMyMap();
+    }
+
     public void closeTransport() {
         _transport.close();
     }
