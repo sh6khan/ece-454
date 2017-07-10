@@ -123,6 +123,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
             System.out.println("Sending map in single chunk");
             setSiblingMap(keys, values);
         }
+
+        System.out.println("Time required to send map: " + Duration.between(start, Instant.now()).toMillis());
     }
 
     public void setSiblingMap(List<String> keys, List<String> values) {
