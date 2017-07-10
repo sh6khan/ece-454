@@ -23,7 +23,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     private int port;
     private ROLE _role = ROLE.UNDEFINED;
     private boolean _alone = true;
-    private static final int MAX_MAP_SIZE = 2;
+    private static final int MAX_MAP_SIZE = 200000;
 
 
     enum ROLE {
