@@ -93,7 +93,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     public void transferMap() throws org.apache.thrift.TException {
         System.out.println("Transferring map to backup");
         Instant start = Instant.now();
-        System.out.println("ORIGINAL MAP -----");
+//        System.out.println("ORIGINAL MAP -----");
 //        for (Map.Entry<String, String> entry: myMap.entrySet()) {
 //            System.out.println("original map: key: " + entry.getKey() + " value: " + entry.getValue());
 //        }
@@ -103,7 +103,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
         for(int i = 0; i < keys.size(); i++) {
             values.add(i, myMap.get(keys.get(i)));
         }
-        System.out.println("NEW MAP ------------- " + Duration.between(Instant.now(), start).toMillis());
+//        System.out.println("NEW MAP ------------- " + Duration.between(Instant.now(), start).toMillis());
 //        for (int i = 0; i < keys.size(); i ++) {
 //            System.out.println("new map: key: " + keys.get(i) + " value: " + values.get(i));
 //        }
@@ -126,10 +126,10 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void setSiblingMap(List<String> keys, List<String> values) {
-        System.out.println("SENDING -----------");
-        for (int i = 0; i < keys.size(); i ++) {
-            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
-        }
+//        System.out.println("SENDING -----------");
+//        for (int i = 0; i < keys.size(); i ++) {
+//            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
+//        }
 
         ThriftClient tClient = null;
         try {
@@ -152,7 +152,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
-                System.out.println("actually setting: key: " + keys.get(i) + " value: " + values.get(i));
+//                System.out.println("actually setting: key: " + keys.get(i) + " value: " + values.get(i));
                 myMap.put(keys.get(i), values.get(i));
             }
         }
