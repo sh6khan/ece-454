@@ -96,7 +96,10 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
 
         List<String> keys = new ArrayList<String>(myMap.keySet());
-        List<String> values = new ArrayList<String>(myMap.values());
+        List<String> values = new ArrayList<String>(keys.size());
+        for(int i = 0; i < keys.size(); i++) {
+            values.add(i, myMap.get(keys.get(i)));
+        }
         System.out.println("NEW MAP -------------");
         for (int i = 0; i < keys.size(); i ++) {
             System.out.println("new map: key: " + keys.get(i) + " value: " + values.get(i));
