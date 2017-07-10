@@ -21,7 +21,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     private int port;
     private ROLE _role = ROLE.UNDEFINED;
     private boolean _alone = true;
-    private static final int MAX_MAP_SIZE = 200000;
+    private static final int MAX_MAP_SIZE = 2;
 
 
     enum ROLE {
@@ -88,8 +88,17 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void transferMap() throws org.apache.thrift.TException {
         System.out.println("Transferring map to backup");
+        System.out.println("ORIGINAL MAP -----");
+        for (Map.Entry<String, String> entry: myMap.entrySet()) {
+            System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
+        }
+
         List<String> keys = new ArrayList<String>(myMap.keySet());
         List<String> values = new ArrayList<String>(myMap.values());
+        System.out.println("NEW MAP -------------");
+        for (int i = 0; i < keys.size(); i ++) {
+            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+        }
 
         if (myMap.size() > MAX_MAP_SIZE) {
             System.out.println("Sending map in multiple chunks");
@@ -109,6 +118,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void setSiblingMap(List<String> keys, List<String> values) {
+        System.out.println("SENDING -----------");
+        for (int i = 0; i < keys.size(); i ++) {
+            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+        }
+
         ThriftClient tClient = null;
         try {
             tClient = ClientUtility.getAvailable();
@@ -124,6 +138,10 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
     public void setMyMap(List<String> keys, List<String> values) {
         System.out.println("Setting " + keys.size() + " values to MyMap");
+        for (int i = 0; i < keys.size(); i ++) {
+            System.out.println("key: " + keys.get(i) + " value: " + values.get(i));
+        }
+
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
                 myMap.put(keys.get(i), values.get(i));
