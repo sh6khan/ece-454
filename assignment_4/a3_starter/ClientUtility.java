@@ -17,16 +17,22 @@ public class ClientUtility {
 
     public static final int BACKUP_POOL_NUM = 0;
     public static final int PRIMARY_POOL_NUM = 16;
-
+    public static boolean _shutdown = false;
     /**
      * A queue holding all this good shit
      */
     private static LinkedBlockingQueue<ThriftClient> clientObjectPool;
 
+    static public void clearClientObjectPool() {
+        _shutdown = true;
+        clientObjectPool.clear();
+    }
+
     static public void populateClientObjectPool(String host, Integer port, int cap) {
         if (cap == 0) {
             return;
         }
+        _shutdown = false;
         // close all the existing tranpsorts
         if (clientObjectPool != null) {
             for (ThriftClient client : clientObjectPool) {
@@ -61,10 +67,16 @@ public class ClientUtility {
      * @return
      */
     static public ThriftClient getAvailable() throws InterruptedException {
+        if (_shutdown) {
+            return null;
+        }
         return clientObjectPool.poll(50L, TimeUnit.SECONDS);
     }
 
     static public void makeAvailable(ThriftClient client) {
+        if (_shutdown) {
+            return;
+        }
         try {
             clientObjectPool.put(client);
         } catch (InterruptedException ex) {

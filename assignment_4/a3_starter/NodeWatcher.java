@@ -80,6 +80,7 @@ public class NodeWatcher implements CuratorWatcher {
                 }
             } else {
                 _kvHandler.setAlone(true);
+                ClientUtility.clearClientObjectPool();
             }
 
         } catch (Exception e) {

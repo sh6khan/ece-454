@@ -89,6 +89,7 @@ public class StorageNode {
 //            }
         } else {
             kvHandler.setAlone(true);
+            ClientUtility.clearClientObjectPool();
         }
     }
 }

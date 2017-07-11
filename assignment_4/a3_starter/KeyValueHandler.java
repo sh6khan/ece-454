@@ -154,7 +154,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
-            
+
         } finally {
             if (tClient != null) {
                 ClientUtility.makeAvailable(tClient);
