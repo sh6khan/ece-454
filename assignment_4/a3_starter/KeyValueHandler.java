@@ -1,3 +1,5 @@
+import java.net.Inet4Address;
+import java.net.InetSocketAddress;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -110,7 +112,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
-    public void transferMap() throws org.apache.thrift.TException {
+    public void transferMap() throws org.apache.thrift.TException, InterruptedException {
         System.out.println("Transferring map to backup");
         Instant start = Instant.now();
 //        System.out.println("ORIGINAL MAP -----");
@@ -147,39 +149,22 @@ public class KeyValueHandler implements KeyValueService.Iface {
         System.out.println("Time required to send map: " + Duration.between(start, Instant.now()).toMillis());
     }
 
-    public void setSiblingMap(List<String> keys, List<String> values) {
+    public void setSiblingMap(List<String> keys, List<String> values) throws org.apache.thrift.TException, InterruptedException {
 //        System.out.println("SENDING -----------");
 //        for (int i = 0; i < keys.size(); i ++) {
 //            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
 //        }
 
-        int maxRetry = 16;
         ThriftClient tClient = null;
 
-        while (maxRetry > 0) {
-            try {
-                tClient = ClientUtility.getAvailable();
-                tClient.setMyMap(keys, values);
-                return;
-
-            } catch (org.apache.thrift.TException | InterruptedException ex) {
-                ex.printStackTrace();
-                tClient.closeTransport();
-                tClient = ClientUtility.generateRPCClient(tClient._host, tClient._port);
-                try {
-                    Thread.currentThread().sleep(100);
-                } catch (InterruptedException e) {
-                    System.out.println("failed to sleep");
-                    e.printStackTrace();
-                }
-                maxRetry--;
-            } finally {
-                if (tClient != null) {
-                    ClientUtility.makeAvailable(tClient);
-                }
+        try {
+            tClient = ClientUtility.getAvailable();
+            tClient.setMyMap(keys, values);
+        } finally {
+            if (tClient != null) {
+                ClientUtility.makeAvailable(tClient);
             }
         }
-        System.out.println("Failed to transfer map");
     }
 
 

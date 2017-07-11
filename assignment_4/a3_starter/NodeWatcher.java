@@ -61,29 +61,32 @@ public class NodeWatcher implements CuratorWatcher {
      */
     synchronized public void process(WatchedEvent event) {
         System.out.println("ZooKeeper event: " + event);
+        int maxRetry = 10;
 
-        try {
-            List<String> children = _curClient.getChildren().usingWatcher(this).forPath(_zkName);
-            Collections.sort(children);
-            System.out.println("num children: " + children.size());
-            classifyNode(children.size());
+        while (maxRetry > 0) {
+            try {
+                List<String> children = _curClient.getChildren().usingWatcher(this).forPath(_zkName);
+                Collections.sort(children);
+                System.out.println("num children: " + children.size());
+                classifyNode(children.size());
 
-            if (children.size() > 1) {
-                System.out.println("size greater than 1 and role: " + _kvHandler.getRole());
-                InetSocketAddress address = ClientUtility.extractSiblingInfo(children, _kvHandler.getZkNode(), _kvHandler.getRole(), _curClient);
-                int cap = _kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? ClientUtility.BACKUP_POOL_NUM : ClientUtility.PRIMARY_POOL_NUM;
-                ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
-                _kvHandler.setAlone(false);
+                if (children.size() > 1) {
+                    System.out.println("size greater than 1 and role: " + _kvHandler.getRole());
+                    InetSocketAddress address = ClientUtility.extractSiblingInfo(children, _kvHandler.getZkNode(), _kvHandler.getRole(), _curClient);
+                    int cap = _kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? ClientUtility.BACKUP_POOL_NUM : ClientUtility.PRIMARY_POOL_NUM;
+                    ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
+                    _kvHandler.setAlone(false);
 
-                if (_kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
-                    _kvHandler.transferMap();
+                    if (_kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
+                        _kvHandler.transferMap();
+                    }
+                } else {
+                    _kvHandler.setAlone(true);
                 }
-            } else {
-                _kvHandler.setAlone(true);
+            } catch (Exception e) {
+                System.out.println("Failed to process at NodeWatcher: " + e.getMessage());
+                maxRetry--;
             }
-
-        } catch (Exception e) {
-            System.out.println("Unable to determine primary " + e);
         }
         
         

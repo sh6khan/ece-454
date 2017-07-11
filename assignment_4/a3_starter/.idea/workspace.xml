@@ -21,12 +21,12 @@
       <file leaf-file-name="KeyValueHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/KeyValueHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1010">
-              <caret line="173" column="27" lean-forward="true" selection-start-line="173" selection-start-column="27" selection-end-line="173" selection-end-column="27" />
+            <state relative-caret-position="61">
+              <caret line="114" column="27" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1146#1147#0" expanded="true" />
-                <element signature="e#1176#1177#0" expanded="true" />
+                <element signature="e#1211#1212#0" expanded="true" />
+                <element signature="e#1241#1242#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,14 +42,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeWatcher.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NodeWatcher.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NodeWatcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="77" column="34" lean-forward="false" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="34" />
+            <state relative-caret-position="605">
+              <caret line="87" column="27" lean-forward="true" selection-start-line="87" selection-start-column="27" selection-end-line="87" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Watchable.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/curator-framework-2.12.0.jar!/org/apache/curator/framework/api/Watchable.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,10 +74,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StorageNode.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StorageNode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StorageNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
+            <state relative-caret-position="215">
               <caret line="54" column="33" lean-forward="false" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -79,8 +89,8 @@
       <file leaf-file-name="ClientUtility.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ClientUtility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
+            <state relative-caret-position="301">
+              <caret line="112" column="36" lean-forward="false" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,13 +167,13 @@
         <option value="$PROJECT_DIR$/runserver.sh" />
         <option value="$PROJECT_DIR$/lclient.sh" />
         <option value="$PROJECT_DIR$/lserver.sh" />
-        <option value="$PROJECT_DIR$/NodeWatcher.java" />
         <option value="$PROJECT_DIR$/runclient.sh" />
         <option value="$PROJECT_DIR$/a3.thrift" />
         <option value="$PROJECT_DIR$/ThriftClient.java" />
         <option value="$PROJECT_DIR$/ClientUtility.java" />
-        <option value="$PROJECT_DIR$/KeyValueHandler.java" />
         <option value="$PROJECT_DIR$/StorageNode.java" />
+        <option value="$PROJECT_DIR$/KeyValueHandler.java" />
+        <option value="$PROJECT_DIR$/NodeWatcher.java" />
       </list>
     </option>
   </component>
@@ -574,16 +584,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/StorageNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CreateZNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -887,30 +887,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NodeWatcher.java">
+    <entry file="file://$PROJECT_DIR$/KeyValueHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="77" column="34" lean-forward="false" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="34" />
+        <state relative-caret-position="61">
+          <caret line="114" column="27" lean-forward="false" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A3Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="158" column="19" lean-forward="false" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ClientUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1211#1212#0" expanded="true" />
+            <element signature="e#1241#1242#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -925,22 +909,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KeyValueHandler.java">
+    <entry file="file://$PROJECT_DIR$/ClientUtility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1010">
-          <caret line="173" column="27" lean-forward="true" selection-start-line="173" selection-start-column="27" selection-end-line="173" selection-end-column="27" />
+        <state relative-caret-position="301">
+          <caret line="112" column="36" lean-forward="false" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1146#1147#0" expanded="true" />
-            <element signature="e#1176#1177#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/StorageNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
+        <state relative-caret-position="215">
           <caret line="54" column="33" lean-forward="false" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A3Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="158" column="19" lean-forward="false" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/curator-framework-2.12.0.jar!/org/apache/curator/framework/api/Watchable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NodeWatcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="605">
+          <caret line="87" column="27" lean-forward="true" selection-start-line="87" selection-start-column="27" selection-end-line="87" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
