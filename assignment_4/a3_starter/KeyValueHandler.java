@@ -153,7 +153,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
 //            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
 //        }
 
-        int maxRetry = 10;
+        int maxRetry = 16;
         ThriftClient tClient = null;
 
         while (maxRetry > 0) {
@@ -164,7 +164,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
 
             } catch (org.apache.thrift.TException | InterruptedException ex) {
                 ex.printStackTrace();
-
+                tClient.closeTransport();
+                tClient = ClientUtility.generateRPCClient(tClient._host, tClient._port);
                 try {
                     Thread.currentThread().sleep(100);
                 } catch (InterruptedException e) {
