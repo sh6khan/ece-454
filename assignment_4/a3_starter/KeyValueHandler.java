@@ -101,6 +101,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
             tClient.forward(key, value, seq);
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
+            tClient = ClientUtility.generateRPCClient(tClient._host, tClient._port);
         } finally {
             if (tClient != null) {
                 ClientUtility.makeAvailable(tClient);
@@ -146,17 +147,14 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void setSiblingMap(List<String> keys, List<String> values) {
-//        System.out.println("SENDING -----------");
-//        for (int i = 0; i < keys.size(); i ++) {
-//            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
-//        }
-
         ThriftClient tClient = null;
         try {
             tClient = ClientUtility.getAvailable();
             tClient.setMyMap(keys, values);
         } catch (org.apache.thrift.TException | InterruptedException ex) {
+            System.out.println(ex.getMessage());
             ex.printStackTrace();
+            
         } finally {
             if (tClient != null) {
                 ClientUtility.makeAvailable(tClient);
