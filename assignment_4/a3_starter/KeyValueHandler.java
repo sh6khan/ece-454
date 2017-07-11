@@ -2,6 +2,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.thrift.*;
 import org.apache.thrift.server.*;
@@ -17,12 +18,14 @@ import org.apache.curator.framework.*;
 
 public class KeyValueHandler implements KeyValueService.Iface {
     private Map<String, String> myMap;
+    private Map<String, Integer> sequenceMap;
     private CuratorFramework curClient;
     private String zkNode;
     private String host;
     private int port;
     private ROLE _role = ROLE.UNDEFINED;
     private boolean _alone = true;
+    private static AtomicInteger _sequence;
     private static final int MAX_MAP_SIZE = 200000;
 
 
@@ -53,7 +56,10 @@ public class KeyValueHandler implements KeyValueService.Iface {
         this.port = port;
         this.curClient = curClient;
         this.zkNode = zkNode;
+        sequenceMap = new ConcurrentHashMap<String, Integer>();
         myMap = new ConcurrentHashMap<String, String>();
+        _sequence.set(0);
+
     }
 
     public String get(String key) throws org.apache.thrift.TException {
@@ -68,19 +74,31 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-         System.out.println("put called " + key + " " + value);
+        System.out.println("put called " + key + " " + value);
         myMap.put(key, value);
 
         if (_role.equals(ROLE.PRIMARY) && !_alone) {
-            forwardData(key, value);
+            forwardData(key, value, _sequence.addAndGet(1));
         }
     }
 
-    public void forwardData(String key, String value) throws org.apache.thrift.TException {
+    public void forward(String key, String value, int sequence) {
+        if (sequenceMap.containsKey(key)) {
+            if (sequence >= sequenceMap.get(key)) {
+                myMap.put(key, value);
+                sequenceMap.put(key, sequence);
+            }
+        } else {
+            myMap.put(key, value);
+            sequenceMap.put(key, sequence);
+        }
+    }
+
+    public void forwardData(String key, String value, int seq) throws org.apache.thrift.TException {
         ThriftClient tClient = null;
         try {
             tClient = ClientUtility.getAvailable();
-            tClient.put(key, value);
+            tClient.forward(key, value, seq);
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
         } finally {

@@ -20,8 +20,8 @@ public class ThriftClient {
         _transport = transport;
     }
 
-    public void put(String key, String value) throws TException {
-        _client.put(key, value);
+    public void forward(String key, String value, int sequence) throws TException {
+        _client.forward(key, value, sequence);
     }
 
     public String get(String key) throws TException {
