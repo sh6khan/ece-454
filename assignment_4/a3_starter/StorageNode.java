@@ -47,7 +47,7 @@ public class StorageNode {
 		});
         KeyValueHandler kvHandler = new KeyValueHandler(args[0], Integer.parseInt(args[1]), curClient, args[3]);
 		KeyValueService.Processor<KeyValueService.Iface> processor = new KeyValueService.Processor<>(kvHandler);
-		TServerSocket socket = new TServerSocket(Integer.parseInt(args[1]));
+		TServerSocket socket = new TServerSocket(Integer.parseInt(args[1]), 4000);
 		TThreadPoolServer.Args sargs = new TThreadPoolServer.Args(socket);
 		sargs.protocolFactory(new TBinaryProtocol.Factory());
 		sargs.transportFactory(new TFramedTransport.Factory());
