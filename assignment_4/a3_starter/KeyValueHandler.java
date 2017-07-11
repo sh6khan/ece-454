@@ -178,6 +178,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
                 }
             }
         }
+        System.out.println("Failed to transfer map");
     }
 
 
