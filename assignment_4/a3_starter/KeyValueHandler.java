@@ -62,7 +62,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public String get(String key) throws org.apache.thrift.TException {
-        System.out.println("get called " + key + " " + myMap.get(key));
+//        System.out.println("get called " + key + " " + myMap.get(key));
 
         String ret = myMap.get(key);
 
@@ -73,7 +73,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void put(String key, String value) throws org.apache.thrift.TException {
-        System.out.println("put called " + key + " " + value);
+//        System.out.println("put called " + key + " " + value);
         myMap.put(key, value);
 
         if (_role.equals(ROLE.PRIMARY) && !_alone) {
@@ -82,7 +82,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void forward(String key, String value, int sequence) {
-        System.out.println("forward called " + key + " " + value);
+//        System.out.println("forward called " + key + " " + value);
         if (sequenceMap.containsKey(key)) {
             if (sequence >= sequenceMap.get(key)) {
                 myMap.put(key, value);
