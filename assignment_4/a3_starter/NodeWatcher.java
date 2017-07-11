@@ -63,9 +63,17 @@ public class NodeWatcher implements CuratorWatcher {
         System.out.println("ZooKeeper event: " + event);
         int maxRetry = 10;
 
+        List<String> children = null;
+
+        try {
+            children = _curClient.getChildren().usingWatcher(this).forPath(_zkName);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         while (maxRetry > 0) {
             try {
-                List<String> children = _curClient.getChildren().usingWatcher(this).forPath(_zkName);
+
                 Collections.sort(children);
                 System.out.println("num children: " + children.size());
                 classifyNode(children.size());
@@ -78,13 +86,28 @@ public class NodeWatcher implements CuratorWatcher {
                     _kvHandler.setAlone(false);
 
                     if (_kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
-                        _kvHandler.transferMap();
+                        try {
+                            _kvHandler.transferMap();
+                            return;
+                        } catch (org.apache.thrift.TException | InterruptedException e) {
+                            System.out.println("Failed to process at NodeWatcher: " + e.getMessage());
+                            e.printStackTrace();
+                            maxRetry--;
+                        }
+
                     }
                 } else {
                     _kvHandler.setAlone(true);
                 }
             } catch (Exception e) {
-                System.out.println("Failed to process at NodeWatcher: " + e.getMessage());
+                e.printStackTrace();
+
+                try {
+                    children = _curClient.getChildren().forPath(_zkName);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+
                 maxRetry--;
             }
         }
