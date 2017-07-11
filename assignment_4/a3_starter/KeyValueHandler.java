@@ -110,7 +110,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void transferMap() throws org.apache.thrift.TException {
-        System.out.println("Transferring map to backup");
+//        System.out.println("Transferring map to backup");
         Instant start = Instant.now();
 //        System.out.println("ORIGINAL MAP -----");
 //        for (Map.Entry<String, String> entry: myMap.entrySet()) {
@@ -128,8 +128,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
 //        }
 
         if (myMap.size() > MAX_MAP_SIZE) {
-            System.out.println("Sending map in multiple chunks");
-            System.out.println("map size: " + keys.size());
+//            System.out.println("Sending map in multiple chunks");
+//            System.out.println("map size: " + keys.size());
             int index = 0;
             int end = 0;
             while(end != keys.size()) {
@@ -139,11 +139,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
                 index = end;
             }
         } else {
-            System.out.println("Sending map in single chunk");
+//            System.out.println("Sending map in single chunk");
             setSiblingMap(keys, values);
         }
 
-        System.out.println("Time required to send map: " + Duration.between(start, Instant.now()).toMillis());
+//        System.out.println("Time required to send map: " + Duration.between(start, Instant.now()).toMillis());
     }
 
     public void setSiblingMap(List<String> keys, List<String> values) {
@@ -163,7 +163,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void setMyMap(List<String> keys, List<String> values) {
-        System.out.println("Setting " + keys.size() + " values to MyMap");
+//        System.out.println("Setting " + keys.size() + " values to MyMap");
 //        for (int i = 0; i < keys.size(); i ++) {
 //            System.out.println("setMyMap: key: " + keys.get(i) + " value: " + values.get(i));
 //        }
@@ -177,7 +177,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     public void fetchDataDump() throws org.apache.thrift.TException {
-        System.out.println("copying data from primary");
+ //       System.out.println("copying data from primary");
 
         if (!_role.equals(ROLE.BACKUP)) {
             throw new RuntimeException(String.format("Should only be called by BACKUP, called by: ", _role));
