@@ -84,13 +84,13 @@ public class ClientUtility {
      * @param port
      * @return An Opened transport client or null if failed
      */
-    static private ThriftClient generateRPCClient(String host, Integer port) {
+    static public ThriftClient generateRPCClient(String host, Integer port) {
         try {
             TSocket sock = new TSocket(host, port);
             TTransport transport = new TFramedTransport(sock);
             transport.open();
             TProtocol protocol = new TBinaryProtocol(transport);
-            return new ThriftClient(new KeyValueService.Client(protocol), transport);
+            return new ThriftClient(new KeyValueService.Client(protocol), transport, host, port);
         } catch (Exception e) {
             System.out.println("Unable to connect to primary");
             e.printStackTrace();

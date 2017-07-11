@@ -3,7 +3,6 @@ import java.util.Map;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 /**
  * A simple wrapper around the Thrift client which stores both the Transport
@@ -14,10 +13,14 @@ import org.apache.thrift.transport.TTransportException;
 public class ThriftClient {
     private KeyValueService.Client _client;
     private TTransport _transport;
+    public String _host;
+    public Integer _port;
 
-    public ThriftClient(KeyValueService.Client client, TTransport transport) {
+    public ThriftClient(KeyValueService.Client client, TTransport transport, String host, Integer port) {
         _client = client;
         _transport = transport;
+        _host = host;
+        _port = port;
     }
 
     public void forward(String key, String value, int sequence) throws TException {

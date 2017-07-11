@@ -101,6 +101,8 @@ public class KeyValueHandler implements KeyValueService.Iface {
             tClient.forward(key, value, seq);
         } catch (org.apache.thrift.TException | InterruptedException ex) {
             ex.printStackTrace();
+            tClient.closeTransport();
+            tClient = ClientUtility.generateRPCClient(tClient._host, tClient._port);
         } finally {
             if (tClient != null) {
                 ClientUtility.makeAvailable(tClient);
