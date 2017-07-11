@@ -25,7 +25,9 @@ public class ClientUtility {
 
     static public void clearClientObjectPool() {
         _shutdown = true;
-        clientObjectPool.clear();
+        if (clientObjectPool != null) {
+            clientObjectPool.clear();
+        }
     }
 
     static public void populateClientObjectPool(String host, Integer port, int cap) {
