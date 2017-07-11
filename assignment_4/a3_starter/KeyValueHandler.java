@@ -153,18 +153,33 @@ public class KeyValueHandler implements KeyValueService.Iface {
 //            System.out.println("sending: key: " + keys.get(i) + " value: " + values.get(i));
 //        }
 
+        int maxRetry = 10;
         ThriftClient tClient = null;
-        try {
-            tClient = ClientUtility.getAvailable();
-            tClient.setMyMap(keys, values);
-        } catch (org.apache.thrift.TException | InterruptedException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (tClient != null) {
-                ClientUtility.makeAvailable(tClient);
+
+        while (maxRetry > 0) {
+            try {
+                tClient = ClientUtility.getAvailable();
+                tClient.setMyMap(keys, values);
+                return;
+
+            } catch (org.apache.thrift.TException | InterruptedException ex) {
+                ex.printStackTrace();
+
+                try {
+                    Thread.currentThread().sleep(100);
+                } catch (InterruptedException e) {
+                    System.out.println("failed to sleep");
+                    e.printStackTrace();
+                }
+                maxRetry--;
+            } finally {
+                if (tClient != null) {
+                    ClientUtility.makeAvailable(tClient);
+                }
             }
         }
     }
+
 
     public void setMyMap(List<String> keys, List<String> values) {
         System.out.println("Setting " + keys.size() + " values to MyMap");
