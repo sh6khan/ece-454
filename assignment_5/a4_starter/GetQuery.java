@@ -1,7 +1,10 @@
 import io.atomix.copycat.Query;
 
 public class GetQuery implements Query<Long> {
-    public GetQuery() {
+    String _key;
+
+    public GetQuery(String key) {
+        _key = key;
     }
 
     public ConsistencyLevel consistency() {

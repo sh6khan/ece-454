@@ -16,47 +16,55 @@ public class A4ServiceHandler implements A4Service.Iface {
     private int ccPort;
 
     public A4ServiceHandler(String ccHost, int ccPort) {
-	this.ccHost = ccHost;
-	this.ccPort = ccPort;
-	clientMap = new ConcurrentHashMap<>();
+		this.ccHost = ccHost;
+		this.ccPort = ccPort;
+		clientMap = new ConcurrentHashMap<>();
     }
 
     CopycatClient getCopycatClient() {
-	int tid = (int)Thread.currentThread().getId();
-	CopycatClient client = clientMap.get(tid);
-	if (client == null) {
-	    List<Address> members = new ArrayList<>();
-	    members.add(new Address(ccHost, ccPort));   
-	    client = CopycatClient.builder()
-		.withTransport(new NettyTransport())
-		.build();    
-	    client.serializer().register(GetQuery.class, 1);
-	    client.serializer().register(FAICommand.class, 2);
-	    client.connect(members).join();    
-	    clientMap.put(tid, client);
-	}
-	return client;
+		int tid = (int)Thread.currentThread().getId();
+		CopycatClient client = clientMap.get(tid);
+		if (client == null) {
+			List<Address> members = new ArrayList<>();
+			members.add(new Address(ccHost, ccPort));
+			client = CopycatClient.builder()
+			.withTransport(new NettyTransport())
+			.build();
+			client.serializer().register(GetQuery.class, 1);
+			client.serializer().register(FAICommand.class, 2);
+			client.serializer().register(FADCommand.class, 3);
+			client.connect(members).join();
+			clientMap.put(tid, client);
+		}
+		return client;
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException
     {
-	// improve this part
-	synchronized (this) {
-	    CopycatClient client = getCopycatClient();
-	    Long ret = client.submit(new FAICommand()).join();
-	    return ret;
-	}
+		// improve this part
+		synchronized (this) {
+			CopycatClient client = getCopycatClient();
+			Long ret = client.submit(new FAICommand(key)).join();
+			return ret;
+		}
     }
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException
     {
-	// complete this part
-	return 0;
+		// improve this part
+		synchronized (this) {
+			CopycatClient client = getCopycatClient();
+			Long ret = client.submit(new FADCommand(key)).join();
+			return ret;
+		}
     }
 
     public long get(String key) throws org.apache.thrift.TException
     {
-	// complete this part
-	return 0;
+		synchronized (this) {
+			CopycatClient client = getCopycatClient();
+			Long ret = client.submit(new GetQuery(key)).join();
+			return ret;
+		}
     }
 }
