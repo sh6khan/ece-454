@@ -12,21 +12,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="A4Client.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A4Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1752">
-              <caret line="153" column="13" lean-forward="false" selection-start-line="153" selection-start-column="13" selection-end-line="153" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="57" column="23" lean-forward="true" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
+            <state relative-caret-position="270">
+              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -37,29 +27,33 @@
       <file leaf-file-name="runserver0.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runserver0.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="a4.config" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/a4.config">
+      <file leaf-file-name="A4Server.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A4Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="519">
+              <caret line="69" column="30" lean-forward="false" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SerializerRegistry.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/catalyst/serializer/SerializerRegistry.class">
+      <file leaf-file-name="Serializer.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/catalyst/serializer/Serializer.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17">
-              <caret line="108" column="43" lean-forward="false" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="-1873">
+              <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +61,8 @@
       <file leaf-file-name="A4StateMachine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A4StateMachine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+            <state relative-caret-position="314">
+              <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,42 +79,6 @@
                 <element signature="e#139#140#0" expanded="true" />
                 <element signature="e#165#166#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetQuery.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GetQuery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-              <folding>
-                <element signature="e#130#131#0" expanded="true" />
-                <element signature="e#156#157#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FAICommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FAICommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <element signature="e#138#139#0" expanded="true" />
-                <element signature="e#164#165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Command.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/copycat/Command.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -151,9 +109,10 @@
         <option value="$PROJECT_DIR$/FAICommand.java" />
         <option value="$PROJECT_DIR$/GetQuery.java" />
         <option value="$PROJECT_DIR$/FADCommand.java" />
-        <option value="$PROJECT_DIR$/A4StateMachine.java" />
         <option value="$PROJECT_DIR$/A4ServiceHandler.java" />
         <option value="$PROJECT_DIR$/a4.config" />
+        <option value="$PROJECT_DIR$/A4Server.java" />
+        <option value="$PROJECT_DIR$/A4StateMachine.java" />
       </list>
     </option>
   </component>
@@ -518,16 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A4Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/A4Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1752">
@@ -577,16 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A4StateMachine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/catalyst/serializer/SerializerRegistry.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17">
@@ -595,28 +534,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/catalyst/serializer/Serializer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="22" selection-end-line="182" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="23" lean-forward="true" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/runserver0.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -624,8 +545,70 @@
     <entry file="file://$PROJECT_DIR$/a4.config">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/copycat/server/CopycatServer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="92" column="41" lean-forward="false" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="41" />
+          <folding>
+            <element signature="e#3785#3786#0" expanded="true" />
+            <element signature="e#3836#3837#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/copycat/server/state/ServerContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="79" column="37" lean-forward="false" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="37" />
+          <folding>
+            <element signature="e#5132#5133#0" expanded="true" />
+            <element signature="e#5170#5171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/atomix-all-1.0.8.jar!/io/atomix/catalyst/serializer/Serializer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1873">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4StateMachine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="69" column="30" lean-forward="false" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

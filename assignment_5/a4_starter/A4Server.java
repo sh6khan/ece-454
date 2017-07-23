@@ -66,6 +66,7 @@ public class A4Server {
 
 	ccServer.serializer().register(GetQuery.class, 1);
 	ccServer.serializer().register(FAICommand.class, 2);
+	ccServer.serializer().register(FADCommand.class, 3);
 	ccServer.bootstrap(members).join();	
 
 	// launch Thrift server

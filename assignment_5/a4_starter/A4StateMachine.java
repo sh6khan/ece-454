@@ -19,7 +19,7 @@ public class A4StateMachine extends StateMachine {
 		try {
 			String key = commit.operation()._key;
 			long oldValue = map.getOrDefault(key, 0L);
-			map.put(key, oldValue + 1);
+			map.put(key, oldValue + 1L);
 			return oldValue;
 		} finally {
 			commit.close();
@@ -30,7 +30,7 @@ public class A4StateMachine extends StateMachine {
     	try {
     		String key = commit.operation()._key;
     		long oldValue = map.getOrDefault(key, 0L);
-    		map.put(key, oldValue - 1);
+    		map.put(key, oldValue - 1L);
     		return oldValue;
 		} finally {
     		commit.close();
