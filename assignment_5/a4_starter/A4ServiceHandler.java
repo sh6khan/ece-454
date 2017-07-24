@@ -53,7 +53,7 @@ public class A4ServiceHandler implements A4Service.Iface {
 		Long ret = copyCatVal + delta;
 
 
-		log.info("FAI called: " + key + ":" + ret + "-- delta: " + delta + " copyCatVal: " + copyCatVal);
+		System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
 		return ret;
 
 		// improve this part

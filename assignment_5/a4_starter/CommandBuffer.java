@@ -59,6 +59,6 @@ public class CommandBuffer {
         commands.clear();
 
         System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
-        client.submit(new BatchCommand(commands)).join();
+        client.submit(new BatchCommand(copiedMap)).join();
     }
 }
