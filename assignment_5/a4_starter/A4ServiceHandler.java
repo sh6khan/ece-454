@@ -2,6 +2,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 import io.atomix.copycat.client.CopycatClient;
@@ -14,6 +15,8 @@ public class A4ServiceHandler implements A4Service.Iface {
     private int ccPort;
 
 	private final ExecutorService service = Executors.newSingleThreadExecutor();
+	private Map<String, AtomicInteger> faiCount = new ConcurrentHashMap<>();
+	private Map<String, AtomicInteger> fadCount = new ConcurrentHashMap<>();
 
     public A4ServiceHandler(String ccHost, int ccPort) {
 		this.ccHost = ccHost;
@@ -35,6 +38,10 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
+		faiCount.putIfAbsent(key, new AtomicInteger(0));
+		faiCount.get(key).getAndIncrement();
+		System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
+
     	synchronized (this) {
 			CopycatClient client = getCopycatClient();
 
@@ -58,6 +65,10 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
+		fadCount.putIfAbsent(key, new AtomicInteger(0));
+		fadCount.get(key).getAndIncrement();
+		System.out.println("FAI Count for key:" + key + " : " + fadCount.get(key).get());
+
     	synchronized (this) {
 			CopycatClient client = getCopycatClient();
 
