@@ -38,11 +38,12 @@ public class A4ServiceHandler implements A4Service.Iface {
     	synchronized (this) {
 			CopycatClient client = getCopycatClient();
 
-			CommandBuffer.addIncrementCommand(key);
-			Long copyCatVal = client.submit(new GetQuery(key)).join();
+			long detla = CommandBuffer.addIncrementCommand(key);
+			long copyCatVal = client.submit(new GetQuery(key)).join();
+			long ret = detla + copyCatVal;
 
 			// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-			return copyCatVal;
+			return ret;
 		}
 
 
@@ -60,8 +61,8 @@ public class A4ServiceHandler implements A4Service.Iface {
 			CopycatClient client = getCopycatClient();
 
 			long delta = CommandBuffer.addDecrementCommand(key);
-			Long copyCatVal = client.submit(new GetQuery(key)).join();
-			Long ret = copyCatVal + delta;
+			long copyCatVal = client.submit(new GetQuery(key)).join();
+			long ret = copyCatVal + delta;
 
 
 			// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
@@ -78,8 +79,11 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long get(String key) throws org.apache.thrift.TException {
+
     	synchronized (this) {
 			CopycatClient client = getCopycatClient();
+			CommandBuffer.commit(client);
+
 			Long ret = client.submit(new GetQuery(key)).join();
 			// System.out.println("GET called: " + key + " : " + ret);
 			return ret;
