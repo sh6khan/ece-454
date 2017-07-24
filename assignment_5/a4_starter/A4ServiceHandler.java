@@ -2,8 +2,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 import io.atomix.copycat.client.CopycatClient;
@@ -39,11 +37,9 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 		synchronized (this) {
-
-
 			CopycatClient client = getCopycatClient();
 
-			CommandBuffer.commitIfNeeded(client);
+			// CommandBuffer.commitIfNeeded(client);
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 
 			long delta = CommandBuffer.addIncrementCommand(key);
@@ -66,7 +62,7 @@ public class A4ServiceHandler implements A4Service.Iface {
 		synchronized (this) {
 			CopycatClient client = getCopycatClient();
 
-			CommandBuffer.commitIfNeeded(client);
+			// CommandBuffer.commitIfNeeded(client);
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 
 			long delta = CommandBuffer.addDecrementCommand(key);
@@ -92,13 +88,6 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 			Long ret = client.submit(new GetQuery(key)).join();
 			// System.out.println("GET called: " + key + " : " + ret);
-
-			for (Map.Entry<String, AtomicLong> entry : CommandBuffer.nonClearedCommands.entrySet()) {
-				System.out.println(entry.getKey() + entry.getValue());
-			}
-
-
-
 			return ret;
 		}
 

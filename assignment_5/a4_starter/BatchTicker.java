@@ -1,7 +1,7 @@
 import io.atomix.copycat.client.CopycatClient;
 
 public class BatchTicker implements Runnable {
-    private static final int WAIT_TIME = 5;
+    private static final int WAIT_TIME = 10;
     private CopycatClient _client;
 
     public BatchTicker(String ccHost, int ccPort) {
@@ -20,15 +20,9 @@ public class BatchTicker implements Runnable {
                 System.out.println("nothing to see here folks");
             }
 
-            // commits can be started by other threads, we don't want to trigge
-            // a commit while its already doing so.
-            if (CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
-                System.out.println("Not Timed Commit");
-                continue;
+            synchronized (this) {
+                CommandBuffer.commit(_client);
             }
-
-
-            CommandBuffer.commit(_client);
         }
     }
 }

@@ -9,13 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
-    public static Map<String, AtomicLong> nonClearedCommands = new ConcurrentHashMap<>();
-    private static long OP_MAX = 4;
 
-    private static Map<String, AtomicInteger> faiCount = new ConcurrentHashMap<>();
-    private static Map<String, AtomicInteger> fadCount = new ConcurrentHashMap<>();
-
-    private static AtomicInteger opCount = new AtomicInteger(0);
     public static STATE state = STATE.BATCHING;
 
     enum STATE {
@@ -26,16 +20,6 @@ public class CommandBuffer {
     public static long addIncrementCommand(String key) {
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndIncrement();
-        opCount.getAndIncrement();
-
-        nonClearedCommands.putIfAbsent(key, new AtomicLong(0));
-        nonClearedCommands.get(key).getAndIncrement();
-
-//        if (key == "key-0") {
-//            faiCount.putIfAbsent(key, new AtomicInteger(0));
-//            faiCount.get(key).getAndIncrement();
-//            System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
-//        }
 
 
         return 0L;
@@ -44,30 +28,14 @@ public class CommandBuffer {
     public static long addDecrementCommand(String key) {
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndDecrement();
-        opCount.getAndIncrement();
 
-        nonClearedCommands.putIfAbsent(key, new AtomicLong(0));
-        nonClearedCommands.get(key).getAndDecrement();
-
-//        if (key == "key-0") {
-//            fadCount.putIfAbsent(key, new AtomicInteger(0));
-//            fadCount.get(key).getAndIncrement();
-//            System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
-//        }
 
         return 0L;
     }
 
-    /**
-     * Checks the number of operations processed by this Buffer
-     * @param client
-     */
-    public static void commitIfNeeded(CopycatClient client) {
-        if (opCount.get() < OP_MAX) {
-            return;
-        }
 
-        commit(client);
+    private static Map<String, AtomicLong> getCommands() {
+        return new ConcurrentHashMap<>(commands);
     }
 
 
@@ -82,22 +50,21 @@ public class CommandBuffer {
      *
      * @param client - the copycat client
      */
-    public static synchronized void commit(CopycatClient client) {
+    public static void commit(CopycatClient client) {
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
-        if (opCount.get() == 0) {
+        if (commands.size() == 0) {
             return;
         }
 
         state = STATE.COMITTING;
 
-        Map<String, AtomicLong> copiedMap = new HashMap<>(commands);
+        Map<String, AtomicLong> copiedMap = new ConcurrentHashMap<>(commands);
         commands.clear();
 
-        System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
+        // System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
         client.submit(new BatchCommand(copiedMap)).join();
 
-        opCount = new AtomicInteger(0);
         state = STATE.BATCHING;
     }
 }
