@@ -30,6 +30,7 @@ public class A4Client {
     int keySpaceSize;
     volatile boolean done = false;
     AtomicInteger globalNumOps;
+    AtomicInteger globalErrCount;
     List<Address> rpcAddresses;
 
 	Map<String, Long> globalCache = new ConcurrentHashMap<>();
@@ -58,6 +59,7 @@ public class A4Client {
 	this.numSeconds = numSeconds;
 	this.keySpaceSize = keySpaceSize;
 	globalNumOps = new AtomicInteger();
+	globalErrCount = new AtomicInteger();
 
 	BufferedReader br = new BufferedReader(new FileReader("a4.config"));
 	String line;
@@ -98,6 +100,8 @@ public class A4Client {
 		}
 		double avgLatency = (double)totalLatency / globalNumOps.get() / 1000;
 		log.info("Average latency: " + ((int)(avgLatency*100))/100f + " ms");
+
+		log.info("Err Count: " + globalErrCount.get());
     }
 
     A4Service.Client getThriftClient() {
@@ -134,6 +138,7 @@ public class A4Client {
 	    totalTime = 0;
 	    long tid = Thread.currentThread().getId();
 	    int numOps = 0;
+	    int errCount = 0;
 
 
 
@@ -156,6 +161,7 @@ public class A4Client {
 
 							if (expected != retVal) {
 								System.out.println("FAILED FAI on key: " + key + " actual: " + retVal + " expected: " + expected );
+								errCount += 1;
 							}
 
 							numOps++;
@@ -174,6 +180,7 @@ public class A4Client {
 
 							if (expected != retVal) {
 								System.out.println("FAILED GET on key: " + key + " actual: " + retVal + " expected: " + expected );
+								errCount += 1;
 							}
 
 							numOps++;
@@ -186,12 +193,13 @@ public class A4Client {
 
 					try {
 						long expected = globalCache.getOrDefault(key, 0L);
-						globalCache.put(key, expected + 1);
+						globalCache.put(key, expected - 1);
 
 						long retVal = client.fetchAndDecrement(key);
 
 						if (expected != retVal) {
 							System.out.println("FAILED FAD on key: " + key + " actual: " + retVal + " expected: " + expected );
+							errCount += 1;
 						}
 
 
@@ -209,6 +217,7 @@ public class A4Client {
 			x.printStackTrace();
 	    } 	
 	    globalNumOps.addAndGet(numOps);
+	    globalErrCount.addAndGet(errCount);
 	}
     }
 }
