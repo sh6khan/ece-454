@@ -42,6 +42,8 @@ public class A4ServiceHandler implements A4Service.Iface {
 		faiCount.get(key).getAndIncrement();
 		// System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
 
+		synchronized (this) {
+
 
 			CopycatClient client = getCopycatClient();
 
@@ -54,7 +56,7 @@ public class A4ServiceHandler implements A4Service.Iface {
 			// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
 			return ret;
 
-
+		}
 
 
 //		synchronized (this) {
@@ -70,16 +72,18 @@ public class A4ServiceHandler implements A4Service.Iface {
 		// System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
 
 
-		CopycatClient client = getCopycatClient();
+		synchronized (this) {
+			CopycatClient client = getCopycatClient();
 
-		CommandBuffer.commitIfNeeded(client);
-		long copyCatVal = client.submit(new GetQuery(key)).join();
+			CommandBuffer.commitIfNeeded(client);
+			long copyCatVal = client.submit(new GetQuery(key)).join();
 
-		long delta = CommandBuffer.addDecrementCommand(key);
-		long ret = delta + copyCatVal;
+			long delta = CommandBuffer.addDecrementCommand(key);
+			long ret = delta + copyCatVal;
 
-		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-		return ret;
+			// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+			return ret;
+		}
 
 
 

@@ -23,10 +23,11 @@ public class BatchTicker implements Runnable {
             // commits can be started by other threads, we don't want to trigge
             // a commit while its already doing so.
             if (CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
+                System.out.println("Not Timed Commit");
                 continue;
             }
 
-            System.out.println("Timed commit");
+
             CommandBuffer.commit(_client);
         }
     }
