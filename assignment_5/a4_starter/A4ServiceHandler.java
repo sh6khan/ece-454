@@ -48,9 +48,8 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		CopycatClient client = getCopycatClient();
 
-    	CommandBuffer.addIncrementCommand(key);
+    	long delta = CommandBuffer.addIncrementCommand(key);
 		Long copyCatVal = client.submit(new GetQuery(key)).join();
-		Long delta = CommandBuffer.getDelta(key);
 		Long ret = copyCatVal + delta;
 
 

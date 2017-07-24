@@ -8,10 +8,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CommandBuffer {
     private static Map<String, AtomicInteger> commands = new ConcurrentHashMap<>();
 
-    public static void addIncrementCommand(String key) {
+    public static long addIncrementCommand(String key) {
         AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
         old.addAndGet(1);
         commands.put(key, old);
+
+        return (long)old.get();
     }
 
     public static void addDecrementCommand(String key) {

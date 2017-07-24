@@ -38,15 +38,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommandBuffer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommandBuffer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CommandBuffer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+            <state relative-caret-position="150">
+              <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#916#917#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
+                <element signature="e#949#950#0" expanded="true" />
+                <element signature="e#1001#1002#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="52" column="43" lean-forward="false" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="43" />
+            <state relative-caret-position="161">
+              <caret line="52" column="38" lean-forward="true" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -142,8 +142,8 @@
         <option value="$PROJECT_DIR$/CopycatClientFactory.java" />
         <option value="$PROJECT_DIR$/BatchTicker.java" />
         <option value="$PROJECT_DIR$/A4Server.java" />
-        <option value="$PROJECT_DIR$/A4ServiceHandler.java" />
         <option value="$PROJECT_DIR$/CommandBuffer.java" />
+        <option value="$PROJECT_DIR$/A4ServiceHandler.java" />
       </list>
     </option>
   </component>
@@ -857,22 +857,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A4StateMachine.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/src.zip!/java/util/concurrent/atomic/AtomicInteger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="241">
+          <caret line="89" column="21" lean-forward="false" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A4Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="57" column="49" lean-forward="true" selection-start-line="57" selection-start-column="49" selection-end-line="57" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2032#2033#0" expanded="true" />
+            <element signature="e#2060#2061#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -889,21 +880,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/src.zip!/java/util/concurrent/atomic/AtomicInteger.java">
+    <entry file="file://$PROJECT_DIR$/A4StateMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="89" column="21" lean-forward="false" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
-          <folding>
-            <element signature="e#2032#2033#0" expanded="true" />
-            <element signature="e#2060#2061#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="52" column="43" lean-forward="false" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="43" />
+        <state relative-caret-position="270">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -912,12 +892,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CommandBuffer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+        <state relative-caret-position="150">
+          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#916#917#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="57" column="49" lean-forward="true" selection-start-line="57" selection-start-column="49" selection-end-line="57" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="52" column="38" lean-forward="true" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
