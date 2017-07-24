@@ -144,7 +144,7 @@ public class A4Client {
 						try {
 							String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
 							Long resp = client.fetchAndIncrement(key);
-							exlog.logWriteInvocation(tid, key, String.valueOf(resp));
+							exlog.logWriteInvocation(tid, key, String.valueOf(resp + 1));
 							exlog.logWriteResponse(tid, key);
 							numOps++;
 							break;

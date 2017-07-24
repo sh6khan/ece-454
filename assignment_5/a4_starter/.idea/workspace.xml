@@ -24,11 +24,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="A4ServiceHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A4ServiceHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="578">
               <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A4Client.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/A4Client.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="147" column="61" lean-forward="true" selection-start-line="147" selection-start-column="61" selection-end-line="147" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,8 +158,8 @@
         <option value="$PROJECT_DIR$/../../assignment_4/a3_starter/A3Client.java" />
         <option value="$PROJECT_DIR$/../../assignment_4/a3_starter/runclient.sh" />
         <option value="$PROJECT_DIR$/runclient.sh" />
-        <option value="$PROJECT_DIR$/A4Client.java" />
         <option value="$PROJECT_DIR$/A4ServiceHandler.java" />
+        <option value="$PROJECT_DIR$/A4Client.java" />
       </list>
     </option>
   </component>
@@ -895,18 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A4Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="156" column="70" lean-forward="true" selection-start-line="156" selection-start-column="70" selection-end-line="156" selection-end-column="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3859#3860#0" expanded="true" />
-            <element signature="e#3884#3885#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/runclient.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -961,6 +961,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="147" column="61" lean-forward="true" selection-start-line="147" selection-start-column="61" selection-end-line="147" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
