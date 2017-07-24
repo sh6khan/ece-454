@@ -4,6 +4,7 @@ import io.atomix.copycat.server.StateMachineExecutor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class A4StateMachine extends StateMachine {
@@ -13,7 +14,19 @@ public class A4StateMachine extends StateMachine {
 		executor.register(FAICommand.class, this::fai);
 		executor.register(GetQuery.class, this::get);
 		executor.register(FADCommand.class, this::fad);
+		executor.register(BatchCommand.class, this::batchCommit);
     }
+
+    public void batchCommit(Commit<BatchCommand> commit) {
+    	try {
+    		for (Map.Entry<String, AtomicInteger> entry: commit.operation()._changes) {
+    			long oldVal = map.getOrDefault(entry.getKey(), 0L);
+    			map.put(entry.getKey(), oldVal + entry.getValue().get());
+			}
+		} finally {
+			commit.close();
+		}
+	}
 
     private Long fai(Commit<FAICommand> commit) {
 		try {

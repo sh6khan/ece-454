@@ -1,70 +1,72 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import io.atomix.catalyst.transport.Address;
-import io.atomix.catalyst.transport.netty.NettyTransport;
-import io.atomix.copycat.client.ConnectionStrategies;
+
 import io.atomix.copycat.client.CopycatClient;
-import io.atomix.copycat.client.RecoveryStrategies;
-import io.atomix.copycat.client.ServerSelectionStrategies;
+
 
 public class A4ServiceHandler implements A4Service.Iface {
     private Map<Integer,CopycatClient> clientMap;
+
     private String ccHost;
     private int ccPort;
+
+	private final ExecutorService service = Executors.newSingleThreadExecutor();
 
     public A4ServiceHandler(String ccHost, int ccPort) {
 		this.ccHost = ccHost;
 		this.ccPort = ccPort;
 		clientMap = new ConcurrentHashMap<>();
+
+		// start thread to commit CommandBuffer every 10ms
+		service.execute(new BatchTicker(ccHost, ccPort));
     }
 
     CopycatClient getCopycatClient() {
 		int tid = (int)Thread.currentThread().getId();
 		CopycatClient client = clientMap.get(tid);
 		if (client == null) {
-			List<Address> members = new ArrayList<>();
-			members.add(new Address(ccHost, ccPort));
-			client = CopycatClient.builder()
-			.withTransport(new NettyTransport())
-			.build();
-			client.serializer().register(GetQuery.class, 1);
-			client.serializer().register(FAICommand.class, 2);
-			client.serializer().register(FADCommand.class, 3);
-			client.connect(members).join();
+			client = CopycatClientFactory.buildCopycatClient(ccHost, ccPort);
 			clientMap.put(tid, client);
 		}
 		return client;
     }
 
-    public long fetchAndIncrement(String key) throws org.apache.thrift.TException
-    {
+    public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
+
+		CopycatClient client = getCopycatClient();
+    	CommandBuffer.addIncrementCommand(key);
+		Long ret = client.submit(new GetQuery(key)).join();
+		return ret + CommandBuffer.getDelta(key);
+
 		// improve this part
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			Long ret = client.submit(new FAICommand(key)).join();
-			return ret;
-		}
+//		synchronized (this) {
+//			CopycatClient client = getCopycatClient();
+//			Long ret = client.submit(new FAICommand(key)).join();
+//			return ret;
+//		}
     }
 
-    public long fetchAndDecrement(String key) throws org.apache.thrift.TException
-    {
-		// improve this part
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			Long ret = client.submit(new FADCommand(key)).join();
-			return ret;
-		}
+    public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
+
+		CopycatClient client = getCopycatClient();
+		CommandBuffer.addDecrementCommand(key);
+		Long ret = client.submit(new GetQuery(key)).join();
+		return ret + CommandBuffer.getDelta(key);
+
+//		// improve this part
+//		synchronized (this) {
+//			CopycatClient client = getCopycatClient();
+//			Long ret = client.submit(new FADCommand(key)).join();
+//			return ret;
+//		}
     }
 
-    public long get(String key) throws org.apache.thrift.TException
-    {
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			Long ret = client.submit(new GetQuery(key)).join();
-			return ret;
-		}
+    public long get(String key) throws org.apache.thrift.TException {
+		CopycatClient client = getCopycatClient();
+		Long ret = client.submit(new GetQuery(key)).join();
+		return ret;
     }
 }
