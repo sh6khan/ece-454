@@ -3,6 +3,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 import io.atomix.copycat.client.CopycatClient;
@@ -91,6 +92,13 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 			Long ret = client.submit(new GetQuery(key)).join();
 			// System.out.println("GET called: " + key + " : " + ret);
+
+			for (Map.Entry<String, AtomicLong> entry : CommandBuffer.nonClearedCommands.entrySet()) {
+				System.out.println(entry.getKey() + entry.getValue());
+			}
+
+
+
 			return ret;
 		}
 

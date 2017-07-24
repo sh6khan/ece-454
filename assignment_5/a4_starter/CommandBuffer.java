@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
+    public static Map<String, AtomicLong> nonClearedCommands = new ConcurrentHashMap<>();
     private static long OP_MAX = 4;
 
     private static Map<String, AtomicInteger> faiCount = new ConcurrentHashMap<>();
@@ -27,11 +28,14 @@ public class CommandBuffer {
         commands.get(key).getAndIncrement();
         opCount.getAndIncrement();
 
-        if (key == "key-0") {
-            faiCount.putIfAbsent(key, new AtomicInteger(0));
-            faiCount.get(key).getAndIncrement();
-            System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
-        }
+        nonClearedCommands.putIfAbsent(key, new AtomicLong(0));
+        nonClearedCommands.get(key).getAndIncrement();
+
+//        if (key == "key-0") {
+//            faiCount.putIfAbsent(key, new AtomicInteger(0));
+//            faiCount.get(key).getAndIncrement();
+//            System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
+//        }
 
 
         return 0L;
@@ -42,11 +46,14 @@ public class CommandBuffer {
         commands.get(key).getAndDecrement();
         opCount.getAndIncrement();
 
-        if (key == "key-0") {
-            fadCount.putIfAbsent(key, new AtomicInteger(0));
-            fadCount.get(key).getAndIncrement();
-            System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
-        }
+        nonClearedCommands.putIfAbsent(key, new AtomicLong(0));
+        nonClearedCommands.get(key).getAndDecrement();
+
+//        if (key == "key-0") {
+//            fadCount.putIfAbsent(key, new AtomicInteger(0));
+//            fadCount.get(key).getAndIncrement();
+//            System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
+//        }
 
         return 0L;
     }
