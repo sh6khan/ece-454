@@ -8,12 +8,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CommandBuffer {
     private static Map<String, AtomicInteger> commands = new ConcurrentHashMap<>();
 
-    public static int addIncrementCommand(String key) {
+    public static void addIncrementCommand(String key) {
         AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
         old.addAndGet(1);
         commands.put(key, old);
-
-        return old.get();
     }
 
     public static void addDecrementCommand(String key) {
@@ -31,8 +29,8 @@ public class CommandBuffer {
      * @param key - the key from from the commands map
      * @return delta
      */
-    public static int getDelta(String key) {
-        return commands.getOrDefault(key, new AtomicInteger( 0)).get();
+    public static Long getDelta(String key) {
+        return (long)commands.get(key).get();
     }
 
     /**
@@ -57,10 +55,10 @@ public class CommandBuffer {
         // create a copy of the entire map as an entry set
         Set<Map.Entry<String, AtomicInteger>> entrySet = commands.entrySet();
 
-        // clear the map for future commits
-        commands.clear();
-
         System.out.println("Submiting " + entrySet.size() + " commands to CopyCat");
         client.submit(new BatchCommand(entrySet)).join();
+
+        // clear the map for future commits
+        commands.clear();
     }
 }

@@ -1,3 +1,4 @@
+import java.awt.event.ComponentAdapter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -47,10 +48,13 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		CopycatClient client = getCopycatClient();
 
-    	int newVal = CommandBuffer.addIncrementCommand(key);
-		Long ret = client.submit(new GetQuery(key)).join() + newVal;
+    	CommandBuffer.addIncrementCommand(key);
+		Long copyCatVal = client.submit(new GetQuery(key)).join();
+		Long delta = CommandBuffer.getDelta(key);
+		Long ret = copyCatVal + delta;
 
-		log.info("FAI called: " + key + ":" + ret);
+
+		log.info("FAI called: " + key + ":" + ret + "-- delta: " + delta + " copyCatVal: " + copyCatVal);
 		return ret;
 
 		// improve this part
