@@ -19,7 +19,7 @@ public class A4StateMachine extends StateMachine {
 
     public void batchCommit(Commit<BatchCommand> commit) {
     	try {
-    		for (Map.Entry<String, AtomicInteger> entry: commit.operation()._changes) {
+    		for (Map.Entry<String, AtomicInteger> entry: commit.operation()._changes.entrySet()) {
     			long oldVal = map.getOrDefault(entry.getKey(), 0L);
     			map.put(entry.getKey(), oldVal + entry.getValue().get());
 			}

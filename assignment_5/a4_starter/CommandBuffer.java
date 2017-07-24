@@ -1,5 +1,6 @@
 import io.atomix.copycat.client.CopycatClient;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,13 +55,10 @@ public class CommandBuffer {
             return;
         }
 
-        // create a copy of the entire map as an entry set
-        Set<Map.Entry<String, AtomicInteger>> entrySet = commands.entrySet();
-
-        System.out.println("Submiting " + entrySet.size() + " commands to CopyCat");
-        client.submit(new BatchCommand(entrySet)).join();
-
-        // clear the map for future commits
+        Map<String, AtomicInteger> copiedMap = new HashMap<>(commands);
         commands.clear();
+
+        System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
+        client.submit(new BatchCommand(commands)).join();
     }
 }
