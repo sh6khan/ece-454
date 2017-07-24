@@ -2,8 +2,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.BasicConfigurator;
@@ -27,6 +30,10 @@ public class A4Client {
 	volatile boolean done = false;
 	AtomicInteger globalNumOps;
 	AtomicInteger fai;
+	AtomicInteger fad;
+	ConcurrentHashMap<String, AtomicInteger> fadCount;
+	ConcurrentHashMap<String, AtomicInteger> faiCount;
+	volatile boolean getPrinted = false;
 	List<Address> rpcAddresses;
 	static ExecutionLogger exlog = new ExecutionLogger("execution.log");
 
@@ -55,7 +62,10 @@ public class A4Client {
 		this.numSeconds = numSeconds;
 		this.keySpaceSize = keySpaceSize;
 		globalNumOps = new AtomicInteger();
-		fai = new AtomicInteger();
+		fai = new AtomicInteger(0);
+		fad = new AtomicInteger(0);
+		fadCount = new ConcurrentHashMap<String, AtomicInteger>();
+		faiCount = new ConcurrentHashMap<String, AtomicInteger>();
 
 		BufferedReader br = new BufferedReader(new FileReader("a4.config"));
 		String line;
@@ -85,9 +95,11 @@ public class A4Client {
 		log.info("Done starting " + numThreads + " threads...");
 		Thread.sleep(numSeconds * 1000);
 		done = true;
+
 		for (Thread t : tlist) {
 			t.join();
 		}
+
 		long estimatedTime = System.currentTimeMillis() - startTime;
 		int tput = (int) (1000f * globalNumOps.get() / estimatedTime);
 		log.info("Aggregate throughput: " + tput + " RPCs/s");
@@ -97,6 +109,31 @@ public class A4Client {
 		}
 		double avgLatency = (double) totalLatency / globalNumOps.get() / 1000;
 		log.info("Average latency: " + ((int) (avgLatency * 100)) / 100f + " ms");
+
+		HashSet<String> keySet = new HashSet<String>();
+		keySet.addAll(faiCount.keySet());
+		keySet.addAll(fadCount.keySet());
+
+		A4Service.Client client = getThriftClient();
+
+		for (String key : keySet) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(key + " FAI: ");
+			int fai = faiCount.getOrDefault(key, new AtomicInteger(0)).get();
+			sb.append(fai);
+			sb.append(" FAD: ");
+			int fad = fadCount.getOrDefault(key, new AtomicInteger(0)).get();
+			sb.append(fad);
+			sb.append(" GET: ");
+			Long ret = client.get(key);
+			sb.append(ret);
+			if (fai - fad == ret) {
+				sb.append(" PASS");
+			} else {
+				sb.append(" FAIL");
+			}
+			System.out.println(sb.toString());
+		}
 	}
 
 	A4Service.Client getThriftClient() {
@@ -140,30 +177,29 @@ public class A4Client {
 			try {
 				while (!done) {
 					long startTime = System.nanoTime();
-
 					while (true) {
-						int method = rand.nextInt(3);
-
-						if (method == 0) {
+						if (rand.nextBoolean()) {
 							try {
 								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
 								Long resp = client.fetchAndIncrement(key);
-								exlog.logWriteInvocation(tid, key, String.valueOf(resp + 1));
-								exlog.logWriteResponse(tid, key);
+								exlog.logWriteInvocation(tid, "FAI-" + key, String.valueOf(resp));
+								faiCount.putIfAbsent(key, new AtomicInteger(0));
+								faiCount.get(key).getAndIncrement();
+								fai.getAndIncrement();
 								numOps++;
 								break;
 							} catch (Exception e) {
 								log.error("Exception during fetchAndIncrement", e);
 								client = getThriftClient();
 							}
-						}
-
-						if (method == 1) {
+						} else {
 							try {
 								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
 								Long resp = client.fetchAndDecrement(key);
-								exlog.logWriteInvocation(tid, key, String.valueOf(resp - 1));
-								exlog.logWriteResponse(tid, key);
+								exlog.logWriteInvocation(tid, "FAD-" + key, String.valueOf(resp));
+								fadCount.putIfAbsent(key, new AtomicInteger(0));
+								fadCount.get(key).getAndIncrement();
+								fad.getAndIncrement();
 								numOps++;
 								break;
 							} catch (Exception e) {
@@ -171,25 +207,22 @@ public class A4Client {
 								client = getThriftClient();
 							}
 						}
-
-						if (method == 2) {
-							try {
-								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-								exlog.logReadInvocation(tid, key);
-								Long resp = client.get(key);
-								exlog.logReadResponse(tid, key, resp.toString());
-								numOps++;
-								break;
-							} catch (Exception e) {
-								log.error("Exception during get", e);
-								client = getThriftClient();
-							}
-						}
-
 					}
 					long diffTime = System.nanoTime() - startTime;
 					totalTime += diffTime / 1000;
 				}
+				/*
+				 * if (!getPrinted) { getPrinted = true; String key = "key-" +
+				 * (Math.abs(rand.nextLong()) % keySpaceSize); Long resp =
+				 * client.get(key); exlog.logWriteInvocation(tid, "GET-" + key,
+				 * String.valueOf(resp)); exlog.logWriteInvocation(tid,
+				 * "FAICount", String.valueOf(faiCount.get(key).get()));
+				 * exlog.logWriteInvocation(tid, "FADCount",
+				 * String.valueOf(fadCount.get(key).get()));
+				 * exlog.logWriteInvocation(tid, "FAICount",
+				 * String.valueOf(fai.get())); exlog.logWriteInvocation(tid,
+				 * "FADCount", String.valueOf(fad.get())); }
+				 */
 			} catch (Exception x) {
 				x.printStackTrace();
 			}
