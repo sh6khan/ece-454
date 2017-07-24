@@ -61,13 +61,13 @@ public class CommandBuffer {
      * @param client - the copycat client
      */
     public static void commit(CopycatClient client) {
-        state = STATE.COMITTING;
-
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
         if (opCount.get() == 0) {
             return;
         }
+
+        state = STATE.COMITTING;
 
         Map<String, AtomicInteger> copiedMap = new HashMap<>(commands);
         commands.clear();
