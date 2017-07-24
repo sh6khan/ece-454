@@ -17,24 +17,14 @@ public class CommandBuffer {
         return (long)old.get();
     }
 
-    public static void addDecrementCommand(String key) {
-        if (!commands.containsKey(key)){
-            commands.put(key, new AtomicInteger(0));
-        }
+    public static long addDecrementCommand(String key) {
+        AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
+        old.addAndGet(-1);
+        commands.put(key, old);
 
-        commands.get(key).addAndGet(-1);
+        return (long)old.get();
     }
 
-
-    /**
-     * getter for the key<->delta currently being batched
-     *
-     * @param key - the key from from the commands map
-     * @return delta
-     */
-    public static Long getDelta(String key) {
-        return (long)commands.get(key).get();
-    }
 
     /**
      * The {@code commands} map keeps a map of keys and their associated deltas to be applied

@@ -3,8 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.atomix.catalyst.transport.Address;
@@ -29,6 +31,8 @@ public class A4Client {
     volatile boolean done = false;
     AtomicInteger globalNumOps;
     List<Address> rpcAddresses;
+
+	Map<String, Long> globalCache = new ConcurrentHashMap<>();
 
     public static void main(String [] args) throws IOException {
 	if (args.length != 3) {
@@ -67,33 +71,33 @@ public class A4Client {
     }
 
     void execute() throws Exception {
-	List<Thread> tlist = new ArrayList<>();
-	List<MyRunnable> rlist = new ArrayList<>();
-	for (int i = 0; i < numThreads; i++) {
-	    MyRunnable r = new MyRunnable();
-	    Thread t = new Thread(r);
-	    tlist.add(t);
-	    rlist.add(r);
-	}
-	long startTime = System.currentTimeMillis();
-	for (int i = 0; i < numThreads; i++) {
-	    tlist.get(i).start();
-	}
-	log.info("Done starting " + numThreads + " threads...");
-	Thread.sleep(numSeconds * 1000);
-	done = true;
-	for (Thread t: tlist) {
-	    t.join();
-	}
-	long estimatedTime = System.currentTimeMillis() - startTime;
-	int tput = (int)(1000f * globalNumOps.get() / estimatedTime);
-	log.info("Aggregate throughput: " + tput + " RPCs/s");
-	long totalLatency = 0;
-	for (MyRunnable r: rlist) {
-	    totalLatency += r.getTotalTime();
-	}
-	double avgLatency = (double)totalLatency / globalNumOps.get() / 1000;
-	log.info("Average latency: " + ((int)(avgLatency*100))/100f + " ms");
+		List<Thread> tlist = new ArrayList<>();
+		List<MyRunnable> rlist = new ArrayList<>();
+		for (int i = 0; i < numThreads; i++) {
+			MyRunnable r = new MyRunnable();
+			Thread t = new Thread(r);
+			tlist.add(t);
+			rlist.add(r);
+		}
+		long startTime = System.currentTimeMillis();
+		for (int i = 0; i < numThreads; i++) {
+			tlist.get(i).start();
+		}
+		log.info("Done starting " + numThreads + " threads...");
+		Thread.sleep(numSeconds * 1000);
+		done = true;
+		for (Thread t: tlist) {
+			t.join();
+		}
+		long estimatedTime = System.currentTimeMillis() - startTime;
+		int tput = (int)(1000f * globalNumOps.get() / estimatedTime);
+		log.info("Aggregate throughput: " + tput + " RPCs/s");
+		long totalLatency = 0;
+		for (MyRunnable r: rlist) {
+			totalLatency += r.getTotalTime();
+		}
+		double avgLatency = (double)totalLatency / globalNumOps.get() / 1000;
+		log.info("Average latency: " + ((int)(avgLatency*100))/100f + " ms");
     }
 
     A4Service.Client getThriftClient() {
@@ -130,34 +134,79 @@ public class A4Client {
 	    totalTime = 0;
 	    long tid = Thread.currentThread().getId();
 	    int numOps = 0;
+
+
+
+
+
 	    try {
-		while (!done) {
-		    long startTime = System.nanoTime();
-		    while (true) {
-			try {
-			    String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-			    client.fetchAndIncrement(key);
-			    numOps++;
-			    break;
-			} catch (Exception e) {
-			    log.error("Exception during fetchAndIncrement", e);
-			    client = getThriftClient();
+			while (!done) {
+				long startTime = System.nanoTime();
+
+				while (true) {
+					int method = rand.nextInt(3);
+					String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
+
+					if (method == 0) {
+						try {
+							long expected = globalCache.getOrDefault(key, 0L);
+							globalCache.put(key, expected + 1);
+
+							long retVal = client.fetchAndIncrement(key);
+
+							if (expected != retVal) {
+								System.out.println("FAILED FAI on key: " + key + " actual: " + retVal + " expected: " + expected );
+							}
+
+							numOps++;
+							break;
+
+						} catch (Exception e) {
+							log.error("Exception during fetchAndIncrement", e);
+							client = getThriftClient();
+						}
+					}
+
+					if (method == 1) {
+						try {
+							long expected = globalCache.get(key);
+							long retVal = client.get(key);
+
+							if (expected != retVal) {
+								System.out.println("FAILED GET on key: " + key + " actual: " + retVal + " expected: " + expected );
+							}
+
+							numOps++;
+							break;
+						} catch (Exception e) {
+							log.error("Exception during get", e);
+							client = getThriftClient();
+						}
+					}
+
+					try {
+						long expected = globalCache.getOrDefault(key, 0L);
+						globalCache.put(key, expected + 1);
+
+						long retVal = client.fetchAndDecrement(key);
+
+						if (expected != retVal) {
+							System.out.println("FAILED FAD on key: " + key + " actual: " + retVal + " expected: " + expected );
+						}
+
+
+						numOps++;
+						break;
+					} catch (Exception e) {
+						log.error("Exception during get", e);
+						client = getThriftClient();
+					}
+				}
+				long diffTime = System.nanoTime() - startTime;
+				totalTime += diffTime / 1000;
 			}
-			try {
-			    String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-			    client.get(key);
-			    numOps++;
-			    break;
-			} catch (Exception e) {
-			    log.error("Exception during get", e);
-			    client = getThriftClient();
-			}
-		    }
-		    long diffTime = System.nanoTime() - startTime;
-		    totalTime += diffTime / 1000;
-		}
 	    } catch (Exception x) {
-		x.printStackTrace();
+			x.printStackTrace();
 	    } 	
 	    globalNumOps.addAndGet(numOps);
 	}
