@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A4Client.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="A4Client.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A4Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="104" column="5" lean-forward="true" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+            <state relative-caret-position="411">
+              <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,7 +86,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BatchTicker.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BatchTicker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BatchTicker.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -134,8 +134,8 @@
         <option value="$PROJECT_DIR$/A4StateMachine.java" />
         <option value="$PROJECT_DIR$/CommandBuffer.java" />
         <option value="$PROJECT_DIR$/A4ServiceHandler.java" />
-        <option value="$PROJECT_DIR$/A4Client.java" />
         <option value="$PROJECT_DIR$/BatchTicker.java" />
+        <option value="$PROJECT_DIR$/A4Client.java" />
       </list>
     </option>
   </component>
@@ -897,21 +897,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/A4Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="104" column="5" lean-forward="true" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BatchTicker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="42" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A4Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="112" column="13" lean-forward="true" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

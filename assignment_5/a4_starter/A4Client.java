@@ -102,6 +102,16 @@ public class A4Client {
 		log.info("Average latency: " + ((int)(avgLatency*100))/100f + " ms");
 
 		log.info("Err Count: " + globalErrCount.get());
+
+
+		// this is the end
+		A4Service.Client client = getThriftClient();
+		for (Map.Entry<String, Long> entry : globalCache.entrySet()) {
+			long actual = client.get(entry.getKey());
+			if (actual != entry.getValue()) {
+				System.out.println("FAILED FAD on key: " + entry.getKey() + " actual: " + actual + " expected: " + entry.getValue() );
+			}
+		}
     }
 
     A4Service.Client getThriftClient() {
