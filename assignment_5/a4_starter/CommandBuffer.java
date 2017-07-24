@@ -11,6 +11,9 @@ public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
     private static long OP_MAX = 4;
 
+    private static Map<String, AtomicInteger> faiCount = new ConcurrentHashMap<>();
+    private static Map<String, AtomicInteger> fadCount = new ConcurrentHashMap<>();
+
     private static AtomicInteger opCount = new AtomicInteger(0);
     public static STATE state = STATE.BATCHING;
 
@@ -24,6 +27,13 @@ public class CommandBuffer {
         commands.get(key).getAndIncrement();
         opCount.getAndIncrement();
 
+        if (key == "key-0") {
+            faiCount.putIfAbsent(key, new AtomicInteger(0));
+            faiCount.get(key).getAndIncrement();
+            System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
+        }
+
+
         return 0L;
     }
 
@@ -31,6 +41,12 @@ public class CommandBuffer {
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndDecrement();
         opCount.getAndIncrement();
+
+        if (key == "key-0") {
+            fadCount.putIfAbsent(key, new AtomicInteger(0));
+            fadCount.get(key).getAndIncrement();
+            System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
+        }
 
         return 0L;
     }
@@ -59,7 +75,7 @@ public class CommandBuffer {
      *
      * @param client - the copycat client
      */
-    public static void commit(CopycatClient client) {
+    public static synchronized void commit(CopycatClient client) {
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
         if (opCount.get() == 0) {
