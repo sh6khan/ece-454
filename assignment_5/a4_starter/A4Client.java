@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ca.uwaterloo.watca.ExecutionLogger;
 import io.atomix.catalyst.transport.Address;
 
 import org.apache.log4j.BasicConfigurator;
@@ -35,23 +36,27 @@ public class A4Client {
 
 	Map<String, Long> globalCache = new ConcurrentHashMap<>();
 
+	ExecutionLogger exlog;
+
     public static void main(String [] args) throws IOException {
-	if (args.length != 3) {
-	    System.err.println("Usage: java A4Client num_threads num_seconds key_space_size");
-	    System.exit(-1);
-	}
+		if (args.length != 3) {
+			System.err.println("Usage: java A4Client num_threads num_seconds key_space_size");
+			System.exit(-1);
+		}
 
-	BasicConfigurator.configure();
-	log = Logger.getLogger(A4Client.class.getName());
+		BasicConfigurator.configure();
+		log = Logger.getLogger(A4Client.class.getName());
 
-	A4Client client = new A4Client(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-	
-	try {
-	    client.execute();
-	} catch (Exception e) {
-	    log.error("Uncaught exception", e);
-	} finally {
-	}
+		A4Client client = new A4Client(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+
+		try {
+			client.start();
+			client.execute();
+		} catch (Exception e) {
+			log.error("Uncaught exception", e);
+		} finally {
+			client.stop();
+		}
     }
 
     A4Client(int numThreads, int numSeconds, int keySpaceSize) throws IOException {
@@ -60,6 +65,7 @@ public class A4Client {
 	this.keySpaceSize = keySpaceSize;
 	globalNumOps = new AtomicInteger();
 	globalErrCount = new AtomicInteger();
+	exlog = new ExecutionLogger("execution.log");
 
 	BufferedReader br = new BufferedReader(new FileReader("a4.config"));
 	String line;
@@ -72,7 +78,16 @@ public class A4Client {
 	}
     }
 
+    void start() {
+    	exlog.start();
+	}
+
+	void stop() {
+    	exlog.stop();
+	}
+
     void execute() throws Exception {
+
 		List<Thread> tlist = new ArrayList<>();
 		List<MyRunnable> rlist = new ArrayList<>();
 		for (int i = 0; i < numThreads; i++) {
@@ -112,6 +127,8 @@ public class A4Client {
 				System.out.println("FAILED FINAL on key: " + entry.getKey() + " actual: " + actual + " expected: " + entry.getValue() );
 			}
 		}
+
+		exlog.stop();
     }
 
     A4Service.Client getThriftClient() {
@@ -168,11 +185,13 @@ public class A4Client {
 							globalCache.put(key, expected + 1);
 
 							long retVal = client.fetchAndIncrement(key);
+							exlog.logWriteInvocation(tid, key, String.valueOf(retVal + 1));
+							exlog.logWriteResponse(tid, key);
 
-							if (expected != retVal) {
-								System.out.println("FAILED FAI on key: " + key + " actual: " + retVal + " expected: " + expected );
-								errCount += 1;
-							}
+//							if (expected != retVal) {
+//								System.out.println("FAILED FAI on key: " + key + " actual: " + retVal + " expected: " + expected );
+//								errCount += 1;
+//							}
 
 							numOps++;
 							break;
@@ -188,10 +207,12 @@ public class A4Client {
 							long expected = globalCache.get(key);
 							long retVal = client.get(key);
 
-							if (expected != retVal) {
-								System.out.println("FAILED GET on key: " + key + " actual: " + retVal + " expected: " + expected );
-								errCount += 1;
-							}
+							exlog.logReadResponse(tid, key, String.valueOf(retVal));
+
+//							if (expected != retVal) {
+//								System.out.println("FAILED GET on key: " + key + " actual: " + retVal + " expected: " + expected );
+//								errCount += 1;
+//							}
 
 							numOps++;
 							break;
@@ -207,10 +228,13 @@ public class A4Client {
 
 						long retVal = client.fetchAndDecrement(key);
 
-						if (expected != retVal) {
-							System.out.println("FAILED FAD on key: " + key + " actual: " + retVal + " expected: " + expected );
-							errCount += 1;
-						}
+						exlog.logWriteInvocation(tid, key, String.valueOf(retVal - 1));
+						exlog.logWriteResponse(tid, key);
+
+//						if (expected != retVal) {
+//							System.out.println("FAILED FAD on key: " + key + " actual: " + retVal + " expected: " + expected );
+//							errCount += 1;
+//						}
 
 
 						numOps++;
