@@ -8,12 +8,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CommandBuffer {
     private static Map<String, AtomicInteger> commands = new ConcurrentHashMap<>();
 
-    public static void addIncrementCommand(String key) {
-        if (!commands.containsKey(key)){
-            commands.put(key, new AtomicInteger(0));
-        }
+    public static int addIncrementCommand(String key) {
+        AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
+        old.addAndGet(1);
+        commands.put(key, old);
 
-        commands.get(key).addAndGet(1);
+        return old.get();
     }
 
     public static void addDecrementCommand(String key) {
@@ -51,7 +51,6 @@ public class CommandBuffer {
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
         if (commands.size() == 0) {
-            System.out.println("Nothing stored in commands buffer");
             return;
         }
 
@@ -61,7 +60,7 @@ public class CommandBuffer {
         // clear the map for future commits
         commands.clear();
 
-        System.out.println("Submiting " + commands.size() + " commands to CopyCat");
+        System.out.println("Submiting " + entrySet.size() + " commands to CopyCat");
         client.submit(new BatchCommand(entrySet)).join();
     }
 }

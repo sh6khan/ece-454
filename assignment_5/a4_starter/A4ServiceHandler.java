@@ -46,8 +46,10 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 
 		CopycatClient client = getCopycatClient();
-    	CommandBuffer.addIncrementCommand(key);
-		Long ret = client.submit(new GetQuery(key)).join() + CommandBuffer.getDelta(key);
+
+    	int newVal = CommandBuffer.addIncrementCommand(key);
+		Long ret = client.submit(new GetQuery(key)).join() + newVal;
+
 		log.info("FAI called: " + key + ":" + ret);
 		return ret;
 
