@@ -140,40 +140,52 @@ public class A4Client {
 			try {
 				while (!done) {
 					long startTime = System.nanoTime();
+
 					while (true) {
-						try {
-							String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-							Long resp = client.fetchAndIncrement(key);
-							exlog.logWriteInvocation(tid, key, String.valueOf(resp + 1));
-							exlog.logWriteResponse(tid, key);
-							numOps++;
-							break;
-						} catch (Exception e) {
-							log.error("Exception during fetchAndIncrement", e);
-							client = getThriftClient();
+						int method = rand.nextInt(3);
+
+						if (method == 0) {
+							try {
+								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
+								Long resp = client.fetchAndIncrement(key);
+								exlog.logWriteInvocation(tid, key, String.valueOf(resp + 1));
+								exlog.logWriteResponse(tid, key);
+								numOps++;
+								break;
+							} catch (Exception e) {
+								log.error("Exception during fetchAndIncrement", e);
+								client = getThriftClient();
+							}
 						}
-						try {
-							String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-							Long resp = client.fetchAndDecrement(key);
-							exlog.logWriteInvocation(tid, key, String.valueOf(resp - 1));
-							exlog.logWriteResponse(tid, key);
-							numOps++;
-							break;
-						} catch (Exception e) {
-							log.error("Exception during fetchAndDecrement", e);
-							client = getThriftClient();
+
+						if (method == 1) {
+							try {
+								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
+								Long resp = client.fetchAndDecrement(key);
+								exlog.logWriteInvocation(tid, key, String.valueOf(resp - 1));
+								exlog.logWriteResponse(tid, key);
+								numOps++;
+								break;
+							} catch (Exception e) {
+								log.error("Exception during fetchAndDecrement", e);
+								client = getThriftClient();
+							}
 						}
-						try {
-							String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-							exlog.logReadInvocation(tid, key);
-							Long resp = client.get(key);
-							exlog.logReadResponse(tid, key, resp.toString());
-							numOps++;
-							break;
-						} catch (Exception e) {
-							log.error("Exception during get", e);
-							client = getThriftClient();
+
+						if (method == 2) {
+							try {
+								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
+								exlog.logReadInvocation(tid, key);
+								Long resp = client.get(key);
+								exlog.logReadResponse(tid, key, resp.toString());
+								numOps++;
+								break;
+							} catch (Exception e) {
+								log.error("Exception during get", e);
+								client = getThriftClient();
+							}
 						}
+
 					}
 					long diffTime = System.nanoTime() - startTime;
 					totalTime += diffTime / 1000;

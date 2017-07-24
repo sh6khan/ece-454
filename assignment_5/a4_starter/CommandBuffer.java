@@ -35,7 +35,7 @@ public class CommandBuffer {
      *
      * @param client - the copycat client
      */
-    public static void commit(CopycatClient client) {
+    public static synchronized void commit(CopycatClient client) {
 
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
