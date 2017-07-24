@@ -4,11 +4,11 @@ import io.atomix.copycat.server.StateMachineExecutor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 public class A4StateMachine extends StateMachine {
-    private Map<String, Long> map = new ConcurrentHashMap<>();
+    private Map<String, AtomicLong> map = new ConcurrentHashMap<>();
 
     protected void configure(StateMachineExecutor executor) {
 		executor.register(FAICommand.class, this::fai);
@@ -19,9 +19,9 @@ public class A4StateMachine extends StateMachine {
 
     public void batchCommit(Commit<BatchCommand> commit) {
     	try {
-    		for (Map.Entry<String, AtomicInteger> entry: commit.operation()._changes.entrySet()) {
-    			long oldVal = map.getOrDefault(entry.getKey(), 0L);
-    			map.put(entry.getKey(), oldVal + entry.getValue().get());
+    		for (Map.Entry<String, AtomicLong> entry: commit.operation()._changes.entrySet()) {
+    			map.putIfAbsent(entry.getKey(), new AtomicLong(0));
+    			map.get(entry.getKey()).addAndGet(entry.getValue().get());
 			}
 		} finally {
 			commit.close();
@@ -31,9 +31,10 @@ public class A4StateMachine extends StateMachine {
     private Long fai(Commit<FAICommand> commit) {
 		try {
 			String key = commit.operation()._key;
-			long oldValue = map.getOrDefault(key, 0L);
-			map.put(key, oldValue + 1L);
-			return oldValue;
+			AtomicLong val = map.getOrDefault(key, new AtomicLong(0));
+			long ret = val.getAndIncrement();
+			map.put(key, val);
+			return ret;
 		} finally {
 			commit.close();
 		}
@@ -41,10 +42,11 @@ public class A4StateMachine extends StateMachine {
 
     private Long fad(Commit<FADCommand> commit) {
     	try {
-    		String key = commit.operation()._key;
-    		long oldValue = map.getOrDefault(key, 0L);
-    		map.put(key, oldValue - 1L);
-    		return oldValue;
+			String key = commit.operation()._key;
+			AtomicLong val = map.getOrDefault(key, new AtomicLong(0));
+			long ret = val.getAndDecrement();
+			map.put(key, val);
+			return ret;
 		} finally {
     		commit.close();
 		}
@@ -52,7 +54,7 @@ public class A4StateMachine extends StateMachine {
 
     public Long get(Commit<GetQuery> commit) {
 		try {
-			return map.getOrDefault(commit.operation()._key, 0L);
+			return map.getOrDefault(commit.operation()._key, new AtomicLong(0)).get();
 		} finally {
 			commit.release();
 		}

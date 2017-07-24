@@ -5,10 +5,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
-    private static Map<String, AtomicInteger> commands = new ConcurrentHashMap<>();
-    private static int OP_MAX = 8;
+    private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
+    private static long OP_MAX = 4;
 
     private static AtomicInteger opCount = new AtomicInteger(0);
     public static STATE state = STATE.BATCHING;
@@ -19,21 +20,19 @@ public class CommandBuffer {
     }
 
     public static long addIncrementCommand(String key) {
-        AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
-        old.addAndGet(1);
-        commands.put(key, old);
+        commands.putIfAbsent(key, new AtomicLong(0));
+        commands.get(key).getAndIncrement();
         opCount.getAndIncrement();
 
-        return (long) old.get();
+        return 0L;
     }
 
     public static long addDecrementCommand(String key) {
-        AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
-        old.addAndGet(-1);
-        commands.put(key, old);
+        commands.putIfAbsent(key, new AtomicLong(0));
+        commands.get(key).getAndDecrement();
         opCount.getAndIncrement();
 
-        return (long) old.get();
+        return 0L;
     }
 
     /**
@@ -69,7 +68,7 @@ public class CommandBuffer {
 
         state = STATE.COMITTING;
 
-        Map<String, AtomicInteger> copiedMap = new HashMap<>(commands);
+        Map<String, AtomicLong> copiedMap = new HashMap<>(commands);
         commands.clear();
 
         System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");

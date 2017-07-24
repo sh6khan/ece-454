@@ -26,6 +26,7 @@ public class BatchTicker implements Runnable {
                 continue;
             }
 
+            System.out.println("Timed commit");
             CommandBuffer.commit(_client);
         }
     }

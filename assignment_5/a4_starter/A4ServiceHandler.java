@@ -40,9 +40,9 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 		faiCount.putIfAbsent(key, new AtomicInteger(0));
 		faiCount.get(key).getAndIncrement();
-		System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
+		// System.out.println("FAI Count for key:" + key + " " + faiCount.get(key).get());
 
-    	synchronized (this) {
+
 			CopycatClient client = getCopycatClient();
 
 			CommandBuffer.commitIfNeeded(client);
@@ -53,7 +53,7 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 			// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
 			return ret;
-		}
+
 
 
 
@@ -67,19 +67,20 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
 		fadCount.putIfAbsent(key, new AtomicInteger(0));
 		fadCount.get(key).getAndIncrement();
-		System.out.println("FAI Count for key:" + key + " : " + fadCount.get(key).get());
-
-    	synchronized (this) {
-			CopycatClient client = getCopycatClient();
-
-			long delta = CommandBuffer.addDecrementCommand(key);
-			long copyCatVal = client.submit(new GetQuery(key)).join();
-			long ret = copyCatVal + delta;
+		// System.out.println("FAD Count for key:" + key + " : " + fadCount.get(key).get());
 
 
-			// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-			return ret;
-		}
+		CopycatClient client = getCopycatClient();
+
+		CommandBuffer.commitIfNeeded(client);
+		long copyCatVal = client.submit(new GetQuery(key)).join();
+
+		long delta = CommandBuffer.addDecrementCommand(key);
+		long ret = delta + copyCatVal;
+
+		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+		return ret;
+
 
 
 //		synchronized (this) {
