@@ -35,58 +35,52 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
-//    	synchronized (this) {
-//			CopycatClient client = getCopycatClient();
-//
-//			long detla = CommandBuffer.addIncrementCommand(key);
-//			long copyCatVal = client.submit(new GetQuery(key)).join();
-//			long ret = detla + copyCatVal;
-//
-//			// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-//			return ret;
-//		}
+		CopycatClient client = getCopycatClient();
+
+		CommandBuffer.commitIfNeeded(client);
+		long copyCatVal = client.submit(new GetQuery(key)).join();
+
+		long delta = CommandBuffer.addIncrementCommand(key);
+		long ret = delta + copyCatVal;
+
+		// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+		return ret;
 
 
-		// improve this part
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			Long ret = client.submit(new FAICommand(key)).join();
-			return ret;
-		}
-    }
-
-    public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
 
 //		synchronized (this) {
 //			CopycatClient client = getCopycatClient();
-//
-//			long delta = CommandBuffer.addDecrementCommand(key);
-//			long copyCatVal = client.submit(new GetQuery(key)).join();
-//			long ret = copyCatVal + delta;
-//
-//
-//			// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+//			Long ret = client.submit(new FAICommand(key)).join();
 //			return ret;
 //		}
+    }
+
+    public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
+		CopycatClient client = getCopycatClient();
+
+		long delta = CommandBuffer.addDecrementCommand(key);
+		long copyCatVal = client.submit(new GetQuery(key)).join();
+		long ret = copyCatVal + delta;
 
 
-		// improve this part
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			Long ret = client.submit(new FADCommand(key)).join();
-			return ret;
-		}
+		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+		return ret;
+
+		
+//		synchronized (this) {
+//			CopycatClient client = getCopycatClient();
+//			Long ret = client.submit(new FADCommand(key)).join();
+//			return ret;
+//		}
     }
 
     public long get(String key) throws org.apache.thrift.TException {
+		CopycatClient client = getCopycatClient();
+		CommandBuffer.commit(client);
 
-    	synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			// CommandBuffer.commit(client);
+		Long ret = client.submit(new GetQuery(key)).join();
+		// System.out.println("GET called: " + key + " : " + ret);
+		return ret;
 
-			Long ret = client.submit(new GetQuery(key)).join();
-			// System.out.println("GET called: " + key + " : " + ret);
-			return ret;
-		}
     }
 }

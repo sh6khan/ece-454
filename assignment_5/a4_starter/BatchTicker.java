@@ -6,12 +6,7 @@ public class BatchTicker implements Runnable {
 
     public BatchTicker(String ccHost, int ccPort) {
         _client = CopycatClientFactory.buildCopycatClient(ccHost, ccPort);
-
-        if (_client != null) {
-            System.out.println("BatchTicker got copy cat client");
-        } else {
-            System.out.println("BatchTicker Did NOT get cat client");
-        }
+        System.out.println("BatchTicker got copy cat client");
     }
 
     public void run() {
@@ -23,6 +18,12 @@ public class BatchTicker implements Runnable {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
                 System.out.println("nothing to see here folks");
+            }
+
+            // commits can be started by other threads, we don't want to trigge
+            // a commit while its already doing so.
+            if (CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
+                continue;
             }
 
             CommandBuffer.commit(_client);

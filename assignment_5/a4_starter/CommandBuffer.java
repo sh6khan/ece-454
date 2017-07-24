@@ -8,11 +8,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CommandBuffer {
     private static Map<String, AtomicInteger> commands = new ConcurrentHashMap<>();
+    private static int OP_MAX = 8;
+
+    private static AtomicInteger opCount = new AtomicInteger(0);
+    public static STATE state = STATE.BATCHING;
+
+    enum STATE {
+        COMITTING,
+        BATCHING
+    }
 
     public static long addIncrementCommand(String key) {
         AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
         old.addAndGet(1);
         commands.put(key, old);
+        opCount.getAndIncrement();
 
         return (long) old.get();
     }
@@ -21,8 +31,21 @@ public class CommandBuffer {
         AtomicInteger old = commands.getOrDefault(key, new AtomicInteger(0));
         old.addAndGet(-1);
         commands.put(key, old);
+        opCount.getAndIncrement();
 
         return (long) old.get();
+    }
+
+    /**
+     * Checks the number of operations processed by this Buffer
+     * @param client
+     */
+    public static void commitIfNeeded(CopycatClient client) {
+        if (opCount.get() < OP_MAX) {
+            return;
+        }
+
+        commit(client);
     }
 
 
@@ -37,11 +60,12 @@ public class CommandBuffer {
      *
      * @param client - the copycat client
      */
-    public static synchronized void commit(CopycatClient client) {
+    public static void commit(CopycatClient client) {
+        state = STATE.COMITTING;
 
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
-        if (commands.size() == 0) {
+        if (opCount.get() == 0) {
             return;
         }
 
@@ -50,5 +74,8 @@ public class CommandBuffer {
 
         System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
         client.submit(new BatchCommand(copiedMap)).join();
+
+        opCount = new AtomicInteger(0);
+        state = STATE.BATCHING;
     }
 }
