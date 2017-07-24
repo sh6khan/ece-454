@@ -109,7 +109,7 @@ public class A4Client {
 		for (Map.Entry<String, Long> entry : globalCache.entrySet()) {
 			long actual = client.get(entry.getKey());
 			if (actual != entry.getValue()) {
-				System.out.println("FAILED FAD on key: " + entry.getKey() + " actual: " + actual + " expected: " + entry.getValue() );
+				System.out.println("FAILED FINAL on key: " + entry.getKey() + " actual: " + actual + " expected: " + entry.getValue() );
 			}
 		}
     }
