@@ -2,10 +2,12 @@ import io.atomix.copycat.client.CopycatClient;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
+    private static AtomicBoolean buffered = new AtomicBoolean(false);
 
     public static STATE state = STATE.BATCHING;
 
@@ -21,6 +23,7 @@ public class CommandBuffer {
 
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndIncrement();
+        buffered.getAndSet(true);
 
 
         return 0L;
@@ -33,6 +36,7 @@ public class CommandBuffer {
 
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndDecrement();
+        buffered.getAndSet(true);
 
         return 0L;
     }
@@ -57,7 +61,7 @@ public class CommandBuffer {
     public static void commit(CopycatClient client) {
         // return if nothing is stored in the batch. Submitting BatchCommand to CopyCat
         // can be very slow
-        if (commands.size() == 0) {
+        if (buffered.equals(false)) {
             return;
         }
 
@@ -66,14 +70,11 @@ public class CommandBuffer {
         Map<String, AtomicLong> copiedMap = new ConcurrentHashMap<>(commands);
         // commands.clear();
 
-        for (Map.Entry<String, AtomicLong> entry  : commands.entrySet()) {
-            System.out.print(" | " + entry.getKey() + " >> " + entry.getValue());
-        }
-
-        System.out.println("");
+        System.out.println("key-0 >> " + commands.get("key-0"));
 
         // System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
         client.submit(new BatchCommand(copiedMap)).join();
+        buffered.getAndSet(false);
 
         state = STATE.BATCHING;
     }

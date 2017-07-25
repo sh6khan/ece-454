@@ -36,19 +36,19 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
 
-			// CommandBuffer.commitIfNeeded(client);
-			long copyCatVal = client.submit(new GetQuery(key)).join();
+		CopycatClient client = getCopycatClient();
 
-			long delta = CommandBuffer.addIncrementCommand(key);
-			long ret = delta + copyCatVal;
+		// CommandBuffer.commitIfNeeded(client);
+		long copyCatVal = client.submit(new GetQuery(key)).join();
 
-			// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-			return ret;
+		long delta = CommandBuffer.addIncrementCommand(key);
+		long ret = delta + copyCatVal;
 
-		}
+		// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+		return ret;
+
+
 
 
 //		synchronized (this) {
@@ -59,18 +59,18 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
 
-			// CommandBuffer.commitIfNeeded(client);
-			long copyCatVal = client.submit(new GetQuery(key)).join();
+		CopycatClient client = getCopycatClient();
 
-			long delta = CommandBuffer.addDecrementCommand(key);
-			long ret = delta + copyCatVal;
+		// CommandBuffer.commitIfNeeded(client);
+		long copyCatVal = client.submit(new GetQuery(key)).join();
 
-			// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
-			return ret;
-		}
+		long delta = CommandBuffer.addDecrementCommand(key);
+		long ret = delta + copyCatVal;
+
+		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
+		return ret;
+
 
 
 
@@ -82,14 +82,11 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long get(String key) throws org.apache.thrift.TException {
-		synchronized (this) {
-			CopycatClient client = getCopycatClient();
-			CommandBuffer.commit(client);
+		CopycatClient client = getCopycatClient();
+		CommandBuffer.commit(client);
 
-			Long ret = client.submit(new GetQuery(key)).join();
-			// System.out.println("GET called: " + key + " : " + ret);
-			return ret;
-		}
-
+		Long ret = client.submit(new GetQuery(key)).join();
+		// System.out.println("GET called: " + key + " : " + ret);
+		return ret;
     }
 }
