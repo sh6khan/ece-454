@@ -41,14 +41,12 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 		_lock.readLock().lock();
-        CopycatClient client = getCopycatClient();
-
-		long retVal = CommandBuffer.getRetVal(key, client);
         CommandBuffer.addIncrementCommand(key);
+		long retVal = CommandBuffer.getRetVal(key);
 		_lock.readLock().unlock();
 
         //System.out.println("FAI : " + key + " " + retVal);
-        return retVal;
+        return retVal - 1;
 
 
 //		synchronized (this) {
@@ -60,13 +58,13 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
         _lock.readLock().lock();
-        CopycatClient client = getCopycatClient();
-        long retVal = CommandBuffer.getRetVal(key, client);
         CommandBuffer.addDecrementCommand(key);
+        long retVal = CommandBuffer.getRetVal(key);
+
         _lock.readLock().unlock();
 
         //System.out.println("FAD : " + key + " " + retVal);
-        return retVal;
+        return retVal + 1;
 
 
 //		synchronized (this) {

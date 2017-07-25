@@ -20,7 +20,7 @@ public class CommandBuffer {
         commands.get(key).getAndDecrement();
     }
 
-    public static long getRetVal(String key, CopycatClient client) {
+    public static long getRetVal(String key) {
         long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
         long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
 
