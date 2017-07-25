@@ -8,7 +8,6 @@ import org.apache.zookeeper.WatchedEvent;
 public class NodeWatcher implements CuratorWatcher {
     private KeyValueHandler _kvHandler;
     private CuratorFramework _curClient;
-    private KeyValueService.Client _siblingClient;
     private String _zkName;
 
     public NodeWatcher(CuratorFramework curClient, KeyValueHandler handler, String zkName) {

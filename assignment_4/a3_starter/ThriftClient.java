@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Map;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransport;
@@ -29,10 +28,6 @@ public class ThriftClient {
 
     public String get(String key) throws TException {
         return _client.get(key);
-    }
-
-    public Map<String, String> getDataDump() throws TException {
-        return _client.getDataDump();
     }
 
     public void setMyMap(List<String> keys, List<String> values) throws TException{

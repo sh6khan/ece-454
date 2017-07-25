@@ -58,7 +58,6 @@ public class StorageNode {
 
 		// create an ephemeral node in ZooKeeper
         String fullConnectionString = args[0] + ":" + String.valueOf(args[1]);
-        //TODO use args instead of hardcode
         curClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(args[3] + "/", fullConnectionString.getBytes());
 
         // set up watcher on the children
@@ -69,18 +68,11 @@ public class StorageNode {
         nodeWatcher.classifyNode(children.size());
 
         if (children.size() > 1) {
-            System.out.println("size greater than 1 and role: " + kvHandler.getRole());
             InetSocketAddress address = ClientUtility.extractSiblingInfo(children, kvHandler.getZkNode(), kvHandler.getRole(), curClient);
+            //Assign thread pool size based on role
             int cap = kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP) ? ClientUtility.BACKUP_POOL_NUM : ClientUtility.PRIMARY_POOL_NUM;
             ClientUtility.populateClientObjectPool(address.getHostName(), address.getPort(), cap);
             kvHandler.setAlone(false);
-
-//            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.BACKUP)) {
-//                kvHandler.fetchDataDump();
-//            }
-//            if (kvHandler.getRole().equals(KeyValueHandler.ROLE.PRIMARY)) {
-//                kvHandler.transferMap();
-//            }
         } else {
             kvHandler.setAlone(true);
         }

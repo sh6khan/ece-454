@@ -47,13 +47,6 @@ public class ClientUtility {
                 e.printStackTrace();
             }
         }
-
-        // TODO: extract sleeping to outside the method call
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            System.out.println("Unable to sleep");
-//        }
     }
 
     /**
@@ -151,7 +144,7 @@ public class ClientUtility {
             return children.get(0);
         }
 
-        // if current node is PRIMARY we want to connec to
+        // if current node is PRIMARY we want to connect to
         // BACKUP which is the second element of the sorted list
         if (role.equals(KeyValueHandler.ROLE.PRIMARY)) {
             return children.get(1);
