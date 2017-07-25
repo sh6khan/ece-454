@@ -43,7 +43,7 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		long ret = 0;
 
-		if (!CommandBuffer.committing.get()) {
+		if (!CommandBuffer.copying.get()) {
 			long delta = CommandBuffer.addIncrementCommand(key);
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 			ret = delta + copyCatVal;
@@ -70,8 +70,8 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		long ret = 0;
 
-		if (!CommandBuffer.committing.get()) {
-			long delta = CommandBuffer.addIncrementCommand(key);
+		if (!CommandBuffer.copying.get()) {
+			long delta = CommandBuffer.addDecrementCommand(key);
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 			ret = delta + copyCatVal;
 		} else {

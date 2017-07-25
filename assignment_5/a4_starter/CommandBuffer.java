@@ -9,7 +9,10 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
+    private static Map<String, AtomicLong> queue = new ConcurrentHashMap<>();
+
     public static AtomicBoolean committing = new AtomicBoolean(false);
+    public static AtomicBoolean copying = new AtomicBoolean(false);
 
     public static Instant lastCommitTime = Instant.now();
 
@@ -21,15 +24,33 @@ public class CommandBuffer {
     }
 
     public static long addIncrementCommand(String key) {
-        commands.putIfAbsent(key, new AtomicLong(0));
-        commands.get(key).getAndIncrement();
+        if (!committing.get()) {
+            commands.putIfAbsent(key, new AtomicLong(0));
+            commands.get(key).getAndIncrement();
+        } else {
+            if (copying.get()) {
+                System.out.println("FAI added to queue while copying");
+            }
+
+            queue.putIfAbsent(key, new AtomicLong(0));
+            queue.get(key).getAndIncrement();
+        }
 
         return 0L;
     }
 
     public static long addDecrementCommand(String key) {
-        commands.putIfAbsent(key, new AtomicLong(0));
-        commands.get(key).getAndDecrement();
+        if (!committing.get()) {
+            commands.putIfAbsent(key, new AtomicLong(0));
+            commands.get(key).getAndDecrement();
+        } else {
+            if (copying.get()) {
+                System.out.println("FAD added to queue while copying");
+            }
+            queue.putIfAbsent(key, new AtomicLong(0));
+            queue.get(key).getAndDecrement();
+        }
+
 
         return 0L;
     }
@@ -58,14 +79,15 @@ public class CommandBuffer {
 
         committing.getAndSet(true);
 
-        Map<String, AtomicLong> copiedMap = new ConcurrentHashMap<>(commands);
-        commands.clear();
+        System.out.println("Submiting " + commands.size() + " commands to CopyCat");
+        client.submit(new BatchCommand(commands)).join();
 
-        System.out.println("key-0 >> " + commands.get("key-0"));
+        copying.getAndSet(true);
 
-        // System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
-        client.submit(new BatchCommand(copiedMap)).join();
-        lastCommitTime = Instant.now();
+        commands = new ConcurrentHashMap<>(queue);
+        queue.clear();
+
+        copying.getAndSet(false);
 
         committing.getAndSet(false);
     }
