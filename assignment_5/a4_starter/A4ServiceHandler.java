@@ -46,7 +46,7 @@ public class A4ServiceHandler implements A4Service.Iface {
         CommandBuffer.addIncrementCommand(key);
 		_lock.readLock().unlock();
 
-        System.out.println("FAI : " + key + " " + retVal);
+        //System.out.println("FAI : " + key + " " + retVal);
         return retVal;
 
 
@@ -63,7 +63,7 @@ public class A4ServiceHandler implements A4Service.Iface {
         CommandBuffer.addDecrementCommand(key);
         _lock.readLock().unlock();
 
-        System.out.println("FAD : " + key + " " + retVal);
+        //System.out.println("FAD : " + key + " " + retVal);
         return retVal;
 
 

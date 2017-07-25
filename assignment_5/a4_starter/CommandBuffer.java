@@ -24,6 +24,8 @@ public class CommandBuffer {
         long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
         long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
 
+        System.out.println("bufferVal: " + bufferVal + " " + " cacheVal: " + cacheVal);
+
         return cacheVal + bufferVal;
     }
 

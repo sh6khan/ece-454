@@ -191,19 +191,19 @@ public class A4Client {
 								client = getThriftClient();
 							}
 						} else {
-							try {
-								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
-								Long resp = client.fetchAndDecrement(key);
-								exlog.logWriteInvocation(tid, "FAD-" + key, String.valueOf(resp));
-								fadCount.putIfAbsent(key, new AtomicInteger(0));
-								fadCount.get(key).getAndIncrement();
-								fad.getAndIncrement();
-								numOps++;
-								break;
-							} catch (Exception e) {
-								log.error("Exception during fetchAndDecrement", e);
-								client = getThriftClient();
-							}
+//							try {
+//								String key = "key-" + (Math.abs(rand.nextLong()) % keySpaceSize);
+//								Long resp = client.fetchAndDecrement(key);
+//								exlog.logWriteInvocation(tid, "FAD-" + key, String.valueOf(resp));
+//								fadCount.putIfAbsent(key, new AtomicInteger(0));
+//								fadCount.get(key).getAndIncrement();
+//								fad.getAndIncrement();
+//								numOps++;
+//								break;
+//							} catch (Exception e) {
+//								log.error("Exception during fetchAndDecrement", e);
+//								client = getThriftClient();
+//							}
 						}
 					}
 					long diffTime = System.nanoTime() - startTime;
