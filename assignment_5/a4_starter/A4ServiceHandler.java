@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -38,11 +40,14 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 
 		CopycatClient client = getCopycatClient();
-
-		// CommandBuffer.commitIfNeeded(client);
-		long copyCatVal = client.submit(new GetQuery(key)).join();
-
 		long delta = CommandBuffer.addIncrementCommand(key);
+
+		Duration timePassed = Duration.between(CommandBuffer.lastCommitTime, Instant.now());
+		if (timePassed.compareTo(Duration.ofMillis(20)) > 0 && !CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
+			CommandBuffer.commit(client);
+		}
+
+		long copyCatVal = client.submit(new GetQuery(key)).join();
 		long ret = delta + copyCatVal;
 
 		// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
@@ -61,11 +66,14 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
 
 		CopycatClient client = getCopycatClient();
-
-		// CommandBuffer.commitIfNeeded(client);
-		long copyCatVal = client.submit(new GetQuery(key)).join();
-
 		long delta = CommandBuffer.addDecrementCommand(key);
+
+		Duration timePassed = Duration.between(CommandBuffer.lastCommitTime, Instant.now());
+		if (timePassed.compareTo(Duration.ofMillis(20)) > 0 && !CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
+			CommandBuffer.commit(client);
+		}
+
+		long copyCatVal = client.submit(new GetQuery(key)).join();
 		long ret = delta + copyCatVal;
 
 		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);

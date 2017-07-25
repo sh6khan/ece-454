@@ -1,7 +1,7 @@
 import io.atomix.copycat.client.CopycatClient;
 
 public class BatchTicker implements Runnable {
-    private static final int WAIT_TIME = 100;
+    private static final int WAIT_TIME = 1000;
     private CopycatClient _client;
 
     public BatchTicker(String ccHost, int ccPort) {
