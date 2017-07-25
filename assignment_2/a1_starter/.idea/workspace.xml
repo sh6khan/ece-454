@@ -2,68 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f08d3dd-0145-4277-b267-c604ee4730d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$1.class" afterPath="$PROJECT_DIR$/build/BcryptService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncClient$Factory.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncClient$Factory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncClient$checkPassword_call.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncClient$checkPassword_call.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncClient$hashPassword_call.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncClient$hashPassword_call.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncClient$heartBeat_call.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncClient$heartBeat_call.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncClient.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$checkPassword$1.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$checkPassword$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$checkPassword.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$checkPassword.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$hashPassword$1.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$hashPassword$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$hashPassword.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$hashPassword.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$heartBeat$1.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$heartBeat$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$heartBeat.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor$heartBeat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor.class" afterPath="$PROJECT_DIR$/build/BcryptService$AsyncProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Client.class" afterPath="$PROJECT_DIR$/build/BcryptService$Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Iface.class" afterPath="$PROJECT_DIR$/build/BcryptService$Iface.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Processor$checkPassword.class" afterPath="$PROJECT_DIR$/build/BcryptService$Processor$checkPassword.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Processor$hashPassword.class" afterPath="$PROJECT_DIR$/build/BcryptService$Processor$hashPassword.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Processor$heartBeat.class" afterPath="$PROJECT_DIR$/build/BcryptService$Processor$heartBeat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$Processor.class" afterPath="$PROJECT_DIR$/build/BcryptService$Processor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args$checkPassword_argsTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_args.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_args.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result$checkPassword_resultTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$checkPassword_result.class" afterPath="$PROJECT_DIR$/build/BcryptService$checkPassword_result.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args$hashPassword_argsTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_args.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_args.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result$hashPassword_resultTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$hashPassword_result.class" afterPath="$PROJECT_DIR$/build/BcryptService$hashPassword_result.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args$heartBeat_argsTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_args.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_args.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$_Fields.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$_Fields.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultStandardScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultStandardScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultStandardSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultStandardSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultTupleScheme.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultTupleScheme.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultTupleSchemeFactory.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result$heartBeat_resultTupleSchemeFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService$heartBeat_result.class" afterPath="$PROJECT_DIR$/build/BcryptService$heartBeat_result.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptService.class" afterPath="$PROJECT_DIR$/build/BcryptService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadCheck.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadCheck.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler$MultiThreadHash.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/BcryptServiceHandler.class" afterPath="$PROJECT_DIR$/build/BcryptServiceHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/FENodeChecker.class" afterPath="$PROJECT_DIR$/build/FENodeChecker.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/a1.thrift" afterPath="$PROJECT_DIR$/build/a1.thrift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../assignment_5/a4_starter/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../assignment_5/a4_starter/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -77,7 +16,48 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="FENode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FENode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FENodeChecker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="750">
+              <caret line="52" column="58" lean-forward="true" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BENode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BENode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="56" column="55" lean-forward="false" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchTracker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BatchTracker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -135,8 +115,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="959" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -153,6 +134,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -182,8 +165,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -456,6 +437,11 @@
       <item index="5" class="java.lang.String" itemvalue="Application.SuperClient" />
     </list>
   </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
@@ -473,57 +459,36 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="959" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16483517" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30677292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1609375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30680507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16300367" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -784,13 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HeavyClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="38" column="5" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/ch/IOUtil.class" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/src.zip!/java/util/concurrent/ConcurrentHashMap.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/src.zip!/java/util/concurrent/ConcurrentHashMap.java" />
@@ -813,7 +771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="17" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -860,21 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="52" column="58" lean-forward="true" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BatchTracker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/a1.thrift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -894,14 +836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BENode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="56" column="55" lean-forward="false" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NodeInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -915,18 +849,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/src.zip!/java/lang/Math.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/src.zip!/java/lang/Math.java" />
+    <entry file="file://$PROJECT_DIR$/FENode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="642" column="25" lean-forward="false" selection-start-line="642" selection-start-column="25" selection-end-line="642" selection-end-column="25" />
+        <state relative-caret-position="405">
+          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FENode.java">
+    <entry file="file://$PROJECT_DIR$/HeavyClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+        <state relative-caret-position="450">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BatchTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FENodeChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="52" column="58" lean-forward="true" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BENode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="56" column="55" lean-forward="false" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
           <folding />
         </state>
       </provider>

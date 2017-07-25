@@ -1,18 +1,9 @@
 import java.net.InetSocketAddress;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.CuratorWatcher;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
 import org.apache.zookeeper.WatchedEvent;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 public class NodeWatcher implements CuratorWatcher {
     private KeyValueHandler _kvHandler;

@@ -1,5 +1,3 @@
-import java.io.*;
-import java.util.*;
 import java.util.List;
 import java.net.InetSocketAddress;
 
@@ -9,12 +7,8 @@ import org.apache.thrift.transport.*;
 import org.apache.thrift.protocol.*;
 
 import org.apache.zookeeper.*;
-import org.apache.zookeeper.data.*;
-import org.apache.curator.*;
 import org.apache.curator.retry.*;
 import org.apache.curator.framework.*;
-import org.apache.curator.utils.*;
-
 import org.apache.log4j.*;
 
 public class StorageNode {
