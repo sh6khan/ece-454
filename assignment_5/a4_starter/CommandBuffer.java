@@ -16,7 +16,7 @@ public class CommandBuffer {
 
     public static long addIncrementCommand(String key) {
         if (state.equals(STATE.COMITTING)) {
-            System.out.println("addIncrementCommand is submiting while clearing is happening");
+            // System.out.println("addIncrementCommand is submiting while clearing is happening");
         }
 
         commands.putIfAbsent(key, new AtomicLong(0));
@@ -28,7 +28,7 @@ public class CommandBuffer {
 
     public static long addDecrementCommand(String key) {
         if (state.equals(STATE.COMITTING)) {
-            System.out.println("addDecrementCommand is submiting while clearing is happening");
+            // System.out.println("addDecrementCommand is submiting while clearing is happening");
         }
 
         commands.putIfAbsent(key, new AtomicLong(0));
@@ -64,7 +64,13 @@ public class CommandBuffer {
         state = STATE.COMITTING;
 
         Map<String, AtomicLong> copiedMap = new ConcurrentHashMap<>(commands);
-        commands.clear();
+        // commands.clear();
+
+        for (Map.Entry<String, AtomicLong> entry  : commands.entrySet()) {
+            System.out.print(" | " + entry.getKey() + " >> " + entry.getValue());
+        }
+
+        System.out.println("");
 
         // System.out.println("Submiting " + copiedMap.size() + " commands to CopyCat");
         client.submit(new BatchCommand(copiedMap)).join();
