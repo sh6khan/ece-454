@@ -20,15 +20,16 @@ public class CommandBuffer {
 
     enum STATE {
         COMITTING,
-        BATCHING
+        BATCHING,
+        COPYING
     }
 
     public static long addIncrementCommand(String key) {
-        if (!committing.get()) {
+        if (state.equals(STATE.BATCHING)) {
             commands.putIfAbsent(key, new AtomicLong(0));
             commands.get(key).getAndIncrement();
         } else {
-            if (copying.get()) {
+            if (state.equals(STATE.COPYING)) {
                 System.out.println("FAI FAIL");
                 return Long.MAX_VALUE;
             }
@@ -41,11 +42,11 @@ public class CommandBuffer {
     }
 
     public static long addDecrementCommand(String key) {
-        if (!committing.get()) {
+        if (state.equals(STATE.BATCHING)) {
             commands.putIfAbsent(key, new AtomicLong(0));
             commands.get(key).getAndDecrement();
         } else {
-            if (copying.get()) {
+            if (state.equals(STATE.COPYING)) {
                 System.out.println("FAD FAIL");
                 return Long.MAX_VALUE;
             }
@@ -79,18 +80,17 @@ public class CommandBuffer {
             return;
         }
 
-        committing.getAndSet(true);
 
+        state = STATE.COMITTING;
         // System.out.println("Submiting " + commands.size() + " commands to CopyCat");
         client.submit(new BatchCommand(commands)).join();
 
-        copying.getAndSet(true);
 
+
+        state = STATE.COPYING;
         commands = new ConcurrentHashMap<>(queue);
         queue.clear();
 
-        copying.getAndSet(false);
-
-        committing.getAndSet(false);
+        state = STATE.BATCHING;
     }
 }

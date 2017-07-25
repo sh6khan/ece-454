@@ -128,7 +128,6 @@ public class A4Client {
 			Long ret = client.get(key);
 			sb.append(ret);
 			if (fai - fad == ret) {
-				sb.append(" PASS");
 			} else {
 				sb.append(" FAIL");
 			}
