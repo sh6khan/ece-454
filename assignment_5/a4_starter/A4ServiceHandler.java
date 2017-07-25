@@ -41,8 +41,9 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 		_lock.readLock().lock();
+        CopycatClient client = getCopycatClient();
 
-		long retVal = CommandBuffer.getRetVal(key);
+		long retVal = CommandBuffer.getRetVal(key, client);
         CommandBuffer.addIncrementCommand(key);
 		_lock.readLock().unlock();
 
@@ -59,7 +60,8 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
         _lock.readLock().lock();
-        long retVal = CommandBuffer.getRetVal(key);
+        CopycatClient client = getCopycatClient();
+        long retVal = CommandBuffer.getRetVal(key, client);
         CommandBuffer.addDecrementCommand(key);
         _lock.readLock().unlock();
 
