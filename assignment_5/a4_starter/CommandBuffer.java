@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
+    public static AtomicBoolean committing = new AtomicBoolean(false);
+
     public static Instant lastCommitTime = Instant.now();
 
     public static STATE state = STATE.BATCHING;
@@ -19,10 +21,6 @@ public class CommandBuffer {
     }
 
     public static long addIncrementCommand(String key) {
-        if (state.equals(STATE.COMITTING)) {
-            // System.out.println("addIncrementCommand is submiting while clearing is happening");
-        }
-
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndIncrement();
 
@@ -30,10 +28,6 @@ public class CommandBuffer {
     }
 
     public static long addDecrementCommand(String key) {
-        if (state.equals(STATE.COMITTING)) {
-            // System.out.println("addDecrementCommand is submiting while clearing is happening");
-        }
-
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndDecrement();
 
@@ -58,10 +52,14 @@ public class CommandBuffer {
      * @param client - the copycat client
      */
     public static void commit(CopycatClient client) {
-        state = STATE.COMITTING;
+        if (commands.size() == 0) {
+            return;
+        }
+
+        committing.getAndSet(true);
 
         Map<String, AtomicLong> copiedMap = new ConcurrentHashMap<>(commands);
-        // commands.clear();
+        commands.clear();
 
         System.out.println("key-0 >> " + commands.get("key-0"));
 
@@ -69,6 +67,6 @@ public class CommandBuffer {
         client.submit(new BatchCommand(copiedMap)).join();
         lastCommitTime = Instant.now();
 
-        state = STATE.BATCHING;
+        committing.getAndSet(false);
     }
 }

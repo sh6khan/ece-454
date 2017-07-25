@@ -40,17 +40,18 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
 
 		CopycatClient client = getCopycatClient();
-		long delta = CommandBuffer.addIncrementCommand(key);
 
-		Duration timePassed = Duration.between(CommandBuffer.lastCommitTime, Instant.now());
-		if (timePassed.compareTo(Duration.ofMillis(20)) > 0 && !CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
-			CommandBuffer.commit(client);
+		long ret = 0;
+
+		if (!CommandBuffer.committing.get()) {
+			long delta = CommandBuffer.addIncrementCommand(key);
+			long copyCatVal = client.submit(new GetQuery(key)).join();
+			ret = delta + copyCatVal;
+		} else {
+			ret = client.submit(new FAICommand(key)).join();
+
 		}
 
-		long copyCatVal = client.submit(new GetQuery(key)).join();
-		long ret = delta + copyCatVal;
-
-		// System.out.println("FAI called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
 		return ret;
 
 
@@ -66,17 +67,17 @@ public class A4ServiceHandler implements A4Service.Iface {
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
 
 		CopycatClient client = getCopycatClient();
-		long delta = CommandBuffer.addDecrementCommand(key);
 
-		Duration timePassed = Duration.between(CommandBuffer.lastCommitTime, Instant.now());
-		if (timePassed.compareTo(Duration.ofMillis(20)) > 0 && !CommandBuffer.state.equals(CommandBuffer.STATE.COMITTING)) {
-			CommandBuffer.commit(client);
+		long ret = 0;
+
+		if (!CommandBuffer.committing.get()) {
+			long delta = CommandBuffer.addIncrementCommand(key);
+			long copyCatVal = client.submit(new GetQuery(key)).join();
+			ret = delta + copyCatVal;
+		} else {
+			ret = client.submit(new FADCommand(key)).join();
 		}
 
-		long copyCatVal = client.submit(new GetQuery(key)).join();
-		long ret = delta + copyCatVal;
-
-		// System.out.println("FAD called: " + key + " : " + ret + " -- delta: " + delta + " copyCatVal: " + copyCatVal);
 		return ret;
 
 
