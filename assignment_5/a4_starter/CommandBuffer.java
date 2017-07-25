@@ -1,66 +1,30 @@
 import io.atomix.copycat.client.CopycatClient;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
-    private static Map<String, AtomicLong> queue = new ConcurrentHashMap<>();
+    private static Map<String, AtomicLong> cache = new ConcurrentHashMap<>();
 
-    public static AtomicBoolean committing = new AtomicBoolean(false);
-    public static AtomicBoolean copying = new AtomicBoolean(false);
 
-    public static Instant lastCommitTime = Instant.now();
-
-    public static STATE state = STATE.BATCHING;
-
-    enum STATE {
-        COMITTING,
-        BATCHING,
-        COPYING
+    public static void addIncrementCommand(String key) {
+        commands.putIfAbsent(key, new AtomicLong(0));
+        commands.get(key).getAndIncrement();
     }
 
-    public static long addIncrementCommand(String key) {
-        if (state.equals(STATE.BATCHING)) {
-            commands.putIfAbsent(key, new AtomicLong(0));
-            commands.get(key).getAndIncrement();
-        } else {
-            if (state.equals(STATE.COPYING)) {
-                System.out.println("FAI FAIL");
-                return Long.MAX_VALUE;
-            }
-
-            queue.putIfAbsent(key, new AtomicLong(0));
-            queue.get(key).getAndIncrement();
-        }
-
-        return 0L;
+    public static void addDecrementCommand(String key) {
+        commands.putIfAbsent(key, new AtomicLong(0));
+        commands.get(key).getAndDecrement();
     }
 
-    public static long addDecrementCommand(String key) {
-        if (state.equals(STATE.BATCHING)) {
-            commands.putIfAbsent(key, new AtomicLong(0));
-            commands.get(key).getAndDecrement();
-        } else {
-            if (state.equals(STATE.COPYING)) {
-                System.out.println("FAD FAIL");
-                return Long.MAX_VALUE;
-            }
-            queue.putIfAbsent(key, new AtomicLong(0));
-            queue.get(key).getAndDecrement();
-        }
+    public static long getRetVal(String key) {
+        long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
+        long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
 
-
-        return 0L;
-    }
-
-
-    private static Map<String, AtomicLong> getCommands() {
-        return new ConcurrentHashMap<>(commands);
+        return cacheVal + bufferVal;
     }
 
 
@@ -75,22 +39,17 @@ public class CommandBuffer {
      *
      * @param client - the copycat client
      */
-    public static void commit(CopycatClient client) {
+    public static void commit(CopycatClient client, ReentrantReadWriteLock lock) {
         if (commands.size() == 0) {
             return;
         }
 
+        lock.writeLock().lock();
 
-        state = STATE.COMITTING;
         // System.out.println("Submiting " + commands.size() + " commands to CopyCat");
-        client.submit(new BatchCommand(commands)).join();
+        cache = client.submit(new BatchCommand(commands)).join();
+        commands.clear();
 
-
-
-        state = STATE.COPYING;
-        commands = new ConcurrentHashMap<>(queue);
-        queue.clear();
-
-        state = STATE.BATCHING;
+        lock.writeLock().unlock();
     }
 }

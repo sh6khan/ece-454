@@ -17,12 +17,14 @@ public class A4StateMachine extends StateMachine {
 		executor.register(BatchCommand.class, this::batchCommit);
     }
 
-    public void batchCommit(Commit<BatchCommand> commit) {
+    public Map<String, AtomicLong> batchCommit(Commit<BatchCommand> commit) {
     	try {
     		for (Map.Entry<String, AtomicLong> entry: commit.operation()._changes.entrySet()) {
     			map.putIfAbsent(entry.getKey(), new AtomicLong(0));
     			map.get(entry.getKey()).addAndGet(entry.getValue().get());
 			}
+
+			return map;
 		} finally {
 			commit.close();
 		}

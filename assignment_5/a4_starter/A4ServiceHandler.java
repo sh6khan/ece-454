@@ -1,9 +1,8 @@
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 import io.atomix.copycat.client.CopycatClient;
@@ -12,53 +11,43 @@ import io.atomix.copycat.client.CopycatClient;
 public class A4ServiceHandler implements A4Service.Iface {
     private Map<Integer,CopycatClient> clientMap;
 
-    private String ccHost;
-    private int ccPort;
+    private String _ccHost;
+    private int _ccPort;
 
-	private final ExecutorService service = Executors.newSingleThreadExecutor();
+	private final ExecutorService _service = Executors.newSingleThreadExecutor();
+	private ReentrantReadWriteLock _lock;
 
 
     public A4ServiceHandler(String ccHost, int ccPort) {
-		this.ccHost = ccHost;
-		this.ccPort = ccPort;
+        _ccHost = ccHost;
+		_ccPort = ccPort;
+		_lock = new ReentrantReadWriteLock();
+
 		clientMap = new ConcurrentHashMap<>();
 
 		// start thread to commit CommandBuffer every 10ms
-		service.execute(new BatchTicker(ccHost, ccPort));
+		_service.execute(new BatchTicker(ccHost, ccPort, _lock));
     }
 
     CopycatClient getCopycatClient() {
 		int tid = (int)Thread.currentThread().getId();
 		CopycatClient client = clientMap.get(tid);
 		if (client == null) {
-			client = CopycatClientFactory.buildCopycatClient(ccHost, ccPort);
+			client = CopycatClientFactory.buildCopycatClient(_ccHost, _ccPort);
 			clientMap.put(tid, client);
 		}
 		return client;
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
+		_lock.readLock().lock();
+		CommandBuffer.addIncrementCommand(key);
+		long retVal = CommandBuffer.getRetVal(key);
+		_lock.readLock().unlock();
 
-		CopycatClient client = getCopycatClient();
+        System.out.println("FAI : " + key + " " + retVal);
+        return retVal;
 
-		long ret = 0;
-
-		if (!CommandBuffer.state.equals(CommandBuffer.STATE.COPYING)) {
-			long delta = CommandBuffer.addIncrementCommand(key);
-
-			if (delta == Long.MAX_VALUE) {
-				System.out.println("NORMAL FAI");
-				return client.submit(new FAICommand(key)).join();
-			}
-
-			long copyCatVal = client.submit(new GetQuery(key)).join();
-			ret = delta + copyCatVal;
-		} else {
-			System.out.println("FAI");
-			ret = client.submit(new FAICommand(key)).join();
-		}
-
-		return ret;
 
 //		synchronized (this) {
 //			CopycatClient client = getCopycatClient();
@@ -68,28 +57,13 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
+        _lock.readLock().lock();
+        CommandBuffer.addDecrementCommand(key);
+        long retVal = CommandBuffer.getRetVal(key);
+        _lock.readLock().unlock();
 
-		CopycatClient client = getCopycatClient();
-
-		long ret = 0;
-
-		if (!CommandBuffer.state.equals(CommandBuffer.STATE.COPYING)) {
-			long delta = CommandBuffer.addDecrementCommand(key);
-
-			if (delta == Long.MAX_VALUE) {
-				System.out.println("NORMAL FAD");
-				return client.submit(new FADCommand(key)).join();
-			}
-
-
-			long copyCatVal = client.submit(new GetQuery(key)).join();
-			ret = delta + copyCatVal;
-		} else {
-			System.out.println("FAD");
-			ret = client.submit(new FADCommand(key)).join();
-		}
-
-		return ret;
+        System.out.println("FAD : " + key + " " + retVal);
+        return retVal;
 
 
 //		synchronized (this) {
@@ -101,9 +75,10 @@ public class A4ServiceHandler implements A4Service.Iface {
 
     public long get(String key) throws org.apache.thrift.TException {
 		CopycatClient client = getCopycatClient();
-		CommandBuffer.commit(client);
+		CommandBuffer.commit(client, _lock);
 
 		Long ret = client.submit(new GetQuery(key)).join();
+
 		// System.out.println("GET called: " + key + " : " + ret);
 		return ret;
     }
