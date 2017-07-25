@@ -45,6 +45,12 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		if (!CommandBuffer.copying.get()) {
 			long delta = CommandBuffer.addIncrementCommand(key);
+
+			if (delta == Long.MAX_VALUE) {
+				System.out.println("NORMAL");
+				return client.submit(new FAICommand(key)).join();
+			}
+
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 			ret = delta + copyCatVal;
 		} else {
@@ -72,6 +78,13 @@ public class A4ServiceHandler implements A4Service.Iface {
 
 		if (!CommandBuffer.copying.get()) {
 			long delta = CommandBuffer.addDecrementCommand(key);
+
+			if (delta == Long.MAX_VALUE) {
+				System.out.println("NORMAL");
+				return client.submit(new FAICommand(key)).join();
+			}
+
+
 			long copyCatVal = client.submit(new GetQuery(key)).join();
 			ret = delta + copyCatVal;
 		} else {
@@ -79,8 +92,6 @@ public class A4ServiceHandler implements A4Service.Iface {
 		}
 
 		return ret;
-
-
 
 
 //		synchronized (this) {

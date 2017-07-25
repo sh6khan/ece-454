@@ -29,7 +29,8 @@ public class CommandBuffer {
             commands.get(key).getAndIncrement();
         } else {
             if (copying.get()) {
-                System.out.println("FAI added to queue while copying");
+                System.out.println("FAI FAIL");
+                return Long.MAX_VALUE;
             }
 
             queue.putIfAbsent(key, new AtomicLong(0));
@@ -45,7 +46,8 @@ public class CommandBuffer {
             commands.get(key).getAndDecrement();
         } else {
             if (copying.get()) {
-                System.out.println("FAD added to queue while copying");
+                System.out.println("FAD FAIL");
+                return Long.MAX_VALUE;
             }
             queue.putIfAbsent(key, new AtomicLong(0));
             queue.get(key).getAndDecrement();
@@ -79,7 +81,7 @@ public class CommandBuffer {
 
         committing.getAndSet(true);
 
-        System.out.println("Submiting " + commands.size() + " commands to CopyCat");
+        // System.out.println("Submiting " + commands.size() + " commands to CopyCat");
         client.submit(new BatchCommand(commands)).join();
 
         copying.getAndSet(true);
