@@ -1,10 +1,7 @@
 import io.atomix.copycat.client.CopycatClient;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CommandBuffer {
@@ -18,6 +15,10 @@ public class CommandBuffer {
     }
 
     public static long addIncrementCommand(String key) {
+        if (state.equals(STATE.COMITTING)) {
+            System.out.println("addIncrementCommand is submiting while clearing is happening");
+        }
+
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndIncrement();
 
@@ -26,9 +27,12 @@ public class CommandBuffer {
     }
 
     public static long addDecrementCommand(String key) {
+        if (state.equals(STATE.COMITTING)) {
+            System.out.println("addDecrementCommand is submiting while clearing is happening");
+        }
+
         commands.putIfAbsent(key, new AtomicLong(0));
         commands.get(key).getAndDecrement();
-
 
         return 0L;
     }
