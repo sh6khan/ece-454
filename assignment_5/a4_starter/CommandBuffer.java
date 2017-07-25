@@ -22,7 +22,7 @@ public class CommandBuffer {
 
     public static long getRetVal(String key, CopycatClient client) {
         long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
-        long cacheVal = client.submit(new GetQuery(key)).join();
+        long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
 
         System.out.println("bufferVal: " + bufferVal + " " + " cacheVal: " + cacheVal);
 

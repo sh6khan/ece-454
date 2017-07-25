@@ -9,7 +9,7 @@ export CLASSPATH=".:gen-java:lib/*"
 echo --- Running client
 
 NUM_THREADS=8
-NUM_SECONDS=8
-KEY_SPACE=8
+NUM_SECONDS=1
+KEY_SPACE=1
 
 $JAVA_HOME/bin/java A4Client $NUM_THREADS $NUM_SECONDS $KEY_SPACE
