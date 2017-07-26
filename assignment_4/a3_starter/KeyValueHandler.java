@@ -84,7 +84,7 @@ public class KeyValueHandler implements KeyValueService.Iface {
     }
 
     /**
-     * Callback function on the watcher
+     *Get a client from the pool, forward request to BACKUP node
      *
      * @param 
      */
@@ -103,6 +103,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
+    /**
+     *Copy map onto BACKUP node, split map into chunks if it exceeds TFrame size limit
+     *
+     * @param
+     */
     public void transferMap() throws org.apache.thrift.TException {
         List<String> keys = new ArrayList<String>(myMap.keySet());
         List<String> values = new ArrayList<String>(keys.size());
@@ -123,6 +128,11 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
+    /**
+     *Gets a client from the pool, sends RPC to copy map onto BACKUP
+     *
+     * @param
+     */
     public void setSiblingMap(List<String> keys, List<String> values) {
         ThriftClient tClient = null;
         try {
@@ -139,9 +149,12 @@ public class KeyValueHandler implements KeyValueService.Iface {
         }
     }
 
+    /**
+     *Sets keys and values into the map
+     *
+     * @param
+     */
     public void setMyMap(List<String> keys, List<String> values) {
-        System.out.println("Setting " + keys.size() + " values to MyMap");
-
         for (int i = 0; i < keys.size(); i++) {
             if (!myMap.containsKey(keys.get(i))) {
                 myMap.put(keys.get(i), values.get(i));
