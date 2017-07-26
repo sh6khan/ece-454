@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CommandBuffer {
     private static Map<String, AtomicLong> commands = new ConcurrentHashMap<>();
-    private static Map<String, AtomicLong> cache = new ConcurrentHashMap<>();
+    public static Map<String, AtomicLong> cache = new ConcurrentHashMap<>();
 
 
     public static void addIncrementCommand(String key) {
@@ -20,12 +20,14 @@ public class CommandBuffer {
         commands.get(key).getAndDecrement();
     }
 
+    public static void addVoidCommand(String key) {
+        commands.putIfAbsent(key, new AtomicLong(0));
+    }
+
     public static long getRetVal(String key) {
         long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
         long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
-
         System.out.println("bufferVal: " + bufferVal + " " + " cacheVal: " + cacheVal);
-
         return cacheVal + bufferVal;
     }
 

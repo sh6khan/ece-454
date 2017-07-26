@@ -40,13 +40,24 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndIncrement(String key) throws org.apache.thrift.TException {
-		_lock.readLock().lock();
-        CommandBuffer.addIncrementCommand(key);
-		long retVal = CommandBuffer.getRetVal(key);
-		_lock.readLock().unlock();
+        if (CommandBuffer.cache.get(key) != null) {
+            _lock.readLock().lock();
+            CommandBuffer.addIncrementCommand(key);
+            long retVal = CommandBuffer.getRetVal(key);
+            _lock.readLock().unlock();
 
-        //System.out.println("FAI : " + key + " " + retVal);
-        return retVal - 1;
+            //System.out.println("FAI : " + key + " " + retVal);
+            return retVal - 1;
+        } else {
+            System.out.println("normal fai commands");
+            CommandBuffer.addVoidCommand(key);
+
+            synchronized (this) {
+                CopycatClient client = getCopycatClient();
+                Long ret = client.submit(new FAICommand(key)).join();
+                return ret;
+            }
+        }
 
 
 //		synchronized (this) {
@@ -57,14 +68,24 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long fetchAndDecrement(String key) throws org.apache.thrift.TException {
-        _lock.readLock().lock();
-        CommandBuffer.addDecrementCommand(key);
-        long retVal = CommandBuffer.getRetVal(key);
+        if (CommandBuffer.cache.get(key) != null) {
+            _lock.readLock().lock();
+            CommandBuffer.addDecrementCommand(key);
+            long retVal = CommandBuffer.getRetVal(key);
+            _lock.readLock().unlock();
 
-        _lock.readLock().unlock();
+            //System.out.println("FAI : " + key + " " + retVal);
+            return retVal + 1;
+        } else {
+            System.out.println("normal fad commands");
+            CommandBuffer.addVoidCommand(key);
 
-        //System.out.println("FAD : " + key + " " + retVal);
-        return retVal + 1;
+            synchronized (this) {
+                CopycatClient client = getCopycatClient();
+                Long ret = client.submit(new FADCommand(key)).join();
+                return ret;
+            }
+        }
 
 
 //		synchronized (this) {
@@ -75,12 +96,14 @@ public class A4ServiceHandler implements A4Service.Iface {
     }
 
     public long get(String key) throws org.apache.thrift.TException {
-		CopycatClient client = getCopycatClient();
-		CommandBuffer.commit(client, _lock);
+        synchronized (this) {
+            CopycatClient client = getCopycatClient();
+            CommandBuffer.commit(client, _lock);
 
-		Long ret = client.submit(new GetQuery(key)).join();
+            Long ret = client.submit(new GetQuery(key)).join();
 
-		// System.out.println("GET called: " + key + " : " + ret);
-		return ret;
+            // System.out.println("GET called: " + key + " : " + ret);
+            return ret;
+        }
     }
 }
