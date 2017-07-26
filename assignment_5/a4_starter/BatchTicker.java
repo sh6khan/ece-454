@@ -3,7 +3,7 @@ import io.atomix.copycat.client.CopycatClient;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class BatchTicker implements Runnable {
-    private static final int WAIT_TIME = 10;
+    private static final int WAIT_TIME = 1;
     private CopycatClient _client;
     private ReentrantReadWriteLock _lock;
 

@@ -27,7 +27,6 @@ public class CommandBuffer {
     public static long getRetVal(String key) {
         long bufferVal = commands.getOrDefault(key, new AtomicLong(0)).get();
         long cacheVal = cache.getOrDefault(key, new AtomicLong(0)).get();
-        System.out.println("bufferVal: " + bufferVal + " " + " cacheVal: " + cacheVal);
         return cacheVal + bufferVal;
     }
 
@@ -50,7 +49,6 @@ public class CommandBuffer {
 
         lock.writeLock().lock();
 
-        // System.out.println("Submiting " + commands.size() + " commands to CopyCat");
         cache = client.submit(new BatchCommand(commands)).join();
         commands.clear();
 
